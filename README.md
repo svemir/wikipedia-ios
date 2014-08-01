@@ -1,6 +1,6 @@
 # Wikipedia-iOS
 
-New (late 2013) native rewrite of the [Wikipedia reader application](https://www.mediawiki.org/wiki/Wikimedia_Apps/Wikipedia) for iOS.
+New (late 2013-mid 2014) native rewrite of the [Wikipedia reader application](https://www.mediawiki.org/wiki/Wikimedia_Apps/Wikipedia) for iOS.
 
 This version has not yet been deployed to the App Store -- the source of the older app currently in the store is in the [WikipediaMobile project on GitHub](https://github.com/wikimedia/WikipediaMobile).
 
