@@ -26,9 +26,20 @@
 
 @implementation WMFArticleListCollectionViewController
 
+- (void)setDataSource:(id<WMFArticleListDataSource> __nullable)dataSource{
+    
+    _dataSource = dataSource;
+    
+    self.title = [_dataSource displayTitle];
+
+    if([self isViewLoaded]){
+        [self.collectionView reloadData];
+    }
+}
+
 #pragma mark - List Mode
 
-- (void)setListMode:(WMFArticleListMode)mode animated:(BOOL)animated{
+- (void)setListMode:(WMFArticleListMode)mode animated:(BOOL)animated completion:(nullable dispatch_block_t)completion{
     
     if(_mode == mode){
         return;
@@ -37,11 +48,11 @@
     _mode = mode;
     
     if([self isViewLoaded]){
-        [self updateListForMode:_mode animated:animated];
+        [self updateListForMode:_mode animated:animated completion:completion];
     }
 }
 
-- (void)updateListForMode:(WMFArticleListMode)mode animated:(BOOL)animated{
+- (void)updateListForMode:(WMFArticleListMode)mode animated:(BOOL)animated completion:(nullable dispatch_block_t)completion{
 
 
     UICollectionViewLayout* layout;
@@ -65,12 +76,16 @@
     __weak __typeof(self)weakSelf = self;
     [self setOffsecreenLayoutAnimated:animated completion:^(BOOL finished) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
-        [strongSelf.collectionView setCollectionViewLayout:layout animated:animated completion:^(BOOL finished) {
+        [strongSelf.collectionView wmf_setCollectionViewLayout:layout animated:animated alwaysFireCompletion:^(BOOL finished) {
             __strong __typeof(weakSelf)strongSelf = weakSelf;
             if(mode == WMFArticleListModeBottomStacked){
                 strongSelf.collectionView.scrollEnabled = NO;
             }else{
                 strongSelf.collectionView.scrollEnabled = YES;
+            }
+            
+            if(completion){
+                completion();
             }
         }];
     }];
@@ -121,10 +136,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.title = [self.dataSource displayTitle];
     
-    [self updateListForMode:self.mode animated:NO];
+    self.collectionView.backgroundColor = [UIColor clearColor];
+
+    [self updateListForMode:self.mode animated:NO completion:NULL];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -133,7 +148,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self updateCellSizeBasedOnViewFrame];
 
 
 
@@ -154,6 +168,7 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    [self updateCellSizeBasedOnViewFrame];
 }
 
 - (BOOL)shouldAutorotate {
@@ -254,7 +269,10 @@
 }
 
 - (void)stackLayout:(TGLStackedLayout*)layout deleteItemAtIndexPath:(NSIndexPath*)indexPath {
-    [self.dataSource deleteArticleAtIndexPath:indexPath];
+    
+    if([self.dataSource respondsToSelector:@selector(deleteArticleAtIndexPath:)]){
+        [self.dataSource deleteArticleAtIndexPath:indexPath];        
+    }
 }
 
 @end
