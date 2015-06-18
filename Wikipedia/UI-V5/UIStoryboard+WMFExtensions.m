@@ -9,10 +9,8 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
     return [UIStoryboard storyboardWithName:WMFDefaultStoryBoardName bundle:nil];
 }
 
-- (id)wmf_instnatiateViewControllerWithIdentifierFromClassName:(Class)viewControllerClass{
-    
+- (id)wmf_instnatiateViewControllerWithIdentifierFromClassName:(Class)viewControllerClass {
     return [self instantiateViewControllerWithIdentifier:NSStringFromClass(viewControllerClass)];
 }
-
 
 @end

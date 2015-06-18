@@ -10,6 +10,7 @@
 
 #import "WMFGCDHelpers.h"
 #import <BlocksKit/BlocksKit.h>
+#import "NSError+WMFExtensions.h"
 
 #import <libextobjc/EXTScope.h>
 

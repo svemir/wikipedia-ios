@@ -51,9 +51,7 @@
                                 language:(NSString*)language
                               maxResults:(NSUInteger)maxResults
                              withManager:(AFHTTPRequestOperationManager*)manager
-                      thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate{
-    
-    
+                      thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate {
     self.searchResults         = @[];
     self.searchSuggestion      = nil;
     self.searchTerm            = searchTerm ? searchTerm : @"";
@@ -63,13 +61,11 @@
     self.fetchFinishedDelegate = delegate;
     self.maxSearchResults      = maxResults;
     self.spaceCollapsingRegex  =
-    [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}+" options:NSRegularExpressionCaseInsensitive error:nil];
+        [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}+" options:NSRegularExpressionCaseInsensitive error:nil];
     return [self searchWithManager:manager];
-
 }
 
-
-- (AFHTTPRequestOperation* )searchWithManager:(AFHTTPRequestOperationManager*)manager {
+- (AFHTTPRequestOperation*)searchWithManager:(AFHTTPRequestOperationManager*)manager {
     NSString* url = [[SessionSingleton sharedInstance] searchApiUrlForLanguage:self.language];
 
     NSDictionary* params = [self getParams];
@@ -110,7 +106,6 @@
                 }
             }
             self.articleTitleToImageMap = map;
-            
         }
 
         [self finishWithError:error
