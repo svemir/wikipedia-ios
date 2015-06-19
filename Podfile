@@ -14,14 +14,15 @@ pod 'Mantle'
 # Objective-C Extensions
 pod 'libextobjc/EXTScope', '~> 0.4.1'
 
-# Block Syntax
+# Utilities
 pod 'BlocksKit/Core', '~> 2.2'
 pod 'BlocksKit/UIKit', '~> 2.2'
+pod 'libextobjc/EXTScope', '~> 0.4.1'
 
-# Autolayout
+# UI
 pod 'Masonry', '~> 0.6'
 
-# Crash Reporting
+# Diagnostics
 pod 'HockeySDK', '3.6.2'
 
 target 'WikipediaUnitTests', :exclusive => false do
