@@ -3,6 +3,8 @@
 
 @interface NSArray (WMFExtensions)
 
+- (NSArray*)wmf_safeSubarrayWithRange:(NSRange)range;
+
 /// @return The object at `index` if it's within range of the receiver, otherwise `nil`.
 - (id)wmf_safeObjectAtIndex:(NSUInteger)index;
 

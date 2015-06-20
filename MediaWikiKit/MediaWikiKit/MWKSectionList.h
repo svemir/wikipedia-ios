@@ -38,4 +38,6 @@
 
 - (BOOL)isEqualToSectionList:(MWKSectionList*)sectionList;
 
+- (NSData*)aggregatedDataFromSections:(NSRange)sections;
+
 @end

@@ -229,6 +229,7 @@
     WMFArticleViewController* vc = [self.storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([WMFArticleViewController class])];
     vc.article         = cell.viewController.article;
     vc.contentTopInset = 64.0;
+    vc.articleViewMode = WMFArticleViewModeRegular;
 
     self.cardTransition                             = [WMFArticleCardTranstion new];
     self.cardTransition.nonInteractiveDuration      = 0.5;

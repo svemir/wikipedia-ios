@@ -9,6 +9,7 @@
 #import "MWKSectionList_Private.h"
 #import "MediaWikiKit.h"
 #import "WikipediaAppUtils.h"
+#import "NSArray+WMFExtensions.h"
 
 @interface MWKSectionList ()
 
@@ -126,5 +127,17 @@
             "\t sections: %@ \n"
             "}", [self description], self.sections];
 }
+
+- (NSData*)aggregatedDataFromSections:(NSRange)sections {
+    return
+        [[[[self.sections
+            wmf_safeSubarrayWithRange:sections]
+           valueForKey:WMF_SAFE_KEYPATH(MWKSection.new, text)]
+          bk_reduce:[NSMutableData new] withBlock:^NSMutableData*(NSMutableData* acc, NSString* text) {
+        [acc appendData:[text dataUsingEncoding:NSUTF8StringEncoding]];
+        return acc;
+    }] copy];
+}
+
 
 @end
