@@ -144,18 +144,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
-
-
-
-
-
-
-
-
-
-// Warning! remove this! debugging code for showing web view!
-    [[WMFArticlePresenter sharedInstance] presentWebViewThen:nil];
+    [self updateCellSizeBasedOnViewFrame];
+    #warning TEMP: automatically show the webview until we have a way to present it
+    //[[WMFArticlePresenter sharedInstance] presentWebViewThen:nil];
 }
 
 - (void)viewDidLayoutSubviews {

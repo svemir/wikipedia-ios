@@ -65,28 +65,33 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
 #pragma mark - Computed Properties
 
 - (NSURL*)mobileApiEndpoint {
-    return [self apiEndpoint:YES];
+    return [[self apiURLComponents:YES] URL];
 }
 
 - (NSURL*)apiEndpoint {
-    return [self apiEndpoint:NO];
+    return [[self apiURLComponents:NO] URL];
 }
 
-- (NSURL*)apiEndpoint:(BOOL)isMobile {
-//    NSURLComponents* apiEndpointComponents = [[NSURLComponents alloc] init];
-//    apiEndpointComponents.scheme = @"https";
-//    NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
-//    if (isMobile) {
-//        [hostComponents addObject:@"m"];
-//    }
-//    [hostComponents addObject:self.domain];
-//    apiEndpointComponents.host = [hostComponents componentsJoinedByString:@"."];
-//    apiEndpointComponents.path = @"";
-//    return [apiEndpointComponents URL];
-    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@%@/w/api.php",
-                                 self.language,
-                                 isMobile ? @"m." : @"",
-                                 self.domain]];
+- (NSURL*)URL {
+    return [[self siteURLComponents:NO] URL];
+}
+
+- (NSURLComponents*)apiURLComponents:(BOOL)isMobile {
+    NSURLComponents* apiURLComponents = [self siteURLComponents:NO];
+    apiURLComponents.path = @"/w/api.php";
+    return apiURLComponents;
+}
+
+- (NSURLComponents*)siteURLComponents:(BOOL)isMobile {
+    NSURLComponents* siteURLComponents = [[NSURLComponents alloc] init];
+    siteURLComponents.scheme = @"https";
+    NSMutableArray* hostComponents = [NSMutableArray arrayWithObject:self.language];
+    if (isMobile) {
+        [hostComponents addObject:@"m"];
+    }
+    [hostComponents addObject:self.domain];
+    siteURLComponents.host = [hostComponents componentsJoinedByString:@"."];
+    return siteURLComponents;
 }
 
 #pragma mark - NSObject

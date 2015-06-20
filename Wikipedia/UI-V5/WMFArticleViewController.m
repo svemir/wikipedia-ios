@@ -1,12 +1,11 @@
 
 #import "WMFArticleViewController.h"
+#import "MWKSection.h"
 #import <Masonry/Masonry.h>
+#import <DTCoreText/DTCoreText.h>
 
 @interface WMFArticleViewController ()
-
-@property (strong, nonatomic) IBOutlet UIView* cardBackgroundView;
-@property (strong, nonatomic) IBOutlet UILabel* titleLabel;
-
+@property (weak, nonatomic) IBOutlet DTAttributedTextView* htmlView;
 @end
 
 @implementation WMFArticleViewController
@@ -26,7 +25,7 @@
         return;
     }
 
-    [self.cardBackgroundView mas_updateConstraints:^(MASConstraintMaker* make) {
+    [self.htmlView mas_updateConstraints:^(MASConstraintMaker* make) {
         make.top.equalTo(self.view.mas_top).with.offset(self.contentTopInset);
     }];
 }
@@ -49,6 +48,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.htmlView.scrollEnabled = NO;
+    self.view.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.view.layer.borderWidth = 4.f;
     self.view.backgroundColor = [UIColor clearColor];
     [self updateContentForTopInset];
     [self updateUIAnimated:NO];
@@ -59,7 +61,11 @@
 #pragma mark UI Updates
 
 - (void)updateUIAnimated:(BOOL)animated {
-    self.titleLabel.text = self.article.title.text;
+    NSData* firstSectionData = [self.article.sections[0].text dataUsingEncoding:NSUTF8StringEncoding];
+    self.htmlView.attributedString =
+        [[NSAttributedString alloc] initWithHTMLData:firstSectionData
+                                             baseURL:self.article.site.URL
+                                  documentAttributes:nil];
 }
 
 @end

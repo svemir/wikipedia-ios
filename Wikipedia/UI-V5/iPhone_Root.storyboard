@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A178w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="O8j-Xm-zXE">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -215,29 +215,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oM7-J8-i1e">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rdC-bu-Efj">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rdC-bu-Efj" customClass="DTAttributedTextView">
                                         <rect key="frame" x="2" y="2" width="596" height="576"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Myt-29-qy0">
-                                                <rect key="frame" x="282" y="8" width="33" height="21"/>
-                                                <animations/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
                                         <animations/>
-                                        <color key="backgroundColor" red="0.91030293699999998" green="0.12721729279999999" blue="0.28739702700000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstItem="Myt-29-qy0" firstAttribute="top" secondItem="rdC-bu-Efj" secondAttribute="top" constant="8" id="BpY-2f-f2T"/>
-                                            <constraint firstAttribute="centerX" secondItem="Myt-29-qy0" secondAttribute="centerX" id="Ldy-Zr-x9q"/>
-                                            <constraint firstAttribute="centerX" secondItem="Myt-29-qy0" secondAttribute="centerX" id="pMk-fk-lzv"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="pMk-fk-lzv"/>
-                                            </mask>
-                                        </variation>
                                     </view>
                                 </subviews>
                                 <animations/>
@@ -266,8 +246,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="cardBackgroundView" destination="oM7-J8-i1e" id="9wA-Gd-1Tj"/>
-                        <outlet property="titleLabel" destination="Myt-29-qy0" id="hXQ-Sv-N1d"/>
+                        <outlet property="htmlView" destination="rdC-bu-Efj" id="MID-c1-QNa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIj-Na-3vK" userLabel="First Responder" sceneMemberID="firstResponder"/>
