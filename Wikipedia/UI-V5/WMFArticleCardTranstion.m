@@ -8,14 +8,14 @@
 @property (strong, nonatomic) UIView* movingCardSnapshot;
 @property (strong, nonatomic) UIView* overlappingCardSnapshot;
 
-@property (nonatomic, assign, readwrite) BOOL isDismissing;
-
 #pragma mark - Interactive Dismiss Animation Properties
 
 @property (strong, nonatomic) UIPanGestureRecognizer* recognizer;
 @property (assign, nonatomic) BOOL interactionInProgress;
 
 @property (assign, nonatomic) CGFloat totalCardAnimationDistance;
+
+@property (weak, nonatomic) id<UIViewControllerContextTransitioning> currentContext;
 
 @end
 
@@ -45,6 +45,34 @@
     return self;
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y > 0) {
+        UIViewController* fromVC = [self.currentContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+        scrollView.delegate = (id<UIScrollViewDelegate>)fromVC;
+        [self cancelInteractiveTransition];
+        [self.currentContext completeTransition:NO];
+    } else {
+        [self setIsDismissing:YES];
+        static float const UnwindFinishedThreshold = 200.f;
+        float progress = fabs(scrollView.contentOffset.y) / UnwindFinishedThreshold;
+        [self updateInteractiveTransition:progress];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (self.percentComplete >= 0.8f) {
+        [self finishInteractiveTransition];
+        // complete is called in animation completion
+    } else {
+        UIViewController* fromVC = [self.currentContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+        scrollView.delegate = (id<UIScrollViewDelegate>)fromVC;
+        [self cancelInteractiveTransition];
+        [self.currentContext completeTransition:NO];
+    }
+}
+
 #pragma mark - UIViewAnimatedTransistioning
 
 - (NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -52,10 +80,14 @@
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
+    self.currentContext = transitionContext;
     if (self.isPresenting) {
         UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-        self.recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
-        [toVC.view addGestureRecognizer:self.recognizer];
+
+        if (!self.useScrollView) {
+            self.recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
+            [toVC.view addGestureRecognizer:self.recognizer];
+        }
         self.presentedViewController = toVC;
 
         [self animatePresentation:transitionContext];

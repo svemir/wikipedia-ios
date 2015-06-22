@@ -2,7 +2,13 @@
 #import <Foundation/Foundation.h>
 @import UIKit;
 
-@interface WMFArticleCardTranstion : UIPercentDrivenInteractiveTransition <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning, UIViewControllerInteractiveTransitioning>
+@interface WMFArticleCardTranstion : UIPercentDrivenInteractiveTransition
+<UIViewControllerTransitioningDelegate,
+UIViewControllerAnimatedTransitioning,
+UIViewControllerInteractiveTransitioning,
+UIScrollViewDelegate>
+
+@property (assign, nonatomic) BOOL useScrollView;
 
 /**
  *  Duration of the animation when not interactive
@@ -33,7 +39,7 @@
 /**
  *  Is the transisiton dismissing?
  */
-@property (nonatomic, assign, readonly) BOOL isDismissing;
+@property (nonatomic, assign, readwrite) BOOL isDismissing;
 
 /**
  *  Is the transition Presenting?

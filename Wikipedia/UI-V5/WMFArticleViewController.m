@@ -1,6 +1,7 @@
 
 #import "WMFArticleViewController.h"
 #import "MWKSection.h"
+#import "WMFArticleCardTranstion.h"
 
 #import <Masonry/Masonry.h>
 #import <DTCoreText/DTCoreText.h>
@@ -11,7 +12,6 @@
 @interface WMFArticleViewController ()
 <UIScrollViewDelegate, DTAttributedTextContentViewDelegate>
 @property (weak, nonatomic) IBOutlet DTAttributedTextView* htmlView;
-@property (assign,getter=isDismissed) BOOL dismissed;
 @end
 
 @implementation WMFArticleViewController
@@ -79,7 +79,6 @@
     self.view.backgroundColor = [UIColor clearColor];
 
     [self updateContentForTopInset];
-    [self updateUIAnimated:NO];
     [self applyArticleViewMode];
 }
 
@@ -91,12 +90,12 @@
     }
     _articleViewMode = articleViewMode;
     if ([self isViewLoaded]) {
-
+        [self applyArticleViewMode];
     }
 }
 
 - (void)applyArticleViewMode {
-    self.htmlView.userInteractionEnabled = NO;//self.articleViewMode == WMFArticleViewModeRegular;
+    self.htmlView.userInteractionEnabled = self.articleViewMode == WMFArticleViewModeRegular;
     [self updateUIAnimated:NO];
 }
 
@@ -117,10 +116,10 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y > 0) {
         return;
-    } else if (!self.isDismissed) {
-        self.dismissed = YES;
-        self.htmlView.scrollEnabled = NO;
-        [scrollView setContentOffset:scrollView.contentOffset animated:NO];
+    } else {
+        [(WMFArticleCardTranstion*)self.transitioningDelegate setUseScrollView:YES];
+        [(WMFArticleCardTranstion*)self.transitioningDelegate setIsDismissing:YES];
+        scrollView.delegate = (WMFArticleCardTranstion*)self.transitioningDelegate;
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
