@@ -218,6 +218,10 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rdC-bu-Efj" customClass="DTAttributedTextView">
                                         <rect key="frame" x="2" y="2" width="596" height="576"/>
                                         <animations/>
+                                        <connections>
+                                            <outlet property="delegate" destination="r3R-dd-kNR" id="7Dm-lX-gPY"/>
+                                            <outlet property="textDelegate" destination="r3R-dd-kNR" id="g1Y-Ge-HGp"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <animations/>

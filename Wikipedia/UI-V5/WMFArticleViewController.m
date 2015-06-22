@@ -1,11 +1,17 @@
 
 #import "WMFArticleViewController.h"
 #import "MWKSection.h"
+
 #import <Masonry/Masonry.h>
 #import <DTCoreText/DTCoreText.h>
+#import <DTCoreText/DTLazyImageView.h>
+#import <DTCoreText/DTLinkButton.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
 
 @interface WMFArticleViewController ()
+<UIScrollViewDelegate, DTAttributedTextContentViewDelegate>
 @property (weak, nonatomic) IBOutlet DTAttributedTextView* htmlView;
+@property (assign,getter=isDismissed) BOOL dismissed;
 @end
 
 @implementation WMFArticleViewController
@@ -71,6 +77,7 @@
     self.view.layer.borderColor = [[UIColor grayColor] CGColor];
     self.view.layer.borderWidth = 4.f;
     self.view.backgroundColor = [UIColor clearColor];
+
     [self updateContentForTopInset];
     [self updateUIAnimated:NO];
     [self applyArticleViewMode];
@@ -89,7 +96,7 @@
 }
 
 - (void)applyArticleViewMode {
-    self.htmlView.userInteractionEnabled = self.articleViewMode == WMFArticleViewModeRegular;
+    self.htmlView.userInteractionEnabled = NO;//self.articleViewMode == WMFArticleViewModeRegular;
     [self updateUIAnimated:NO];
 }
 
@@ -103,6 +110,46 @@
          initWithHTMLData:[self.article.sections aggregatedDataFromSections:[self sectionRangeForViewMode]]
                    baseURL:self.article.site.URL
         documentAttributes:nil];
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y > 0) {
+        return;
+    } else if (!self.isDismissed) {
+        self.dismissed = YES;
+        self.htmlView.scrollEnabled = NO;
+        [scrollView setContentOffset:scrollView.contentOffset animated:NO];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
+#pragma mark - DTAttributedTextContentViewDelegate
+
+- (UIView*)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForAttachment:(DTTextAttachment *)attachment frame:(CGRect)frame {
+    DTLazyImageView* imageView = [DTLazyImageView new];
+    imageView.url = attachment.contentURL;
+    return imageView;
+}
+
+- (UIView*)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView
+                         viewForLink:(NSURL *)url
+                          identifier:(NSString *)identifier
+                               frame:(CGRect)frame {
+    DTLinkButton* linkButton = [DTLinkButton new];
+    linkButton.frame = frame;
+    linkButton.URL = url;
+    linkButton.GUID = identifier;
+    linkButton.showsTouchWhenHighlighted = YES;
+    [linkButton bk_addEventHandler:^(DTLinkButton* sender) {
+        MWKTitle* linkTitle = [[MWKTitle alloc] initWithURL:sender.URL];
+        DDLogDebug(@"Link clicked for page: %@", linkTitle);
+        [[WMFArticlePresenter sharedInstance] presentArticleWithTitle:linkTitle
+                                                      discoveryMethod:MWKHistoryDiscoveryMethodLink
+                                                                 then:nil];
+    } forControlEvents:UIControlEventTouchUpInside];
+    return linkButton;
 }
 
 @end
