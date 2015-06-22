@@ -16,7 +16,7 @@
 
 @implementation WMFArticleViewController
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+- (instancetype)initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self applyDefaultProperties];
@@ -24,7 +24,7 @@
     return self;
 }
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (instancetype)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self applyDefaultProperties];
@@ -76,7 +76,7 @@
     [super viewDidLoad];
     self.view.layer.borderColor = [[UIColor grayColor] CGColor];
     self.view.layer.borderWidth = 4.f;
-    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor   = [UIColor clearColor];
 
     [self updateContentForTopInset];
     [self applyArticleViewMode];
@@ -113,7 +113,7 @@
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
     if (scrollView.contentOffset.y > 0) {
         return;
     } else {
@@ -126,20 +126,20 @@
 
 #pragma mark - DTAttributedTextContentViewDelegate
 
-- (UIView*)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForAttachment:(DTTextAttachment *)attachment frame:(CGRect)frame {
+- (UIView*)attributedTextContentView:(DTAttributedTextContentView*)attributedTextContentView viewForAttachment:(DTTextAttachment*)attachment frame:(CGRect)frame {
     DTLazyImageView* imageView = [DTLazyImageView new];
     imageView.url = attachment.contentURL;
     return imageView;
 }
 
-- (UIView*)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView
-                         viewForLink:(NSURL *)url
-                          identifier:(NSString *)identifier
+- (UIView*)attributedTextContentView:(DTAttributedTextContentView*)attributedTextContentView
+                         viewForLink:(NSURL*)url
+                          identifier:(NSString*)identifier
                                frame:(CGRect)frame {
     DTLinkButton* linkButton = [DTLinkButton new];
-    linkButton.frame = frame;
-    linkButton.URL = url;
-    linkButton.GUID = identifier;
+    linkButton.frame                     = frame;
+    linkButton.URL                       = url;
+    linkButton.GUID                      = identifier;
     linkButton.showsTouchWhenHighlighted = YES;
     [linkButton bk_addEventHandler:^(DTLinkButton* sender) {
         MWKTitle* linkTitle = [[MWKTitle alloc] initWithURL:sender.URL];

@@ -31,7 +31,7 @@
      }];
 
 #if DEBUG
-     [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
 #endif
 }
 

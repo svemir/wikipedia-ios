@@ -47,7 +47,7 @@
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+- (void)scrollViewDidScroll:(UIScrollView*)scrollView {
     if (scrollView.contentOffset.y > 0) {
         UIViewController* fromVC = [self.currentContext viewControllerForKey:UITransitionContextFromViewControllerKey];
         scrollView.delegate = (id<UIScrollViewDelegate>)fromVC;
@@ -56,12 +56,12 @@
     } else {
         [self setIsDismissing:YES];
         static float const UnwindFinishedThreshold = 200.f;
-        float progress = fabs(scrollView.contentOffset.y) / UnwindFinishedThreshold;
+        float progress                             = fabs(scrollView.contentOffset.y) / UnwindFinishedThreshold;
         [self updateInteractiveTransition:progress];
     }
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+- (void)scrollViewDidEndDragging:(UIScrollView*)scrollView willDecelerate:(BOOL)decelerate {
     if (self.percentComplete >= 0.8f) {
         [self finishInteractiveTransition];
         // complete is called in animation completion

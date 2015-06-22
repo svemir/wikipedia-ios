@@ -37,14 +37,14 @@ typedef NS_ENUM (NSUInteger, MWKSiteNSCodingSchemaVersion) {
     return [self initWithDomain:WMFDefaultSiteDomain language:language];
 }
 
-- (instancetype)initWithURL:(NSURL * __nonnull)url {
+- (instancetype)initWithURL:(NSURL* __nonnull)url {
     if (!url.absoluteString.length) {
         return nil;
     }
     NSURLComponents* urlComponents = [[NSURLComponents alloc] initWithURL:url resolvingAgainstBaseURL:YES];
     if ([urlComponents.host containsString:@"wikipedia.org"] && [urlComponents.path wmf_isInternalLink]) {
         NSArray* hostComponents = [urlComponents.host componentsSeparatedByString:@"."];
-        NSString* language = hostComponents.firstObject;
+        NSString* language      = hostComponents.firstObject;
         return [self initWithDomain:[urlComponents.host substringFromIndex:language.length] language:language];
     } else {
         DDLogWarn(@"Attempted to parse non-wikipedia URL: %@", url);

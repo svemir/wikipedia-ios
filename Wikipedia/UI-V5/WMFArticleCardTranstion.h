@@ -3,10 +3,10 @@
 @import UIKit;
 
 @interface WMFArticleCardTranstion : UIPercentDrivenInteractiveTransition
-<UIViewControllerTransitioningDelegate,
-UIViewControllerAnimatedTransitioning,
-UIViewControllerInteractiveTransitioning,
-UIScrollViewDelegate>
+    <UIViewControllerTransitioningDelegate,
+     UIViewControllerAnimatedTransitioning,
+     UIViewControllerInteractiveTransitioning,
+     UIScrollViewDelegate>
 
 @property (assign, nonatomic) BOOL useScrollView;
 

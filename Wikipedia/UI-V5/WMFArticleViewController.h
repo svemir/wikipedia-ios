@@ -1,7 +1,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, WMFArticleViewMode) {
+typedef NS_ENUM (NSInteger, WMFArticleViewMode) {
     WMFArticleViewModeCompact,
     WMFArticleViewModeRegular
 };
