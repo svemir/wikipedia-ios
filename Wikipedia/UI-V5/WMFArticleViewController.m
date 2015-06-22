@@ -74,9 +74,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.layer.borderColor = [[UIColor grayColor] CGColor];
-    self.view.layer.borderWidth = 4.f;
-    self.view.backgroundColor   = [UIColor clearColor];
+    self.htmlView.shouldDrawImages = NO;
+    self.view.layer.borderColor    = [[UIColor grayColor] CGColor];
+    self.view.layer.borderWidth    = 4.f;
+    self.view.backgroundColor      = [UIColor clearColor];
 
     [self updateContentForTopInset];
     [self applyArticleViewMode];
@@ -104,10 +105,17 @@
 }
 
 - (void)updateUIAnimated:(BOOL)animated {
+    if (!self.article) {
+        return;
+    }
     self.htmlView.attributedString =
         [[NSAttributedString alloc]
          initWithHTMLData:[self.article.sections aggregatedDataFromSections:[self sectionRangeForViewMode]]
-                   baseURL:self.article.site.URL
+                   options:@{
+             DTIgnoreInlineStylesOption: @YES,
+             DTMaxImageSize: [NSValue valueWithCGSize:CGSizeZero],
+             NSBaseURLDocumentOption: self.article.site.URL
+         }
         documentAttributes:nil];
 }
 
@@ -126,11 +134,16 @@
 
 #pragma mark - DTAttributedTextContentViewDelegate
 
-- (UIView*)attributedTextContentView:(DTAttributedTextContentView*)attributedTextContentView viewForAttachment:(DTTextAttachment*)attachment frame:(CGRect)frame {
+#if 0
+- (UIView*)attributedTextContentView:(DTAttributedTextContentView*)attributedTextContentView
+                   viewForAttachment:(DTTextAttachment*)attachment
+                               frame:(CGRect)frame {
     DTLazyImageView* imageView = [DTLazyImageView new];
     imageView.url = attachment.contentURL;
     return imageView;
 }
+
+#endif
 
 - (UIView*)attributedTextContentView:(DTAttributedTextContentView*)attributedTextContentView
                          viewForLink:(NSURL*)url
