@@ -23,6 +23,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation MWKTitle
 
+- (instancetype)initWithURL:(NSURL*)url {
+    MWKSite* site = [[MWKSite alloc] initWithURL:url];
+    if (site) {
+        return [self initWithInternalLink:url.path site:site];
+    } else {
+        return nil;
+    }
+}
+
 - (instancetype)initWithSite:(MWKSite*)site normalizedTitle:(NSString*)text fragment:(NSString* __nullable)fragment {
     NSParameterAssert(site);
     NSParameterAssert(text.length);

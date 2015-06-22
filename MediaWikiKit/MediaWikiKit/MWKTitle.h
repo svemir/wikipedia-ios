@@ -58,11 +58,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Initialize a new title with `relativeInternalLink`, which is parsed after removing the `/wiki/` prefix.
 - (instancetype)initWithInternalLink:(NSString*)relativeInternalLink site:(MWKSite*)site;
 
+- (instancetype)initWithURL:(NSURL*)url;
+
 /// Convenience factory method wrapping `initWithString:site:`.
 + (MWKTitle*)titleWithString:(NSString*)str site:(MWKSite*)site;
 
 - (BOOL)isEqualToTitle:(MWKTitle*)title;
-
 
 @end
 

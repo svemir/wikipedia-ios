@@ -35,6 +35,8 @@ extern NSString* const WMFDefaultSiteDomain;
 /// Create a site using @c language and the default domain.
 - (instancetype)initWithLanguage:(NSString*)language;
 
+- (instancetype)initWithURL:(NSURL*)url;
+
 + (instancetype)siteWithDomain:(NSString*)domain language:(NSString*)language;
 
 + (instancetype)siteWithLanguage:(NSString*)language;
