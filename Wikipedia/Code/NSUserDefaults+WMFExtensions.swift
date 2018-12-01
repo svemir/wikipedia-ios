@@ -19,8 +19,7 @@ let WMFLocationAuthorizedKey = "WMFLocationAuthorizedKey"
 let WMFPlacesDidPromptForLocationAuthorization = "WMFPlacesDidPromptForLocationAuthorization"
 let WMFExploreDidPromptForLocationAuthorization = "WMFExploreDidPromptForLocationAuthorization"
 let WMFPlacesHasAppeared = "WMFPlacesHasAppeared"
-let WMFAppThemeName = "WMFAppThemeName"
-let WMFIsImageDimmingEnabled = "WMFIsImageDimmingEnabled"
+
 let WMFIsAutomaticTableOpeningEnabled = "WMFIsAutomaticTableOpeningEnabled"
 let WMFDidShowThemeCardInFeed = "WMFDidShowThemeCardInFeed"
 let WMFDidShowReadingListCardInFeed = "WMFDidShowReadingListCardInFeed"
@@ -45,6 +44,11 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     @objc(WMFUserDefaultsKey) public class Key: NSObject {
         @objc static let defaultTabType = "WMFDefaultTabTypeKey"
         @objc static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
+        @objc static let theme = "WMFAppThemeName"
+        @objc static let lowScreenBrightnessTheme = "WMFAppLowScreenBrightnessThemeName"
+        @objc static let lowScreenBrightnessThresholdPercentage = "WMFAppLowScreenBrightnessThresholdPercentage"
+        @objc static let isImageDimmingEnabled = "WMFIsImageDimmingEnabled"
+        @objc static let isLowScreenBrightnessImageDimmingEnabled = "WMFIsLowScreenBrightnessImageDimmingEnabled"
     }
 
     @objc public static let wmf: UserDefaults = {
@@ -126,19 +130,48 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
     }
     
     @objc public var wmf_appTheme: Theme {
-        return Theme.withName(string(forKey: WMFAppThemeName)) ?? Theme.standard
+        return Theme.withName(string(forKey: Key.theme)) ?? Theme.standard
     }
     
     @objc public func wmf_setAppTheme(_ theme: Theme) {
-        set(theme.name, forKey: WMFAppThemeName)
+        set(theme.name, forKey: Key.theme)
     }
     
+    @objc public var wmf_lowScreenBrightnessTheme: Theme? {
+        guard let name = string(forKey: Key.lowScreenBrightnessTheme) else {
+            return nil
+        }
+        return Theme.withName(name)
+    }
+    
+    @objc public func wmf_setLowScreenBrightnessTheme(_ theme: Theme?) {
+        set(theme?.name, forKey: Key.lowScreenBrightnessTheme)
+    }
+    
+    @objc public var wmf_lowScreenBrightnessThresholdPercentage: Double {
+        let value = double(forKey: Key.lowScreenBrightnessThresholdPercentage)
+        return value > 0 ? value : 0.25
+    }
+    
+    @objc public func wmf_setLowScreenBrightnessThresholdPercentage(_ percentage: Double) {
+        set(percentage, forKey: Key.lowScreenBrightnessThresholdPercentage)
+    }
+
     @objc public var wmf_isImageDimmingEnabled: Bool {
         get {
-             return bool(forKey: WMFIsImageDimmingEnabled)
+             return bool(forKey: Key.isImageDimmingEnabled)
         }
         set {
-            set(newValue, forKey: WMFIsImageDimmingEnabled)
+            set(newValue, forKey: Key.isImageDimmingEnabled)
+        }
+    }
+    
+    @objc public var wmf_isLowScreenBrightnessImageDimmingEnabled: Bool {
+        get {
+            return bool(forKey: Key.isLowScreenBrightnessImageDimmingEnabled)
+        }
+        set {
+            set(newValue, forKey: Key.isLowScreenBrightnessImageDimmingEnabled)
         }
     }
     

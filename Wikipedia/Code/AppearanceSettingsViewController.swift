@@ -6,6 +6,7 @@ protocol AppearanceSettingsItem {
 
 struct AppearanceSettingsDimSwitchItem: AppearanceSettingsItem {
     let title: String?
+    let isForLowScreenBrightness: Bool
 }
 
 struct AppearanceSettingsAutomaticTableOpenSwitchItem: AppearanceSettingsItem {
@@ -14,7 +15,8 @@ struct AppearanceSettingsAutomaticTableOpenSwitchItem: AppearanceSettingsItem {
 
 struct AppearanceSettingsCheckmarkItem: AppearanceSettingsItem {
     let title: String?
-    let theme: Theme
+    let theme: Theme?
+    let isForLowScreenBrightness: Bool
     let checkmarkAction: () -> Void
 }
 
@@ -27,6 +29,7 @@ struct AppearanceSettingsSection {
 struct AppearanceSettingsCustomViewItem: AppearanceSettingsItem {
     let title: String?
     let viewController: UIViewController
+    let isForLowScreenBrightness: Bool
 }
 
 struct AppearanceSettingsSpacerViewItem: AppearanceSettingsItem {
@@ -61,21 +64,38 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
     func sectionsForAppearanceSettings() -> [AppearanceSettingsSection] {
         
         func checkmarkItem(for theme: Theme) -> (AppearanceSettingsCheckmarkItem) {
-            return AppearanceSettingsCheckmarkItem(title: theme.displayName, theme: theme) { [weak self] in
-                self?.userDidSelect(theme: theme)
+            return AppearanceSettingsCheckmarkItem(title: theme.displayName, theme: theme, isForLowScreenBrightness: false) { [weak self] in
+                self?.userDidSelect(theme: theme.withDimmingEnabled(UserDefaults.wmf.wmf_isImageDimmingEnabled))
+            }
+        }
+        
+        func lowScreenBrightnessCheckmarkItem(for theme: Theme?) -> (AppearanceSettingsCheckmarkItem) {
+            if let theme = theme {
+                return  AppearanceSettingsCheckmarkItem(title: theme.displayName, theme: theme, isForLowScreenBrightness: true) { [weak self] in
+                    self?.userDidSelectLowScreenBrightness(theme: theme.withDimmingEnabled(UserDefaults.wmf.wmf_isLowScreenBrightnessImageDimmingEnabled))
+                }
+            } else {
+                return  AppearanceSettingsCheckmarkItem(title: WMFLocalizedString("appearance-settings-reading-themes-low-brightness-same", value: "Same as selected theme", comment: "Preference title indicating use of the same theme for both low and high screen brightness"), theme: nil, isForLowScreenBrightness: true) { [weak self] in
+                    self?.userDidSelectLowScreenBrightness(theme: nil)
+                }
             }
         }
 
         let readingThemesSection =
             AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-reading-themes", value: "Reading themes", comment: "Title of the the Reading themes section in Appearance settings"), footerText: nil, items: [checkmarkItem(for: Theme.light), checkmarkItem(for: Theme.sepia), checkmarkItem(for: Theme.dark), checkmarkItem(for: Theme.black)])
         
-        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController(nibName: "ImageDimmingExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsDimSwitchItem(title: CommonStrings.dimImagesTitle)])
+        let themeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-theme-options", value: "Theme options", comment: "Title of the Theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController(nibName: "ImageDimmingExampleViewController", bundle: nil), isForLowScreenBrightness: false), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsDimSwitchItem(title: CommonStrings.dimImagesTitle, isForLowScreenBrightness: false)])
         
         let tableAutomaticOpenSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-set-automatic-table-opening", value: "Table Settings", comment: "Tables in article will be opened automatically"), footerText: WMFLocalizedString("appearance-settings-expand-tables-footer", value: "Set all tables in all articles to be open by default, including Quick facts, References, Notes and External links.", comment: "Footer of the expand tables section in Appearance settings, explaining the expand tables setting"), items: [AppearanceSettingsAutomaticTableOpenSwitchItem(title: WMFLocalizedString("appearance-settings-expand-tables", value: "Expand tables", comment: "Title for the setting that expands tables in an article by default"))])
         
-        let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: TextSizeChangeExampleViewController(nibName: "TextSizeChangeExampleViewController", bundle: nil)), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController(nibName: "FontSizeSliderViewController", bundle: nil))])
+        let textSizingSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-adjust-text-sizing", value: "Adjust article text sizing", comment: "Header of the Text sizing section in Appearance settings"), footerText: nil, items: [AppearanceSettingsCustomViewItem(title: nil, viewController: TextSizeChangeExampleViewController(nibName: "TextSizeChangeExampleViewController", bundle: nil), isForLowScreenBrightness: false), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsCustomViewItem(title: nil, viewController: FontSizeSliderViewController(nibName: "FontSizeSliderViewController", bundle: nil), isForLowScreenBrightness: false)])
         
-        return [readingThemesSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection]
+        let lowScreenBrightnessThemeSetting =
+            AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-low-screen-brightness-reading-themes", value: "Low screen brightness reading themes", comment: "Title of the the Low Screen Brightness Reading themes section in Appearance settings"), footerText: nil, items: [lowScreenBrightnessCheckmarkItem(for: nil), lowScreenBrightnessCheckmarkItem(for: Theme.light), lowScreenBrightnessCheckmarkItem(for: Theme.sepia), lowScreenBrightnessCheckmarkItem(for: Theme.dark), lowScreenBrightnessCheckmarkItem(for: Theme.black)])
+        
+        let lowScreenBrightnessThemeOptionsSection = AppearanceSettingsSection(headerTitle: WMFLocalizedString("appearance-settings-low-screen-brightness-theme-options", value: "Low screen brightness theme options", comment: "Title of the Low screen brightness theme options section in Appearance settings"), footerText: WMFLocalizedString("appearance-settings-image-dimming-footer", value: "Decrease the opacity of images on dark theme", comment: "Footer of the Theme options section in Appearance settings, explaining image dimming"), items: [AppearanceSettingsCustomViewItem(title: nil, viewController: ImageDimmingExampleViewController(nibName: "ImageDimmingExampleViewController", bundle: nil), isForLowScreenBrightness: true), AppearanceSettingsSpacerViewItem(title: nil, spacing: 15.0), AppearanceSettingsDimSwitchItem(title: CommonStrings.dimImagesTitle, isForLowScreenBrightness: true)])
+    
+        return [readingThemesSection, themeOptionsSection, tableAutomaticOpenSection, textSizingSection, lowScreenBrightnessThemeSetting, lowScreenBrightnessThemeOptionsSection]
     }
     
     public override func numberOfSections(in tableView: UITableView) -> Int {
@@ -102,7 +122,13 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             }
             
             if let themeable = vc as? Themeable {
-                themeable.apply(theme: self.theme)
+                let theme: Theme
+                if customViewItem.isForLowScreenBrightness {
+                    theme = (UserDefaults.wmf.wmf_lowScreenBrightnessTheme ?? self.theme)
+                } else {
+                    theme = self.theme
+                }
+                themeable.apply(theme: theme)
                 cell.backgroundColor = vc.view.backgroundColor
             }
             
@@ -127,26 +153,46 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
             tc.apply(theme: theme)
         }
 
-        if item is AppearanceSettingsDimSwitchItem {
+        if let item = item as? AppearanceSettingsDimSwitchItem {
             cell.disclosureType = .switch
             cell.disclosureSwitch.isEnabled = false
-            cell.disclosureSwitch.isOn = UserDefaults.wmf.wmf_isImageDimmingEnabled
+            cell.disclosureSwitch.isOn = item.isForLowScreenBrightness ? UserDefaults.wmf.wmf_isLowScreenBrightnessImageDimmingEnabled : UserDefaults.wmf.wmf_isImageDimmingEnabled
             
-            let currentAppTheme = UserDefaults.wmf.wmf_appTheme
-            switch currentAppTheme {
-            case Theme.blackDimmed:
-                fallthrough
-            case Theme.black:
-                fallthrough
-            case  Theme.darkDimmed:
-                fallthrough
-            case Theme.dark:
-                cell.disclosureSwitch.isEnabled = true
-                cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
-                userDidSelect(theme: currentAppTheme.withDimmingEnabled(cell.disclosureSwitch.isOn))
-            default:
-                break
+            if item.isForLowScreenBrightness {
+                if let currentAppTheme = UserDefaults.wmf.wmf_lowScreenBrightnessTheme {
+                    switch currentAppTheme {
+                    case Theme.blackDimmed:
+                        fallthrough
+                    case Theme.black:
+                        fallthrough
+                    case  Theme.darkDimmed:
+                        fallthrough
+                    case Theme.dark:
+                        cell.disclosureSwitch.isEnabled = true
+                        cell.disclosureSwitch.addTarget(self, action: #selector(self.handleLowScreenBrightnessImageDimmingSwitchValueChange(_:)), for: .valueChanged)
+                    default:
+                        break
+                    }
+                } else {
+                    cell.disclosureSwitch.isEnabled = false
+                }
+            } else {
+                let currentAppTheme = UserDefaults.wmf.wmf_appTheme
+                switch currentAppTheme {
+                case Theme.blackDimmed:
+                    fallthrough
+                case Theme.black:
+                    fallthrough
+                case  Theme.darkDimmed:
+                    fallthrough
+                case Theme.dark:
+                    cell.disclosureSwitch.isEnabled = true
+                    cell.disclosureSwitch.addTarget(self, action: #selector(self.handleImageDimmingSwitchValueChange(_:)), for: .valueChanged)
+                default:
+                    break
+                }
             }
+           
             cell.iconName = "settings-image-dimming"
             cell.iconBackgroundColor = .wmf_lightGray
             cell.iconColor = .white
@@ -192,6 +238,14 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectThemeNotification), object: nil, userInfo: userInfo)
     }
     
+    func userDidSelectLowScreenBrightness(theme: Theme?) {
+        var userInfo: [String: Theme] = [:]
+        if let theme = theme {
+           userInfo["theme"] = theme
+        }
+        NotificationCenter.default.post(name: Notification.Name(ReadingThemesControlsViewController.WMFUserDidSelectLowScreenBrightnessThemeNotification), object: nil, userInfo: userInfo)
+    }
+    
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if let customViewItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCustomViewItem {
             return customViewItem.viewController.view.frame.height
@@ -222,15 +276,28 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
     
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let currentAppTheme = UserDefaults.wmf.wmf_appTheme
-        
+        let currentLowScreenBrightnessTheme = UserDefaults.wmf.wmf_lowScreenBrightnessTheme
         if let checkmarkItem = sections[indexPath.section].items[indexPath.item] as? AppearanceSettingsCheckmarkItem {
-            if currentAppTheme.withDimmingEnabled(false) === checkmarkItem.theme {
-                cell.accessoryType = .checkmark
-                cell.isSelected = true
+            if checkmarkItem.isForLowScreenBrightness {
+                if currentLowScreenBrightnessTheme?.withDimmingEnabled(false) === checkmarkItem.theme {
+                    cell.accessoryType = .checkmark
+                    cell.isSelected = true
+                } else {
+                    cell.accessoryType = .none
+                    cell.isSelected = false
+                }
             } else {
-                cell.accessoryType = .none
-                cell.isSelected = false
+                if currentAppTheme.withDimmingEnabled(false) === checkmarkItem.theme {
+                    cell.accessoryType = .checkmark
+                    cell.isSelected = true
+                } else {
+                    cell.accessoryType = .none
+                    cell.isSelected = false
+                }
             }
+        } else {
+            cell.accessoryType = .none
+            cell.isSelected = false
         }
     }
     
@@ -238,6 +305,19 @@ final class AppearanceSettingsViewController: SubSettingsViewController {
         let currentTheme = UserDefaults.wmf.wmf_appTheme
         UserDefaults.wmf.wmf_isImageDimmingEnabled = isOn.boolValue
         userDidSelect(theme: currentTheme.withDimmingEnabled(isOn.boolValue))
+    }
+    
+    @objc func applyLowScreenBrightnessImageDimmingChange(isOn: NSNumber) {
+        let currentLowScreenBrightnessTheme = UserDefaults.wmf.wmf_lowScreenBrightnessTheme
+        UserDefaults.wmf.wmf_isLowScreenBrightnessImageDimmingEnabled = isOn.boolValue
+        userDidSelectLowScreenBrightness(theme: currentLowScreenBrightnessTheme?.withDimmingEnabled(isOn.boolValue))
+        tableView.reloadData()
+    }
+    
+    @objc func handleLowScreenBrightnessImageDimmingSwitchValueChange(_ sender: UISwitch) {
+        let selector = #selector(applyLowScreenBrightnessImageDimmingChange)
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        perform(selector, with: NSNumber(value: sender.isOn), afterDelay: CATransaction.animationDuration())
     }
     
     @objc func handleImageDimmingSwitchValueChange(_ sender: UISwitch) {

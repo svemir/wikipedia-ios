@@ -106,6 +106,9 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 @property (nonatomic, strong) WMFTheme *theme;
 
+@property (nonatomic) CGFloat screenBrightness;
+@property (nonatomic) CGFloat thresholdBrightness;
+
 @property (nonatomic, strong) UINavigationController *settingsNavigationController;
 
 @property (nonatomic, strong, readwrite) WMFReadingListsAlertController *readingListsAlertController;
@@ -135,8 +138,8 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.theme = [[NSUserDefaults wmf] wmf_appTheme];
-
+    [self updateTheme];
+    
     self.backgroundTasks = [NSMutableDictionary dictionaryWithCapacity:5];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -153,6 +156,17 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
                                              selector:@selector(changeTheme:)
                                                  name:WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeLowScreenBrightnessTheme:)
+                                                 name:WMFReadingThemesControlsViewController.WMFUserDidSelectLowScreenBrightnessThemeNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(screenBrightnessDidChange:)
+                                                 name:UIScreenBrightnessDidChangeNotification
+                                               object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(articleFontSizeWasUpdated:)
                                                  name:WMFFontSizeSliderViewController.WMFArticleFontSizeUpdatedNotification
@@ -1819,14 +1833,37 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (void)changeTheme:(NSNotification *)note {
-    WMFTheme *theme = (WMFTheme *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
-
+- (void)updateTheme {
+    CGFloat brightness = [[UIScreen mainScreen] brightness];
+    self.screenBrightness = brightness;
+    NSUserDefaults *defaults = [NSUserDefaults wmf];
+    self.thresholdBrightness = (CGFloat)[defaults wmf_lowScreenBrightnessThresholdPercentage];
+    WMFTheme *lowScreenBrightnessTheme = [defaults wmf_lowScreenBrightnessTheme];
+    WMFTheme *theme = lowScreenBrightnessTheme != nil && brightness <= self.thresholdBrightness ? lowScreenBrightnessTheme :   [defaults wmf_appTheme];
     if (self.theme != theme) {
         [self applyTheme:theme];
-        [[NSUserDefaults wmf] wmf_setAppTheme:theme];
         [self.settingsViewController loadSections];
     }
+}
+
+- (void)screenBrightnessDidChange:(NSNotification *)note {
+    CGFloat newBrightness = [[UIScreen mainScreen] brightness];
+    if ((newBrightness <= self.thresholdBrightness && self.screenBrightness > self.thresholdBrightness) ||
+        (newBrightness > self.thresholdBrightness && self.screenBrightness <= self.thresholdBrightness)) {
+        [self updateTheme];
+    }
+}
+
+- (void)changeTheme:(NSNotification *)note {
+    WMFTheme *theme = (WMFTheme *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
+    [[NSUserDefaults wmf] wmf_setAppTheme:theme];
+    [self updateTheme];
+}
+
+- (void)changeLowScreenBrightnessTheme:(NSNotification *)note {
+    WMFTheme *theme = (WMFTheme *)note.userInfo[WMFReadingThemesControlsViewController.WMFUserDidSelectThemeNotificationThemeKey];
+    [[NSUserDefaults wmf] wmf_setLowScreenBrightnessTheme:theme];
+    [self updateTheme];
 }
 
 #pragma mark - WMFWorkerControllerDelegate

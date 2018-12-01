@@ -9,6 +9,7 @@ import UIKit
 open class ReadingThemesControlsViewController: UIViewController {
     
     @objc static let WMFUserDidSelectThemeNotification = "WMFUserDidSelectThemeNotification"
+    @objc static let WMFUserDidSelectLowScreenBrightnessThemeNotification = "WMFUserDidSelectLowScreenBrightnessThemeNotification"
     @objc static let WMFUserDidSelectThemeNotificationThemeKey = "theme"
     
     var theme = Theme.standard
