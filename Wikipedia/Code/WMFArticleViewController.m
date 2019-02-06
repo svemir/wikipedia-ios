@@ -1633,7 +1633,14 @@ static const NSString *kvo_WMFArticleViewController_articleFetcherPromise_progre
     self.sectionToRestoreScrollOffset = nil;
     @weakify(self);
 
+    [self.webViewController getCurrentVisibleSectionsCompletion:^(NSArray<MWKSection *> *_Nullable sections, NSError *_Nullable error) {
+        @strongify(self);
+        [self selectTableOfContentsItemsForSections:sections animated:YES];
+    }];
+    return;
+    
     [self.webViewController getCurrentVisibleSectionCompletion:^(MWKSection *_Nullable section, NSError *_Nullable error) {
+return;
         @strongify(self);
         if (section) {
             self.currentSection = section;
