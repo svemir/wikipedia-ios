@@ -104,39 +104,51 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         defaultListTag.backgroundColor = labelBackgroundColor
     }
     
-    override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let size = super.sizeThatFits(size, apply: apply)
-        let layoutMargins = calculatedLayoutMargins
+    override open func sizeThatFits(_ sz: CGSize, apply: Bool) -> CGSize {
+        let size: CGSize = super.sizeThatFits(sz, apply: apply)
+        let margins: UIEdgeInsets = calculatedLayoutMargins
         
-        var widthMinusMargins = size.width - layoutMargins.left - layoutMargins.right
-        let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
-        let minHeightMinusMargins = minHeight - layoutMargins.top - layoutMargins.bottom
+        let minHeight = imageViewDimension + margins.top + margins.bottom
+        let minHeightMinusMargins = minHeight - margins.top - margins.bottom
         
+        let widthMinusMargins: CGFloat
         let labelsAdditionalSpacing: CGFloat = 20
         if !isImageGridHidden || !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension - labelsAdditionalSpacing
+            widthMinusMargins = size.width - margins.left - margins.right - spacing - imageViewDimension - labelsAdditionalSpacing
+        } else {
+            widthMinusMargins = size.width - margins.left - margins.right
         }
         
-        var x = layoutMargins.left
+        let x: CGFloat
         if isDeviceRTL {
-            x = size.width - x - widthMinusMargins
+            x = size.width - margins.left - widthMinusMargins
+        } else {
+            x = margins.left
         }
-        var origin = CGPoint(x: x, y: layoutMargins.top)
+        
+        var origin = CGPoint(x: x, y: margins.top)
         
         if displayType == .readingListsTab {
             let articleCountLabelSize = articleCountLabel.intrinsicContentSize
-            var x = origin.x
+            let articleCountLabelX: CGFloat
             if isDeviceRTL {
-                x = size.width - articleCountLabelSize.width - layoutMargins.left
+                articleCountLabelX = size.width - articleCountLabelSize.width - margins.left
+            } else {
+                articleCountLabelX = origin.x
             }
-            let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: CGPoint(x: x, y: origin.y), maximumSize: articleCountLabelSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let articleCountLabelFrame = articleCountLabel.wmf_preferredFrame(at: CGPoint(x: articleCountLabelX, y: origin.y), maximumSize: articleCountLabelSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += articleCountLabelFrame.layoutHeight(with: spacing)
             articleCountLabel.isHidden = false
         } else {
             articleCountLabel.isHidden = true
         }
         
-        let labelHorizontalAlignment: HorizontalAlignment = isDeviceRTL ? .right : .left
+        let labelHorizontalAlignment: HorizontalAlignment
+        if isDeviceRTL {
+            labelHorizontalAlignment = .right
+        } else {
+            labelHorizontalAlignment = .left
+        }
         
         if displayType == .addArticlesToReadingList {
             if isDefault {
@@ -145,7 +157,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
                 let descriptionLabelFrame = descriptionLabel.wmf_preferredFrame(at: origin, maximumWidth: widthMinusMargins, alignedBy: articleSemanticContentAttribute, apply: apply)
                 origin.y += descriptionLabelFrame.layoutHeight(with: 0)
             } else {
-                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: layoutMargins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIView.noIntrinsicMetric), minimumSize: CGSize(width: UIView.noIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
+                let titleLabelFrame = titleLabel.wmf_preferredFrame(at: CGPoint(x: origin.x, y: margins.top), maximumSize: CGSize(width: widthMinusMargins, height: UIView.noIntrinsicMetric), minimumSize: CGSize(width: UIView.noIntrinsicMetric, height: minHeightMinusMargins), horizontalAlignment: labelHorizontalAlignment, verticalAlignment: .center, apply: apply)
                 origin.y += titleLabelFrame.layoutHeight(with: 0)
             }
         } else if (descriptionLabel.wmf_hasText || !isImageGridHidden || !isImageViewHidden) {
@@ -164,7 +176,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
 
-        origin.y += layoutMargins.bottom
+        origin.y += margins.bottom
         let height = max(origin.y, minHeight)
         let separatorXPositon: CGFloat = 0
         let separatorWidth = size.width
@@ -181,62 +193,74 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         
         if (apply) {
             let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
-            var x = layoutMargins.right
-            if !isDeviceRTL {
-                x = size.width - x - imageViewDimension
+            let imageViewX: CGFloat
+            if isDeviceRTL {
+                imageViewX = margins.right
+            } else {
+                imageViewX = size.width - margins.right - imageViewDimension
             }
-            imageGrid.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+            imageGrid.frame = CGRect(x: imageViewX, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
             imageGrid.isHidden = isImageGridHidden
-        }
-        
-        if (apply && !isImageViewHidden) {
-            let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
-            var x = layoutMargins.right
-            if !isDeviceRTL {
-                x = size.width - x - imageViewDimension
+            if (!isImageViewHidden) {
+                imageView.frame = CGRect(x: imageViewX, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
             }
-            imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
         }
         
-        let yAlignedWithImageBottom = imageGrid.frame.maxY - layoutMargins.bottom - (0.5 * spacing)
+        let yAlignedWithImageBottom: CGFloat = imageGrid.frame.maxY - margins.bottom - (0.5 * spacing)
         
         if !isAlertIconHidden {
-            var x = origin.x
+            let alertIconX: CGFloat
             if isDeviceRTL {
-                x = size.width - alertIconDimension - layoutMargins.right
+                alertIconX = size.width - alertIconDimension - margins.right
+            } else {
+                alertIconX = origin.x
             }
-            alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
+            alertIcon.frame = CGRect(x: alertIconX, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
             origin.y += alertIcon.frame.layoutHeight(with: 0)
         }
         
         if !isAlertLabelHidden {
-            var xPosition = alertIcon.frame.maxX + spacing
-            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
-            var availableWidth = widthMinusMargins - alertIconDimension - spacing
-            if isDeviceRTL {
-                xPosition = alertIcon.frame.minX - availableWidth - spacing
-            }
+            let alertLabelAvailableWidth: CGFloat
             if isAlertIconHidden {
-                xPosition = origin.x
-                yPosition = yAlignedWithImageBottom
-                availableWidth = widthMinusMargins
+                alertLabelAvailableWidth = widthMinusMargins
+            } else {
+                alertLabelAvailableWidth = widthMinusMargins - alertIconDimension - spacing
             }
-            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), maximumWidth: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            let alertLabelX: CGFloat
+            let alertLabelY: CGFloat
+            if isDeviceRTL && isAlertIconHidden {
+                alertLabelX = alertIcon.frame.minX - alertLabelAvailableWidth - spacing
+                alertLabelY = alertIcon.frame.midY - 0.5 * alertIconDimension
+            } else if isAlertIconHidden {
+                alertLabelX = origin.x
+                alertLabelY = yAlignedWithImageBottom
+            } else if isDeviceRTL {
+                alertLabelX = alertIcon.frame.minX - alertLabelAvailableWidth - spacing
+                alertLabelY = alertIcon.frame.midY - 0.5 * alertIconDimension
+            } else {
+                alertLabelX = alertIcon.frame.maxX + spacing
+                alertLabelY = alertIcon.frame.midY - 0.5 * alertIconDimension
+            }
+            let alertLabelFrame = alertLabel.wmf_preferredFrame(at: CGPoint(x: alertLabelX, y: alertLabelY), maximumWidth: alertLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
             origin.y += alertLabelFrame.layoutHeight(with: 0)
         }
         
         if displayType == .readingListsTab && isDefault {
             let defaultListTagSize = defaultListTag.intrinsicContentSize
-            var x = origin.x
+            let defaultListTagX: CGFloat
             if isDeviceRTL {
-                x = size.width - defaultListTagSize.width - layoutMargins.right
+                defaultListTagX = size.width - defaultListTagSize.width - margins.right
+            } else {
+                defaultListTagX = origin.x
             }
-            var y = yAlignedWithImageBottom
+            let defaultListTagY: CGFloat
             if !isAlertIconHidden || !isAlertLabelHidden {
                 let alertMinY = isAlertIconHidden ? alertLabel.frame.minY : alertIcon.frame.minY
-                y = descriptionLabel.frame.maxY + ((alertMinY - descriptionLabel.frame.maxY) * 0.25)
+                defaultListTagY = descriptionLabel.frame.maxY + ((alertMinY - descriptionLabel.frame.maxY) * 0.25)
+            } else {
+                defaultListTagY = yAlignedWithImageBottom
             }
-            _ = defaultListTag.wmf_preferredFrame(at: CGPoint(x: x, y: y), maximumSize: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
+            defaultListTag.wmf_preferredFrame(at: CGPoint(x: defaultListTagX, y: defaultListTagY), maximumSize: defaultListTagSize, alignedBy: articleSemanticContentAttribute, apply: apply)
             defaultListTag.isHidden = false
         } else {
             defaultListTag.isHidden = true
