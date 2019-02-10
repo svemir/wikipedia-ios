@@ -124,16 +124,17 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     private var collectionViewAvailableWidth: CGFloat = 0
     
-    override open func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let size = super.sizeThatFits(size, apply: apply)
-        let layoutMargins = calculatedLayoutMargins
+    override open func sizeThatFits(_ sz: CGSize, apply: Bool) -> CGSize {
+        let size: CGSize = super.sizeThatFits(sz, apply: apply)
+        let margins: UIEdgeInsets = calculatedLayoutMargins
         
-        var widthMinusMargins = layoutWidth(for: size)
-        let minHeight = imageViewDimension + layoutMargins.top + layoutMargins.bottom
-        
+        let widthMinusMargins: CGFloat
+        let minHeight: CGFloat = imageViewDimension + margins.top + margins.bottom
         let labelsAdditionalSpacing: CGFloat = 20
-        if !isImageViewHidden {
-            widthMinusMargins = widthMinusMargins - spacing - imageViewDimension - labelsAdditionalSpacing
+        if isImageViewHidden {
+            widthMinusMargins = layoutWidth(for: size)
+        } else {
+            widthMinusMargins = layoutWidth(for: size) - spacing - imageViewDimension - labelsAdditionalSpacing
         }
         
         let titleLabelAvailableWidth: CGFloat
@@ -146,11 +147,13 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             titleLabelAvailableWidth = widthMinusMargins - statusViewDimension - 2 * spacing
         }
         
-        var x = layoutMargins.left
+        let x: CGFloat
         if isArticleRTL {
-            x = size.width - x - widthMinusMargins
+            x = size.width - margins.left - widthMinusMargins
+        } else {
+            x = margins.left
         }
-        var origin = CGPoint(x: x, y: layoutMargins.top)
+        var origin: CGPoint = CGPoint(x: x, y: margins.top)
         
         if descriptionLabel.wmf_hasText || !isImageViewHidden {
             let titleLabelFrame = titleLabel.wmf_preferredFrame(at: origin, maximumWidth: titleLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
@@ -171,11 +174,11 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             statusView.cornerRadius = 0.5 * statusViewDimension
         }
 
-        origin.y += layoutMargins.bottom
-        let height = max(origin.y, minHeight)
+        origin.y += margins.bottom
+        let height: CGFloat = max(origin.y, minHeight)
         
         let separatorXPositon: CGFloat = 0
-        let separatorWidth = size.width
+        let separatorWidth: CGFloat = size.width
         
         if (apply) {
             if (!bottomSeparator.isHidden) {
@@ -188,39 +191,47 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
         
         if (apply) {
-            let imageViewY = floor(0.5*height - 0.5*imageViewDimension)
-            var x = layoutMargins.right
-            if !isArticleRTL {
-                x = size.width - x - imageViewDimension
+            let imageViewY: CGFloat = floor(0.5*height - 0.5*imageViewDimension)
+            let imageViewX: CGFloat
+            if isArticleRTL {
+                imageViewX = margins.right
+            } else {
+                imageViewX = size.width - margins.right - imageViewDimension
             }
-            imageView.frame = CGRect(x: x, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
+            imageView.frame = CGRect(x: imageViewX, y: imageViewY, width: imageViewDimension, height: imageViewDimension)
             imageView.isHidden = isImageViewHidden
         }
         
-        var yAlignedWithImageBottom = imageView.frame.maxY - layoutMargins.bottom - (spacing * 0.5)
+        var yAlignedWithImageBottom: CGFloat = imageView.frame.maxY - margins.bottom - (spacing * 0.5)
         if !isTagsViewHidden {
-            yAlignedWithImageBottom -= layoutMargins.bottom
+            yAlignedWithImageBottom -= margins.bottom
         }
         
         if (apply && !isAlertIconHidden) {
-            var x = origin.x
+            let alertIconX: CGFloat
             if isArticleRTL {
-                x = size.width - alertIconDimension - layoutMargins.right
+                alertIconX = size.width - alertIconDimension - margins.right
+            } else {
+                alertIconX = origin.x
             }
-            alertIcon.frame = CGRect(x: x, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
+            alertIcon.frame = CGRect(x: alertIconX, y: yAlignedWithImageBottom, width: alertIconDimension, height: alertIconDimension)
             origin.y += alertIcon.frame.layoutHeight(with: 0)
         }
         
         if (apply && !isAlertLabelHidden) {
-            var xPosition = alertIcon.frame.maxX + spacing
-            var yPosition = alertIcon.frame.midY - 0.5 * alertIconDimension
-            var availableWidth = widthMinusMargins - alertIconDimension - spacing
+            let alertLabelX: CGFloat
+            let alertLabelY: CGFloat
+            let alertLabelAvailableWidth: CGFloat
             if isAlertIconHidden {
-                xPosition = origin.x
-                yPosition = yAlignedWithImageBottom
-                availableWidth = widthMinusMargins
+                alertLabelX = origin.x
+                alertLabelY = yAlignedWithImageBottom
+                alertLabelAvailableWidth = widthMinusMargins
+            } else {
+                alertLabelX = alertIcon.frame.maxX + spacing
+                alertLabelY = alertIcon.frame.midY - 0.5 * alertIconDimension
+                alertLabelAvailableWidth = widthMinusMargins - alertIconDimension - spacing
             }
-            _ = alertLabel.wmf_preferredFrame(at: CGPoint(x: xPosition, y: yPosition), maximumWidth: availableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
+            alertLabel.wmf_preferredFrame(at: CGPoint(x: alertLabelX, y: alertLabelY), maximumWidth: alertLabelAvailableWidth, alignedBy: articleSemanticContentAttribute, apply: apply)
         }
         
         if (apply && !isTagsViewHidden) {
