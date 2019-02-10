@@ -1,5 +1,4 @@
 #import "WMFViewController.h"
-#import "Wikipedia-Swift.h"
 #import "UIViewController+WMFEmptyView.h"
 
 static const NSTimeInterval WMFToolbarAnimationDuration = 0.3;

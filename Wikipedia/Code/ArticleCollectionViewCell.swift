@@ -160,8 +160,8 @@ open class ArticleCollectionViewCell: CollectionViewCell, SwipeableCell, BatchEd
         return articleSemanticContentAttribute == .forceRightToLeft
     }
     
-    open override func sizeThatFits(_ size: CGSize, apply: Bool) -> CGSize {
-        let size = super.sizeThatFits(size, apply: apply)
+    open override func sizeThatFits(_ sz: CGSize, apply: Bool) -> CGSize {
+        let size: CGSize = super.sizeThatFits(sz, apply: apply)
         if apply {
             let layoutMargins = calculatedLayoutMargins
             let isBatchEditOnRight = isDeviceRTL

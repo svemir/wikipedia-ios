@@ -1,4 +1,10 @@
-class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
+import UIKit
+
+public enum ReadingListsDisplayType {
+    case readingListsTab, addArticlesToReadingList
+}
+
+public class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     private var bottomSeparator = UIView()
     private var topSeparator = UIView()
     
@@ -15,7 +21,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
     
     private var displayType: ReadingListsDisplayType = .readingListsTab
     
-    override var alertType: ReadingListAlertType? {
+    override public var alertType: ReadingListAlertType? {
         didSet {
             guard let alertType = alertType else {
                 return
@@ -37,12 +43,12 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         singlePixelDimension = traitCollection.displayScale > 0 ? 1.0 / traitCollection.displayScale : 0.5
     }
     
-    override func setup() {
+    override public func setup() {
         imageView.layer.cornerRadius = 3
         
         bottomSeparator.isOpaque = true
@@ -78,7 +84,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         outermostStackView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         imageGrid.layer.cornerRadius = 3
-        imageGrid.masksToBounds = true
+        imageGrid.layer.masksToBounds = true
         contentView.addSubview(imageGrid)
         
         super.setup()
@@ -92,13 +98,13 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         updateFonts(with: traitCollection)
     }
     
-    override func updateFonts(with traitCollection: UITraitCollection) {
+    override public func updateFonts(with traitCollection: UITraitCollection) {
         super.updateFonts(with: traitCollection)
         articleCountLabel.font = UIFont.wmf_font(.caption2, compatibleWithTraitCollection: traitCollection)
         defaultListTag.font = UIFont.wmf_font(.italicCaption2, compatibleWithTraitCollection: traitCollection)
     }
     
-    override func updateBackgroundColorOfLabels() {
+    override public func updateBackgroundColorOfLabels() {
         super.updateBackgroundColorOfLabels()
         articleCountLabel.backgroundColor = labelBackgroundColor
         defaultListTag.backgroundColor = labelBackgroundColor
@@ -269,7 +275,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    override func configureForCompactList(at index: Int) {
+    override public func configureForCompactList(at index: Int) {
         layoutMarginsAdditions.top = 5
         layoutMarginsAdditions.bottom = 5
         titleTextStyle = .subheadline
@@ -285,7 +291,7 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    func configureAlert(for readingList: ReadingList, listLimit: Int, entryLimit: Int) {
+    public func configureAlert(for readingList: ReadingList, listLimit: Int, entryLimit: Int) {
         guard let error = readingList.APIError else {
             return
         }
@@ -309,11 +315,11 @@ class ReadingListsCollectionViewCell: ArticleCollectionViewCell {
         isAlertLabelHidden = isAddArticlesToReadingListDisplayType
     }
     
-    func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+    public func configure(readingList: ReadingList, isDefault: Bool = false, index: Int, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         configure(with: readingList.name, description: readingList.readingListDescription, isDefault: isDefault, index: index, shouldShowSeparators: shouldShowSeparators, theme: theme, for: displayType, articleCount: articleCount, lastFourArticlesWithLeadImages: lastFourArticlesWithLeadImages, layoutOnly: layoutOnly)
     }
     
-    func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
+    public func configure(with name: String?, description: String?, isDefault: Bool = false, index: Int, shouldShowSeparators: Bool = false, theme: Theme, for displayType: ReadingListsDisplayType, articleCount: Int64, lastFourArticlesWithLeadImages: [WMFArticle], layoutOnly: Bool) {
         
         articleSemanticContentAttribute = .unspecified
         

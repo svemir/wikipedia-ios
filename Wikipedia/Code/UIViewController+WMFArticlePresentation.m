@@ -1,6 +1,5 @@
 #import "UIViewController+WMFArticlePresentation.h"
 @import WMF;
-#import "Wikipedia-Swift.h"
 #import "WMFArticleViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN

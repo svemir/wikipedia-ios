@@ -5,7 +5,6 @@
 #import "WMFPageHistoryRevision.h"
 #import "UIViewController+WMFArticlePresentation.h"
 #import "UIViewController+WMFStoryboardUtilities.h"
-#import "WMFGradientView.h"
 #import "UIViewController+WMFOpenExternalUrl.h"
 
 #import "UIScrollView+ScrollSubviewToLocation.h"

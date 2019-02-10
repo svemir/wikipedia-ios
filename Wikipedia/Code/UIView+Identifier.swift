@@ -1,5 +1,6 @@
+import UIKit
 extension UIView {
-    @objc static var identifier: String {
+    @objc public static var identifier: String = {
         return String(describing: self)
-    }
+    }()
 }

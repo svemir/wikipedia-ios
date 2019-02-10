@@ -1,6 +1,6 @@
 #import "WMFEmptyView.h"
 #import <WMF/UIView+WMFDefaultNib.h>
-#import "Wikipedia-Swift.h"
+#import <WMF/WMFLocalization.h>
 
 @interface WMFEmptyView ()
 

@@ -26,7 +26,6 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 #import "WMFDailyStatsLoggingFunnel.h"
 #import <WMF/NSBundle+WMFInfoUtils.h>
-#import "Wikipedia-Swift.h"
 
 #pragma mark - Static URLs
 

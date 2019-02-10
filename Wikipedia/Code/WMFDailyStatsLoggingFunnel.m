@@ -1,5 +1,5 @@
 #import "WMFDailyStatsLoggingFunnel.h"
-#import "Wikipedia-Swift.h"
+@import WMF.Swift;
 #import <WMF/NSCalendar+WMFCommonCalendars.h>
 
 static NSString *const kAppInstallIdKey = @"appInstallID";

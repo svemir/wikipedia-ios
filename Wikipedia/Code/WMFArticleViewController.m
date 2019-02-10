@@ -34,8 +34,6 @@
 #import "WMFImageInfoController.h"
 #import "UIViewController+WMFDynamicHeightPopoverMessage.h"
 
-#import "Wikipedia-Swift.h"
-
 @import SafariServices;
 
 NS_ASSUME_NONNULL_BEGIN
