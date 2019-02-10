@@ -168,8 +168,13 @@ public class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         descriptionLabel.isHidden = !descriptionLabel.wmf_hasText
         
         if (apply && !isStatusViewHidden) {
-            let x = isArticleRTL ? titleLabel.frame.minX - spacing - statusViewDimension : titleLabel.frame.maxX + spacing
-            let statusViewFrame = CGRect(x: x, y: (titleLabel.frame.midY - 0.5 * statusViewDimension), width: statusViewDimension, height: statusViewDimension)
+            let statusViewX: CGFloat
+            if isArticleRTL {
+                statusViewX = titleLabel.frame.minX - spacing - statusViewDimension
+            } else {
+                statusViewX = titleLabel.frame.maxX + spacing
+            }
+            let statusViewFrame = CGRect(x: statusViewX, y: (titleLabel.frame.midY - 0.5 * statusViewDimension), width: statusViewDimension, height: statusViewDimension)
             statusView.frame = statusViewFrame
             statusView.layer.cornerRadius = 0.5 * statusViewDimension
         }
