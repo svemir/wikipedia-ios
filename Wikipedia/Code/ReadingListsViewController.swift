@@ -1,5 +1,9 @@
-import UIKit
-import WMF.Swift
+import Foundation
+
+enum ReadingListsDisplayType {
+    case readingListsTab, addArticlesToReadingList
+}
+
 protocol ReadingListsViewControllerDelegate: NSObjectProtocol {
     func readingListsViewController(_ readingListsViewController: ReadingListsViewController, didAddArticles articles: [WMFArticle], to readingList: ReadingList)
     func readingListsViewControllerDidChangeEmptyState(_ readingListsViewController: ReadingListsViewController, isEmpty: Bool)

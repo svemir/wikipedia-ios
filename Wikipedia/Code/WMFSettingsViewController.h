@@ -1,6 +1,5 @@
 @class MWKDataStore;
 @class WMFThemeable;
-#import "WMFViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

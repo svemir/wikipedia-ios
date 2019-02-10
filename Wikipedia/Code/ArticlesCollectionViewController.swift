@@ -1,5 +1,4 @@
 import UIKit
-import WMF.Swift
 
 protocol ArticlesCollectionViewControllerDelegate: NSObjectProtocol {
     func articlesCollectionViewController(_ viewController: ArticlesCollectionViewController, didUpdate collectionView: UICollectionView)

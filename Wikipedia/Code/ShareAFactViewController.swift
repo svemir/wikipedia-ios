@@ -1,7 +1,6 @@
 import UIKit
-import WMF.WMFGradientView;
 
-public class ShareAFactViewController: UIViewController {
+class ShareAFactViewController: UIViewController {
 
     @IBOutlet weak var articleTitleLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
@@ -29,7 +28,7 @@ public class ShareAFactViewController: UIViewController {
     
     @IBOutlet var imageViewLetterboxConstraints: [NSLayoutConstraint]!
     
-    override public func viewDidLoad() {
+    override func viewDidLoad() {
         let theme = Theme.standard //always use the standard theme for now
         view.backgroundColor = theme.colors.paperBackground
         articleTitleLabel.textColor = theme.colors.primaryText
@@ -47,26 +46,22 @@ public class ShareAFactViewController: UIViewController {
         imageGradientView.gradientLayer.endPoint = CGPoint(x: 0.5, y: 1)
     }
     
-    public func update(with articleURL: URL, articleTitle: String, text: String, image: UIImage?, imageLicense: MWKLicense?) {
+    public func update(with articleURL: URL, articleTitle: String?, text: String?, image: UIImage?, imageLicense: MWKLicense?) {
         view.semanticContentAttribute = MWLanguageInfo.semanticContentAttribute(forWMFLanguage: articleURL.wmf_language)
         textLabel.semanticContentAttribute = view.semanticContentAttribute
         articleTitleLabel.semanticContentAttribute = view.semanticContentAttribute
         imageContainerView.semanticContentAttribute = view.semanticContentAttribute
         imageLicenseView.semanticContentAttribute = view.semanticContentAttribute
         articleLicenseView.semanticContentAttribute = view.semanticContentAttribute
+        let text = text ?? ""
         imageView.image = image
         isImageViewHidden = image == nil
-        let paragraphStyle: NSMutableParagraphStyle = NSMutableParagraphStyle()
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 7
         textLabel.attributedText = NSAttributedString(string: text, attributes: [NSAttributedString.Key.paragraphStyle: paragraphStyle])
         textLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        let width: CGFloat
-        if isImageViewHidden {
-            width = view.bounds.size.width
-        } else {
-            width = round(0.5 * view.bounds.size.width)
-        }
-        let size: CGSize = textLabel.sizeThatFits(CGSize(width: width, height: view.bounds.size.height))
+        let width = isImageViewHidden ? view.bounds.size.width : round(0.5 * view.bounds.size.width)
+        let size = textLabel.sizeThatFits(CGSize(width: width, height: view.bounds.size.height))
         if size.height > 0.6 * view.bounds.size.height {
             textLabel.font = UIFont.systemFont(ofSize: 14)
             textLabel.attributedText = nil // without this line, the ellipsis wasn't being added at the end of the truncated text
@@ -101,9 +96,9 @@ public class ShareAFactViewController: UIViewController {
             return
         }
 
-        let aspect: CGFloat = image.size.height / image.size.width
-        let height: CGFloat = round(imageViewWidthConstraint.constant * aspect)
-        let remainder: CGFloat = round(0.5 * (view.bounds.size.height - height))
+        let aspect = image.size.height / image.size.width
+        let height = round(imageViewWidthConstraint.constant * aspect)
+        let remainder = round(0.5 * (view.bounds.size.height - height))
         
         guard remainder > ((view.bounds.size.height - imageWordmarkView.frame.origin.y) + imageMadeWithLabelBottomConstraint.constant) else {
             return

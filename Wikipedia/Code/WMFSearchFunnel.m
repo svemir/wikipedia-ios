@@ -1,6 +1,5 @@
 #import "WMFSearchFunnel.h"
-@import WMF.Swift;
-@import WMF.NSURL_WMFLinkParsing;
+#import "Wikipedia-Swift.h"
 
 static NSString *const kSchemaName = @"MobileWikiAppiOSSearch";
 static int const kSchemaVersion = 18289062; // Please email someone in Discovery (Search Team's Product Manager or a Data Analyst) if you change the schema name or version.

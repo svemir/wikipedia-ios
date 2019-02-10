@@ -2,7 +2,7 @@ public protocol SavedArticlesCollectionViewCellDelegate: NSObjectProtocol {
     func didSelect(_ tag: Tag)
 }
 
-public class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
+class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     private var bottomSeparator = UIView()
     private var topSeparator = UIView()
     
@@ -29,7 +29,7 @@ public class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    override public var alertType: ReadingListAlertType? {
+    override var alertType: ReadingListAlertType? {
         didSet {
             guard let alertType = alertType else {
                 return
@@ -90,14 +90,14 @@ public class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
     
     weak public var delegate: SavedArticlesCollectionViewCellDelegate?
     
-    override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         singlePixelDimension = traitCollection.displayScale > 0 ? 1.0/traitCollection.displayScale : 0.5
         configuredTags = []
         collectionView.reloadData()
     }
     
-    override public func setup() {
+    override func setup() {
         imageView.layer.cornerRadius = 3
         bottomSeparator.isOpaque = true
         contentView.addSubview(bottomSeparator)
@@ -176,7 +176,7 @@ public class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
             }
             let statusViewFrame = CGRect(x: statusViewX, y: (titleLabel.frame.midY - 0.5 * statusViewDimension), width: statusViewDimension, height: statusViewDimension)
             statusView.frame = statusViewFrame
-            statusView.layer.cornerRadius = 0.5 * statusViewDimension
+            statusView.cornerRadius = 0.5 * statusViewDimension
         }
 
         origin.y += margins.bottom
@@ -248,7 +248,7 @@ public class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         return CGSize(width: size.width, height: height)
     }
     
-    public func configureAlert(for entry: ReadingListEntry, with article: WMFArticle, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
+    func configureAlert(for entry: ReadingListEntry, with article: WMFArticle, in readingList: ReadingList?, listLimit: Int, entryLimit: Int, isInDefaultReadingList: Bool = false) {
         if let error = entry.APIError {
             switch error {
             case .entryLimit where isInDefaultReadingList:
@@ -298,7 +298,7 @@ public class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         }
     }
     
-    public func configure(article: WMFArticle, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
+    func configure(article: WMFArticle, index: Int, shouldShowSeparators: Bool = false, theme: Theme, layoutOnly: Bool) {
 
         titleHTML = article.displayTitleHTML
         descriptionLabel.text = article.capitalizedWikidataDescriptionOrSnippet
@@ -355,15 +355,15 @@ public class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
 // MARK: - UICollectionViewDataSource
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
-    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tags.readingLists.count
     }
     
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TagCollectionViewCell.identifier, for: indexPath)
         guard let tagCell = cell as? TagCollectionViewCell else {
             return cell
@@ -380,7 +380,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard configuredTags.indices.contains(indexPath.item) else {
             return
         }
@@ -390,7 +390,7 @@ extension SavedArticlesCollectionViewCell: UICollectionViewDelegate {
 }
 
 extension SavedArticlesCollectionViewCell: UICollectionViewDelegateFlowLayout {
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard !isTagsViewHidden else {
             return .zero
         }

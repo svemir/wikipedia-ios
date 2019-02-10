@@ -1,9 +1,9 @@
 public struct Tag {
-    public let readingList: ReadingList
-    public let index: Int
-    public let indexPath: IndexPath
-    public var isLast: Bool
-    public var isCollapsed: Bool
+    let readingList: ReadingList
+    let index: Int
+    let indexPath: IndexPath
+    var isLast: Bool
+    var isCollapsed: Bool
     
     init(readingList: ReadingList, index: Int, indexPath: IndexPath) {
         self.readingList = readingList

@@ -29,6 +29,7 @@
 #import "UIViewController+WMFOpenExternalUrl.h"
 
 #import "WMFSearchButton.h"
+#import "Wikipedia-Swift.h"
 #import "EXTScope.h"
 
 /**

@@ -1,5 +1,11 @@
 #import "WMFURLSchemeHandler.h"
-@import WMF;
+#import "Wikipedia-Swift.h"
+#import <WMF/WMFImageTag.h>
+#import <WMF/WMFImageTag+TargetImageWidthURL.h>
+#import <WMF/NSString+WMFHTMLParsing.h>
+#import <WMF/WMFFIFOCache.h>
+#import <WMF/NSURL+WMFSchemeHandler.h>
+#import "MWKArticle.h"
 
 static const NSInteger WMFCachedResponseCountLimit = 6;
 
