@@ -1,1 +1,1 @@
-Minor bug fix.
+Major improvements to the wikitext editing tools: new toolbars, syntax highlighting and line numbering are just a few of the changes you'll see in the new editor.
