@@ -9020,7 +9020,7 @@ ContentEditableInput.prototype.setUneditable = function (node) {
 };
 
 ContentEditableInput.prototype.onKeyPress = function (e) {
-  if (!this.cm.options.preventDefaultOnKeyPress) {
+  if (e.charCode !== 39 && e.charCode !== 34 && !this.cm.options.preventDefaultOnKeyPress) {
     return
   }
   if (e.charCode == 0) { return }
