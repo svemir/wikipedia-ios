@@ -1,6 +1,5 @@
 
 import UIKit
-import CocoaLumberjackSwift
 
 // MARK: - Delegate
 @objc public protocol WMFTableOfContentsAnimatorDelegate {
@@ -273,7 +272,7 @@ open class WMFTableOfContentsAnimator: UIPercentDrivenInteractiveTransition, UIV
             let transitionProgress = max(min(translation.x * tocMultiplier / self.presentedViewController!.view.bounds.maxX, 0.99), 0.01)
         
             self.update(transitionProgress)
-            DDLogVerbose("TOC transition progress: \(transitionProgress)")
+            DDLogVerbose("TOC transition progress: %f", transitionProgress)
         case .ended:
             self.isInteractive = false
             let velocityRequiredToPresent = -gesture.view!.bounds.width * tocMultiplier

@@ -2,6 +2,7 @@
 #import <hpple/TFHpple.h>
 #import <WMF/NSString+WMFExtras.h>
 #import <WMF/WMF-Swift.h>
+#import <WMF/WMFLogging.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -166,7 +167,7 @@ NSString *const MWKSectionShareSnippetXPath = @"/html/body/p[not(.//span[@id='co
 - (nullable NSArray *)elementsInTextMatchingXPath:(NSString *)xpath {
     NSParameterAssert(xpath.length);
     if (!self.text) {
-        DDLogWarn(@"Trying to query section text before downloaded. Section: %@", self);
+        DDLogWarn("Trying to query section text before downloaded. Section: %@", self);
         return nil;
     }
     return [[TFHpple hppleWithHTMLData:[self.text dataUsingEncoding:NSUTF8StringEncoding]] searchWithXPathQuery:xpath];

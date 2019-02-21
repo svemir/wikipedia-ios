@@ -2,7 +2,6 @@ import UIKit
 import UserNotifications
 import UserNotificationsUI
 import WMF
-import CocoaLumberjackSwift
 
 class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationContentExtension {
     @IBOutlet weak var imageView: UIImageView!
@@ -63,7 +62,7 @@ class WMFInTheNewsNotificationViewController: UIViewController, UNNotificationCo
                 summaryLabel.attributedText = attributedString
             }
         } catch let error as NSError {
-            DDLogError("erorr deserializing news story \(error)")
+            DDLogError("erorr deserializing news story %@", error.loggingDescription)
         }
 
         timeLabel.text = WMFLocalizedString("in-the-news-currently-trending", value:"Currently trending", comment: "Currently trending - indicates that the story is trending right now")

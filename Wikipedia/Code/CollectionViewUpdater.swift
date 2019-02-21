@@ -32,7 +32,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
             try fetchedResultsController.performFetch()
         } catch let error {
             assert(false)
-            DDLogError("Error fetching \(String(describing: fetchedResultsController.fetchRequest.predicate)) for \(String(describing: self.delegate)): \(error)")
+            DDLogError("Error fetching %@ for %@: %@", String(describing: fetchedResultsController.fetchRequest.predicate), String(describing: self.delegate), error.loggingDescription)
         }
         sectionCounts = fetchSectionCounts()
         collectionView.reloadData()
@@ -163,34 +163,34 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
     func performBatchUpdates() {
         let collectionView = self.collectionView
         collectionView.performBatchUpdates({
-            DDLogDebug("=== WMFBU BATCH UPDATE START \(String(describing: self.delegate)) ===")
+            DDLogDebug("=== WMFBU BATCH UPDATE START %@ ===", String(describing: self.delegate))
             for objectChange in objectChanges {
                 switch objectChange.type {
                 case .delete:
                     if let fromIndexPath = objectChange.fromIndexPath {
-                        DDLogDebug("WMFBU object delete: \(fromIndexPath)")
+                        DDLogDebug("WMFBU object delete: %@", String(describing: fromIndexPath))
                         collectionView.deleteItems(at: [fromIndexPath])
                     } else {
                         assert(false, "unhandled delete")
-                        DDLogError("Unhandled delete: \(objectChange)")
+                        DDLogError("Unhandled delete: %@", String(describing: objectChange))
                     }
                 case .insert:
                     if let toIndexPath = objectChange.toIndexPath {
-                        DDLogDebug("WMFBU object insert: \(toIndexPath)")
+                        DDLogDebug("WMFBU object insert: %@", String(describing: toIndexPath))
                         collectionView.insertItems(at: [toIndexPath])
                     } else {
                         assert(false, "unhandled insert")
-                        DDLogError("Unhandled insert: \(objectChange)")
+                        DDLogError("Unhandled insert: %@", String(describing: objectChange))
                     }
                 case .move:
                     if let fromIndexPath = objectChange.fromIndexPath, let toIndexPath = objectChange.toIndexPath {
-                        DDLogDebug("WMFBU object move delete: \(fromIndexPath)")
+                        DDLogDebug("WMFBU object move delete: %@", String(describing: fromIndexPath))
                         collectionView.deleteItems(at: [fromIndexPath])
-                        DDLogDebug("WMFBU object move insert: \(toIndexPath)")
+                        DDLogDebug("WMFBU object move insert: %@", String(describing: toIndexPath))
                         collectionView.insertItems(at: [toIndexPath])
                     } else {
                         assert(false, "unhandled move")
-                        DDLogError("Unhandled move: \(objectChange)")
+                        DDLogError("Unhandled move: %@", String(describing: objectChange))
                     }
                     break
                 case .update:
@@ -198,7 +198,7 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
                         delegate?.collectionViewUpdater(self, updateItemAtIndexPath: updatedIndexPath, in: collectionView)
                     } else {
                         assert(false, "unhandled update")
-                        DDLogDebug("WMFBU unhandled update: \(objectChange)")
+                        DDLogDebug("WMFBU unhandled update: %@", String(describing: objectChange))
                     }
                 }
             }
@@ -206,13 +206,13 @@ class CollectionViewUpdater<T: NSFetchRequestResult>: NSObject, NSFetchedResults
             for sectionChange in sectionChanges {
                 switch sectionChange.type {
                 case .delete:
-                    DDLogDebug("WMFBU section delete: \(sectionChange.sectionIndex)")
+                    DDLogDebug("WMFBU section delete: %d", sectionChange.sectionIndex)
                     collectionView.deleteSections(IndexSet(integer: sectionChange.sectionIndex))
                 case .insert:
-                    DDLogDebug("WMFBU section insert: \(sectionChange.sectionIndex)")
+                    DDLogDebug("WMFBU section insert: %d", sectionChange.sectionIndex)
                     collectionView.insertSections(IndexSet(integer: sectionChange.sectionIndex))
                 default:
-                    DDLogDebug("WMFBU section update: \(sectionChange.sectionIndex)")
+                    DDLogDebug("WMFBU section update: %d", sectionChange.sectionIndex)
                     collectionView.reloadSections(IndexSet(integer: sectionChange.sectionIndex))
                 }
             }

@@ -47,18 +47,18 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         do {
             try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
         } catch let error {
-            DDLogError("EventLoggingService: Error creating permanent cache: \(error)")
+            DDLogError("EventLoggingService: Error creating permanent cache: %@", error.loggingDescription)
         }
         do {
             var values = URLResourceValues()
             values.isExcludedFromBackup = true
             try permanentStorageDirectory.setResourceValues(values)
         } catch let error {
-            DDLogError("EventLoggingService: Error excluding from backup: \(error)")
+            DDLogError("EventLoggingService: Error excluding from backup: %@", error.loggingDescription)
         }
         
         let permanentStorageURL = permanentStorageDirectory.appendingPathComponent("Events.sqlite")
-        DDLogDebug("EventLoggingService: Events persistent store: \(permanentStorageURL)")
+        DDLogDebug("EventLoggingService: Events persistent store: %@", permanentStorageURL.absoluteString)
         
         return EventLoggingService(session: Session.shared, permanentStorageURL: permanentStorageURL)
     }()
@@ -128,7 +128,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             record.recorded = now
             record.userAgent = WikipediaAppUtils.versionedUserAgent()
             
-            DDLogDebug("EventLoggingService: \(record.objectID) recorded!")
+            DDLogDebug("EventLoggingService: %@ recorded!", record.objectID)
             
             self.save(moc)
         }
@@ -157,10 +157,10 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                         DDLogError("EventLoggingService: Could not read NSBatchDeleteResult count")
                         return
                     }
-                    DDLogInfo("EventLoggingService: Pruned \(count) events")
+                    DDLogInfo("EventLoggingService: Pruned %d events", count)
                     
                 } catch let error {
-                    DDLogError("EventLoggingService: Error pruning events: \(error.localizedDescription)")
+                    DDLogError("EventLoggingService: Error pruning events: %@", error.loggingDescription)
                 }
                 
                 let fetch: NSFetchRequest<EventRecord> = EventRecord.fetchRequest()
@@ -173,7 +173,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
                 do {
                     eventRecords = try moc.fetch(fetch)
                 } catch let error {
-                    DDLogError(error.localizedDescription)
+                    DDLogError("%@", error.loggingDescription)
                 }
                 
                 var wifiOnly = true
@@ -224,7 +224,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
     }
     
     private func postEvents(_ eventRecords: [EventRecord], onlyWiFi: Bool, completion: @escaping () -> Void) {
-        DDLogDebug("EventLoggingService: Posting \(eventRecords.count) events!")
+        DDLogDebug("EventLoggingService: Posting %d events!", eventRecords.count)
         
         let taskGroup = WMFTaskGroup()
         
@@ -324,7 +324,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
             task.resume()
             
         } catch let error {
-            DDLogError(error.localizedDescription)
+            DDLogError("%@", error.loggingDescription)
             completion(EventLoggingError.generic)
             return
         }
@@ -339,7 +339,7 @@ public class EventLoggingService : NSObject, URLSessionDelegate {
         do {
             try moc.save()
         } catch let error {
-            DDLogError("Error saving EventLoggingService managedObjectContext: \(error)")
+            DDLogError("Error saving EventLoggingService managedObjectContext: %@", error.loggingDescription)
         }
     }
     

@@ -558,7 +558,7 @@ extension ExploreCardViewController: AnnouncementCollectionViewCellDelegate {
         do {
             try dataStore.save()
         } catch let error {
-            DDLogError("Error saving after cell dismissal: \(error)")
+            DDLogError("Error saving after cell dismissal: %@", error.loggingDescription)
         }
     }
     

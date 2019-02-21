@@ -1,5 +1,4 @@
 import Foundation
-import CocoaLumberjackSwift
 import ImageIO
 import FLAnimatedImage
 
@@ -49,14 +48,14 @@ open class ImageController : NSObject {
         do {
             try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
         } catch let error {
-            DDLogError("Error creating permanent cache: \(error)")
+            DDLogError("Error creating permanent cache", error.loggingDescription)
         }
         do {
             var values = URLResourceValues()
             values.isExcludedFromBackup = true
             try permanentStorageDirectory.setResourceValues(values)
         } catch let error {
-            DDLogError("Error excluding from backup: \(error)")
+            DDLogError("Error excluding from backup", error.loggingDescription)
         }
         return ImageController(session: session, cache: cache, fileManager: fileManager, permanentStorageDirectory: permanentStorageDirectory)
     }()
@@ -74,7 +73,7 @@ open class ImageController : NSObject {
         do {
             try fileManager.createDirectory(at: permanentStorageDirectory, withIntermediateDirectories: true, attributes: nil)
         } catch let error {
-            DDLogError("Error creating permanent cache: \(error)")
+            DDLogError("Error creating permanent cache", error.loggingDescription)
         }
         return ImageController(session: session, cache: cache, fileManager: fileManager, permanentStorageDirectory: permanentStorageDirectory)
     }
@@ -167,7 +166,7 @@ open class ImageController : NSObject {
             let items = try moc.fetch(itemRequest)
             return items.first
         } catch let error {
-            DDLogError("Error fetching cache item: \(error)")
+            DDLogError("Error fetching cache item: %@", error.loggingDescription)
         }
         return nil
     }
@@ -180,7 +179,7 @@ open class ImageController : NSObject {
             let groups = try moc.fetch(groupRequest)
             return groups.first
         } catch let error {
-            DDLogError("Error fetching cache group: \(error)")
+            DDLogError("Error fetching cache group: %@", error.loggingDescription)
         }
         return nil
     }
@@ -221,7 +220,7 @@ open class ImageController : NSObject {
         do {
             try moc.save()
         } catch let error {
-            DDLogError("Error saving cache moc: \(error)")
+            DDLogError("Error saving cache moc: %@", error.loggingDescription)
         }
     }
     
@@ -230,7 +229,7 @@ open class ImageController : NSObject {
             do {
                 try self.fileManager.wmf_setValue(MIMEType, forExtendedFileAttributeNamed: WMFExtendedFileAttributeNameMIMEType, forFileAtPath: path)
             } catch let error {
-                DDLogError("Error setting extended file attribute for MIME Type: \(error)")
+                DDLogError("Error setting extended file attribute for MIME Type: %@", error.loggingDescription)
             }
         }
     }
@@ -282,10 +281,10 @@ open class ImageController : NSObject {
                         if error.domain == NSCocoaErrorDomain && error.code == NSFileWriteFileExistsError { // file exists
                             createItem = true
                         } else {
-                            DDLogError("Error moving cached file: \(error)")
+                            DDLogError("Error moving cached file: %@", error.loggingDescription)
                         }
                     } catch let error {
-                        DDLogError("Error moving cached file: \(error)")
+                        DDLogError("Error moving cached file: %@", error.loggingDescription)
                     }
                     self.perform { (moc) in
                         guard createItem else {
@@ -365,13 +364,13 @@ open class ImageController : NSObject {
                     let fileURL = self.permanentCacheFileURL(key: key, variant: item.variant)
                     try fm.removeItem(at: fileURL)
                 } catch let error {
-                    DDLogError("Error removing from permanent cache: \(error)")
+                    DDLogError("Error removing from permanent cache: %@", error.loggingDescription)
                 }
                 do {
                     let legacyFileURL = self.legacyPermanentCacheFileURL(key: key, variant: item.variant)
                     try fm.removeItem(at: legacyFileURL)
                 } catch let error {
-                    DDLogError("Error removing from permanent cache: \(error)")
+                    DDLogError("Error removing from permanent cache: %@", error.loggingDescription)
                 }
                 moc.delete(item)
             }
@@ -607,7 +606,7 @@ open class ImageController : NSObject {
                         createItem = true
                     }
                 } catch let error {
-                    DDLogError("Error moving cached file: \(error)")
+                    DDLogError("Error moving cached file: %@", error.loggingDescription)
                 }
                 
                 if !createItem {
@@ -620,7 +619,7 @@ open class ImageController : NSObject {
                             createItem = true
                         }
                     } catch let error {
-                        DDLogError("Error moving cached file: \(error)")
+                        DDLogError("Error moving cached file: %@", error.loggingDescription)
                     }
                 }
                 
@@ -643,7 +642,7 @@ open class ImageController : NSObject {
             guard error.domain != NSCocoaErrorDomain || error.code != NSFileNoSuchFileError else {
                 return
             }
-            DDLogError("Error removing legacy cache \(error)")
+            DDLogError("Error removing legacy cache %@", error.loggingDescription)
         }
     }
     

@@ -144,7 +144,7 @@ class RemoteNotificationsAPIController: Fetcher {
             if errors.isEmpty {
                 completion(nil)
             } else {
-                DDLogError("\(errors.count) of \(split.count) mark as read requests failed")
+                DDLogError("%d of %d mark as read requests failed", errors.count, split.count)
                 completion(MarkReadError.multiple(errors))
             }
         }

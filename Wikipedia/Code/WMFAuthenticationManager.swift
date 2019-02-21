@@ -88,13 +88,13 @@ public class WMFAuthenticationManager: Fetcher {
         self.loginWithSavedCredentials { (loginResult) in
             switch loginResult {
             case .success(let result):
-                DDLogDebug("\n\nSuccessfully logged in with saved credentials for user \(result.username).\n\n")
+                DDLogDebug("\n\nSuccessfully logged in with saved credentials for user %@.\n\n", result.username)
                 self.session.cloneCentralAuthCookies()
             case .alreadyLoggedIn(let result):
-                DDLogDebug("\n\nUser \(result.name) is already logged in.\n\n")
+                DDLogDebug("\n\nUser %@ is already logged in.\n\n", result.name)
                 self.session.cloneCentralAuthCookies()
             case .failure(let error):
-                DDLogDebug("\n\nloginWithSavedCredentials failed with error \(error).\n\n")
+                DDLogDebug("\n\nloginWithSavedCredentials failed with error %@.\n\n", error.loggingDescription)
             }
             DispatchQueue.main.async {
                 completion(loginResult)
@@ -227,7 +227,7 @@ public class WMFAuthenticationManager: Fetcher {
             DispatchQueue.main.async {
                 if let error = error {
                     // ...but if "action=logout" fails we *still* want to clear local login settings, which still effectively logs the user out.
-                    DDLogDebug("Failed to log out, delete login tokens and other browser cookies: \(error)")
+                    DDLogDebug("Failed to log out, delete login tokens and other browser cookies: %@", error.loggingDescription)
                     self.resetLocalUserLoginSettings()
                     completion()
                     postDidLogOutNotification()

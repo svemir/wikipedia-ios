@@ -150,7 +150,7 @@ class PlaceSearchService
                 return
             }
         } catch let error {
-            DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+            DDLogError("Error fetching saved articles: %@",  error.loggingDescription)
         }
         done()
     }

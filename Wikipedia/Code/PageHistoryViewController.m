@@ -71,7 +71,7 @@
                 if (!self) {
                     return;
                 }
-                DDLogError(@"Failed to fetch items for section %@. %@", self, error);
+                DDLogError("Failed to fetch items for section %@. %@", self, error);
                 [[WMFAlertManager sharedInstance] showErrorAlert:error sticky:YES dismissPreviousAlerts:NO tapCallBack:NULL];
                 self.isLoadingData = NO;
             });

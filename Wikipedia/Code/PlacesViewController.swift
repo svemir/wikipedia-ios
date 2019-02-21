@@ -501,7 +501,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 try dataStore.viewContext.save()
                 try articleFetchedResultsController.performFetch()
             } catch let fetchError {
-                DDLogError("Error fetching articles for places: \(fetchError)")
+                DDLogError("Error fetching articles for places: %@", fetchError.loggingDescription)
             }
             updatePlaces()
             articleFetchedResultsController.delegate = self
@@ -545,7 +545,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         
         let regionThatFits = region(thatFits: searchRegion)
         let movedSignificantly = isDistanceSignificant(betweenRegion: regionThatFits, andRegion: visibleRegion)
-        DDLogDebug("movedSignificantly=\(movedSignificantly)")
         
         // Update Redo Search Button
         redoSearchButton.isHidden = !(movedSignificantly)
@@ -611,7 +610,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 defer { done() }
                 
                 guard result.error == nil else {
-                    DDLogError("Error fetching saved articles: \(result.error?.localizedDescription ?? "unknown error")")
+                    DDLogError("Error fetching saved articles: %@", result.error?.loggingDescription ?? "unknown error")
                     return
                 }
                 guard let request = result.fetchRequest else {
@@ -634,7 +633,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         self.wmf_showAlertWithMessage(WMFLocalizedString("places-no-saved-articles-have-location", value:"None of your saved articles have location information", comment:"Indicates to the user that none of their saved articles have location information"))
                     }
                 } catch let error {
-                    DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+                    DDLogError("Error fetching saved articles: %@", error.loggingDescription)
                 }
             })
 
@@ -671,11 +670,11 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     
     func showDidYouMeanButton(search: PlaceSearch) {
         guard let description = search.localizedDescription else {
-            DDLogError("Could not show Did You Mean button = no description for search:\n\(search)")
+            DDLogError("Could not show Did You Mean button = no description for search:\n%@", String(describing: search))
             return
         }
         
-        DDLogDebug("Did you mean '\(String(describing: search.localizedDescription))'?")
+        DDLogDebug("Did you mean '%@'?", String(describing: search.localizedDescription))
         self.didYouMeanSearch = search
         self.didYouMeanButton.isHidden = false
         
@@ -710,7 +709,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         }
         
         wikidataFetcher.wikidataBoundingRegion(forArticleURL: articleURL, failure: { (error) in
-            DDLogError("Error fetching bounding region from Wikidata: \(error)")
+            DDLogError("Error fetching bounding region from Wikidata: %@", error.loggingDescription)
             fail()
         }, success: { (region) in
             DispatchQueue.main.async {
@@ -804,7 +803,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 guard let locationResults = searchResult.locationResults else {
                     return
                 }
-                DDLogDebug("got \(locationResults.count) top places!")
                 self._displayCountForTopPlaces = locationResults.count
             })
         }
@@ -1179,7 +1177,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             }
             try moc.save()
         } catch let error {
-            DDLogError("error saving to place search history: \(error.localizedDescription)")
+            DDLogError("error saving to place search history: %@", error.loggingDescription)
         }
     }
     
@@ -1195,7 +1193,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             }
             try moc.save()
         } catch let error {
-            DDLogError("Error clearing recent place searches: \(error)")
+            DDLogError("Error clearing recent place searches: %@", error.loggingDescription)
         }
     }
     
@@ -1209,7 +1207,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             let results = try moc.fetch(request)
             keyValue = results.first
         } catch let error {
-            DDLogError("Error fetching place search key value: \(error.localizedDescription)")
+            DDLogError("Error fetching place search key value: %@", error.loggingDescription)
         }
         return keyValue
     }
@@ -1887,7 +1885,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                     return ps
                 })
             } catch let error {
-                DDLogError("Error fetching recent place searches: \(error)")
+                DDLogError("Error fetching recent place searches: %@", error.loggingDescription)
             }
             searchSuggestionController.siteURL = siteURL
             searchSuggestionController.searches = [defaultSuggestions, recentSearches, [], []]
@@ -2023,10 +2021,6 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                     return
                 }
                 
-                if let suggestion = searchResult.searchSuggestion {
-                    DDLogDebug("got suggestion! \(suggestion)")
-                }
-                
                 let completions = self.handleCompletion(searchResults: searchResult.results ?? [], siteURL: siteURL)
                 self.isWaitingForSearchSuggestionUpdate = false
                 guard completions.count < 10 else {
@@ -2133,7 +2127,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         do {
             try moc.save()
         } catch let error {
-            DDLogError("Error removing kv: \(error.localizedDescription)")
+            DDLogError("Error removing kv: %@", error.loggingDescription)
         }
         updateSearchSuggestions(withCompletions: [], isSearchDone: false)
     }

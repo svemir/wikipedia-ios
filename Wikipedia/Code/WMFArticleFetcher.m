@@ -91,7 +91,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     NSNumber *thumbnailWidth = [[UIScreen mainScreen] wmf_leadImageWidthForScale];
     if (!thumbnailWidth) {
-        DDLogError(@"Missing thumbnail width for article request serialization: %@", articleURL);
+        DDLogError("Missing thumbnail width for article request serialization: %@", articleURL);
         thumbnailWidth = @640;
     }
 
@@ -168,7 +168,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                                       article.wikidataDescription = mwkArticle.entityDescription; // summary response not as up-to-date as mediawiki
                                                                                       NSError *saveError = nil;
                                                                                       if ([moc hasChanges] && ![moc save:&saveError]) {
-                                                                                          DDLogError(@"Error saving after updating article: %@", saveError);
+                                                                                          DDLogError("Error saving after updating article: %@", saveError);
                                                                                       }
                                                                                       if (articleCacheError) {
                                                                                           failure(articleCacheError);
@@ -206,7 +206,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
         }
         return article;
     } @catch (NSException *e) {
-        DDLogError(@"Failed to import article data. Response: %@. Error: %@", response, e);
+        DDLogError("Failed to import article data. Response: %@. Error: %@", response, e);
         if (error) {
             *error = [WMFFetcher unexpectedResponseError];
         }
@@ -223,7 +223,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
 
     NSParameterAssert(url.wmf_title);
     if (!url.wmf_title) {
-        DDLogError(@"Can't fetch nil title, cancelling implicitly.");
+        DDLogError("Can't fetch nil title, cancelling implicitly.");
         failure([WMFFetcher invalidParametersError]);
         return nil;
     }
@@ -259,16 +259,16 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
     NSURLSessionTask *task;
     if (forceDownload || forceDownloadForMismatchedHeader || !cachedArticle || !cachedArticle.revisionId || [cachedArticle isMain]) {
         if (forceDownload) {
-            DDLogInfo(@"Forcing Download for %@, fetching immediately", url);
+            DDLogInfo("Forcing Download for %@, fetching immediately", url);
         } else if (!cachedArticle) {
-            DDLogInfo(@"No cached article found for %@, fetching immediately.", url);
+            DDLogInfo("No cached article found for %@, fetching immediately.", url);
         } else if (!cachedArticle.revisionId) {
-            DDLogInfo(@"Cached article for %@ doesn't have revision ID, fetching immediately.", url);
+            DDLogInfo("Cached article for %@ doesn't have revision ID, fetching immediately.", url);
         } else if (forceDownloadForMismatchedHeader) {
-            DDLogInfo(@"Language Headers are mismatched for %@, assume simplified vs traditional as changed, fetching immediately.", url);
+            DDLogInfo("Language Headers are mismatched for %@, assume simplified vs traditional as changed, fetching immediately.", url);
         } else {
             //Main pages dont neccesarily have revisions every day. We can't rely on the revision check
-            DDLogInfo(@"Cached article for main page: %@, fetching immediately.", url);
+            DDLogInfo("Cached article for main page: %@, fetching immediately.", url);
         }
         task = [self fetchArticleForURL:url saveToDisk:saveToDisk priority:priority failure:failure success:success];
     } else {
@@ -283,7 +283,7 @@ NSString *const WMFArticleFetcherErrorCachedFallbackArticleKey = @"WMFArticleFet
                                                                            failure([WMFFetcher cancelledError]);
                                                                            return;
                                                                        } else if ([[results revisions].firstObject.revisionId isEqualToNumber:cachedArticle.revisionId]) {
-                                                                           DDLogInfo(@"Returning up-to-date local revision of %@", url);
+                                                                           DDLogInfo("Returning up-to-date local revision of %@", url);
                                                                            success(cachedArticle, url);
                                                                            return;
                                                                        } else {

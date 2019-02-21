@@ -201,7 +201,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 }
 
 - (void)handleJavascriptConsoleLogScriptMessage:(NSDictionary *)messageDict {
-    DDLogDebug(@"\n\nMessage from Javascript console:\n\t%@\n\n", messageDict[@"message"]);
+    DDLogDebug("\n\nMessage from Javascript console:\n\t%@\n\n", messageDict[@"message"]);
 }
 
 - (void)handleLinkClickedScriptMessage:(NSDictionary *)messageDict {
@@ -269,7 +269,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
                                        NSString *selectedImageSrcURLString = messageDict[@"src"];
                                        NSCParameterAssert(selectedImageSrcURLString.length);
                                        if (!selectedImageSrcURLString.length) {
-                                           DDLogError(@"Image clicked callback invoked with empty src url: %@", messageDict);
+                                           DDLogError("Image clicked callback invoked with empty src url: %@", messageDict);
                                            return;
                                        }
 
@@ -1102,7 +1102,7 @@ typedef NS_ENUM(NSUInteger, WMFFindInPageScrollDirection) {
 #pragma mark - WKNavigationDelegate
 
 - (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
-    DDLogError(@"webViewContentProcessDidTerminate: %@", webView);
+    DDLogError("webViewContentProcessDidTerminate: %@", webView);
     [self displayArticle];
 }
 

@@ -198,7 +198,7 @@ static uint64_t bundleHash() {
     NSString *channelName = self.crossProcessNotificationChannelName;
     assert(channelName);
     if (!channelName) {
-        DDLogError(@"missing channel name");
+        DDLogError("missing channel name");
         return;
     }
     const char *name = [channelName UTF8String];
@@ -233,7 +233,7 @@ static uint64_t bundleHash() {
     NSError *persistentStoreError = nil;
     if (nil == [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError]) {
         // TODO: Metrics
-        DDLogError(@"Error adding persistent store: %@", persistentStoreError);
+        DDLogError("Error adding persistent store: %@", persistentStoreError);
         NSError *moveError = nil;
         NSFileManager *fileManager = [NSFileManager defaultManager];
         NSString *uuid = [[NSUUID UUID] UUIDString];
@@ -246,7 +246,7 @@ static uint64_t bundleHash() {
         persistentStoreError = nil;
         if (nil == [persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:coreDataDBURL options:options error:&persistentStoreError]) {
             // TODO: Metrics
-            DDLogError(@"Second error after adding persistent store: %@", persistentStoreError);
+            DDLogError("Second error after adding persistent store: %@", persistentStoreError);
         }
     }
 
@@ -482,7 +482,7 @@ static uint64_t bundleHash() {
     [moc performBlockAndWait:^{
         NSError *mainContextSaveError = nil;
         if ([moc hasChanges] && ![moc save:&mainContextSaveError]) {
-            DDLogError(@"Error saving main context: %@", mainContextSaveError);
+            DDLogError("Error saving main context: %@", mainContextSaveError);
         }
     }];
 }
@@ -569,7 +569,7 @@ static uint64_t bundleHash() {
         }
     }
     if (addError) {
-        DDLogError(@"Error adding to default reading list: %@", addError);
+        DDLogError("Error adding to default reading list: %@", addError);
     } else {
         [moc wmf_setValue:@(5) forKey:WMFLibraryVersionKey];
     }
@@ -592,7 +592,7 @@ static uint64_t bundleHash() {
         if ([self migrateContentGroupsToPreviewContentInManagedObjectContext:moc error:nil]) {
             [moc wmf_setValue:@(1) forKey:WMFLibraryVersionKey];
             if ([moc hasChanges] && ![moc save:&migrationError]) {
-                DDLogError(@"Error saving during migration: %@", migrationError);
+                DDLogError("Error saving during migration: %@", migrationError);
                 return;
             }
         } else {
@@ -602,14 +602,14 @@ static uint64_t bundleHash() {
 
     if (currentLibraryVersion < 5) {
         if (![self migrateToReadingListsInManagedObjectContext:moc error:&migrationError]) {
-            DDLogError(@"Error during migration: %@", migrationError);
+            DDLogError("Error during migration: %@", migrationError);
             return;
         }
     }
 
     if (currentLibraryVersion < 6) {
         if (![self migrateMainPageContentGroupInManagedObjectContext:moc error:&migrationError]) {
-            DDLogError(@"Error during migration: %@", migrationError);
+            DDLogError("Error during migration: %@", migrationError);
             return;
         }
     }
@@ -620,11 +620,11 @@ static uint64_t bundleHash() {
             [moc wmf_setValue:@(7) forKey:WMFLibraryVersionKey];
             NSError *migrationSaveError = nil;
             if ([moc hasChanges] && ![moc save:&migrationSaveError]) {
-                DDLogError(@"Error saving during migration: %@", migrationSaveError);
+                DDLogError("Error saving during migration: %@", migrationSaveError);
                 return;
             }
         } else {
-            DDLogError(@"Error enabling file protection: %@", fileProtectionError);
+            DDLogError("Error enabling file protection: %@", fileProtectionError);
             return;
         }
     }
@@ -658,7 +658,7 @@ static uint64_t bundleHash() {
     NSError *fetchError = nil;
     NSArray *contentGroups = [moc executeFetchRequest:request error:&fetchError];
     if (fetchError) {
-        DDLogError(@"Error fetching content groups: %@", fetchError);
+        DDLogError("Error fetching content groups: %@", fetchError);
         if (error) {
             *error = fetchError;
         }
@@ -692,7 +692,7 @@ static uint64_t bundleHash() {
                 NSError *saveError = nil;
                 [moc save:&saveError];
                 if (saveError) {
-                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
+                    DDLogError("Error saving downloaded articles: %@", fetchError);
                     if (error) {
                         *error = saveError;
                     }
@@ -704,7 +704,7 @@ static uint64_t bundleHash() {
 
         contentGroups = [moc executeFetchRequest:request error:&fetchError];
         if (fetchError) {
-            DDLogError(@"Error fetching content groups: %@", fetchError);
+            DDLogError("Error fetching content groups: %@", fetchError);
             if (error) {
                 *error = fetchError;
             }
@@ -721,7 +721,7 @@ static uint64_t bundleHash() {
     NSError *fetchError = nil;
     NSArray *downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
     if (fetchError) {
-        DDLogError(@"Error fetching downloaded articles: %@", fetchError);
+        DDLogError("Error fetching downloaded articles: %@", fetchError);
         return;
     }
 
@@ -735,7 +735,7 @@ static uint64_t bundleHash() {
                 NSError *saveError = nil;
                 [moc save:&saveError];
                 if (saveError) {
-                    DDLogError(@"Error saving downloaded articles: %@", fetchError);
+                    DDLogError("Error saving downloaded articles: %@", fetchError);
                     return;
                 }
                 [moc reset];
@@ -744,7 +744,7 @@ static uint64_t bundleHash() {
 
         downloadedArticles = [moc executeFetchRequest:request error:&fetchError];
         if (fetchError) {
-            DDLogError(@"Error fetching downloaded articles: %@", fetchError);
+            DDLogError("Error fetching downloaded articles: %@", fetchError);
             return;
         }
     }
@@ -754,7 +754,7 @@ static uint64_t bundleHash() {
     const char *dbPath = [[MWKDataStore legacyYapDatabasePath] UTF8String];
     sqlite3 *db;
     if (sqlite3_open(dbPath, &db) != SQLITE_OK) {
-        DDLogError(@"Failed to open legacy db");
+        DDLogError("Failed to open legacy db");
         return YES;
     }
 
@@ -762,7 +762,7 @@ static uint64_t bundleHash() {
     const char *query = "SELECT * FROM database2;";
     if (sqlite3_prepare_v2(db, query, -1, &statement, NULL) != SQLITE_OK) {
         const char *errmsg = sqlite3_errmsg(db);
-        DDLogError(@"Failed to prepare query: %s", errmsg);
+        DDLogError("Failed to prepare query: %s", errmsg);
         return YES;
     }
 
@@ -890,7 +890,7 @@ static uint64_t bundleHash() {
                     }
                 }
             } @catch (NSException *exception) {
-                DDLogError(@"Exception trying to import legacy object for key: %@", key);
+                DDLogError("Exception trying to import legacy object for key: %@", key);
             }
 
             if (entries.count + previews.count > batchSize) {
@@ -899,7 +899,7 @@ static uint64_t bundleHash() {
                 [previews removeAllObjects];
                 NSError *batchSaveError = nil;
                 if (![moc save:&batchSaveError]) {
-                    DDLogError(@"Migration batch error: %@", batchSaveError);
+                    DDLogError("Migration batch error: %@", batchSaveError);
                 }
                 [moc reset];
             }
@@ -916,7 +916,7 @@ static uint64_t bundleHash() {
         if (error) {
             *error = saveError;
         }
-        DDLogError(@"Migration batch error: %@", saveError);
+        DDLogError("Migration batch error: %@", saveError);
     }
     [moc reset];
 
@@ -969,12 +969,12 @@ static uint64_t bundleHash() {
     NSString *pathToExclude = [self pathForSites];
     NSError *directoryCreationError = nil;
     if (![[NSFileManager defaultManager] createDirectoryAtPath:pathToExclude withIntermediateDirectories:YES attributes:nil error:&directoryCreationError]) {
-        DDLogError(@"Error creating MWKDataStore path: %@", directoryCreationError);
+        DDLogError("Error creating MWKDataStore path: %@", directoryCreationError);
     }
     NSURL *directoryURL = [NSURL fileURLWithPath:pathToExclude isDirectory:YES];
     NSError *excludeBackupError = nil;
     if (![directoryURL setResourceValue:@(YES) forKey:NSURLIsExcludedFromBackupKey error:&excludeBackupError]) {
-        DDLogError(@"Error excluding MWKDataStore path from backup: %@", excludeBackupError);
+        DDLogError("Error excluding MWKDataStore path from backup: %@", excludeBackupError);
     }
     self.articleCache = [[NSCache alloc] init];
     self.articleCache.countLimit = 50;
@@ -1328,7 +1328,7 @@ static uint64_t bundleHash() {
         NSError *htmlFetchError = nil;
         NSArray *articlesWithHTMLInTheTitle = [moc executeFetchRequest:articlesWithHTMLInTitlesFetchRequest error:&htmlFetchError];
         if (htmlFetchError) {
-            DDLogError(@"Error fetching articles with HTML in the title: %@", htmlFetchError);
+            DDLogError("Error fetching articles with HTML in the title: %@", htmlFetchError);
         }
 
         for (WMFArticle *article in articlesWithHTMLInTheTitle) {
@@ -1338,7 +1338,7 @@ static uint64_t bundleHash() {
         NSError *saveError = nil;
         [moc save:&saveError];
         if (saveError) {
-            DDLogError(@"Error saving after fixing articles with HTML in the title: %@", saveError);
+            DDLogError("Error saving after fixing articles with HTML in the title: %@", saveError);
         }
 
         NSFetchRequest *allValidArticleKeysFetchRequest = [WMFArticle fetchRequest];
@@ -1482,7 +1482,7 @@ static uint64_t bundleHash() {
                         [self removeNextArticleFromCacheRemovalList];
                     });
                 } else {
-                    DDLogError(@"Error saving cache removal list: %@", error);
+                    DDLogError("Error saving cache removal list: %@", error);
                 }
             });
         }];
@@ -1501,7 +1501,7 @@ static uint64_t bundleHash() {
         }
         NSError *error = nil;
         if (![self saveCacheRemovalListToDisk:allURLsToRemove error:&error]) {
-            DDLogError(@"Error saving cache removal list to disk: %@", error);
+            DDLogError("Error saving cache removal list to disk: %@", error);
         }
     });
 }
@@ -1549,7 +1549,7 @@ static uint64_t bundleHash() {
                 article.isDownloaded = NO;
                 NSError *saveError = nil;
                 if (![self save:&saveError]) {
-                    DDLogError(@"Error saving after cache removal: %@", saveError);
+                    DDLogError("Error saving after cache removal: %@", saveError);
                 }
                 if (completion) {
                     completion();
@@ -1593,10 +1593,10 @@ static uint64_t bundleHash() {
     [[WMFImageController sharedInstance] removeLegacyCache];
     [self
         removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
-            DDLogError(@"Error removing unreferenced articles: %@", error);
+            DDLogError("Error removing unreferenced articles: %@", error);
         }
         success:^{
-            DDLogDebug(@"Successfully removed unreferenced articles");
+            DDLogDebug("Successfully removed unreferenced articles");
         }];
 }
 

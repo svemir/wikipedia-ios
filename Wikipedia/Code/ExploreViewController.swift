@@ -798,7 +798,7 @@ extension ExploreViewController: ExploreCardCollectionViewCellDelegate {
         do {
             try self.dataStore.save()
         } catch let error {
-            DDLogError("Error saving after cell customization update: \(error)")
+            DDLogError("Error saving after cell customization update: %@", error.loggingDescription)
         }
     }
 

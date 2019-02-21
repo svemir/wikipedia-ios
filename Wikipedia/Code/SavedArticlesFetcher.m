@@ -7,11 +7,6 @@ NSString *const WMFArticleSaveToDiskDidFailNotification = @"WMFArticleSavedToDis
 NSString *const WMFArticleSaveToDiskDidFailArticleURLKey = @"WMFArticleSavedToDiskWithArticleURLKey";
 NSString *const WMFArticleSaveToDiskDidFailErrorKey = @"WMFArticleSavedToDiskWithErrorKey";
 
-static DDLogLevel const WMFSavedArticlesFetcherLogLevel = DDLogLevelDebug;
-
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF WMFSavedArticlesFetcherLogLevel
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SavedArticlesFetcher ()
@@ -95,7 +90,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     NSError *fetchError = nil;
     NSUInteger count = [moc countForFetchRequest:request error:&fetchError];
     if (fetchError) {
-        DDLogError(@"Error counting number of article to be downloaded: %@", fetchError);
+        DDLogError("Error counting number of article to be downloaded: %@", fetchError);
     }
     return count;
 }
@@ -173,7 +168,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     NSError *fetchError = nil;
     WMFArticle *article = [[moc executeFetchRequest:request error:&fetchError] firstObject];
     if (fetchError) {
-        DDLogError(@"Error fetching next article to download: %@", fetchError);
+        DDLogError("Error fetching next article to download: %@", fetchError);
     }
     dispatch_block_t updateAgain = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -206,7 +201,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         NSError *downloadedFetchError = nil;
         WMFArticle *articleToDelete = [[self.dataStore.viewContext executeFetchRequest:downloadedRequest error:&downloadedFetchError] firstObject];
         if (downloadedFetchError) {
-            DDLogError(@"Error fetching downloaded unsaved articles: %@", downloadedFetchError);
+            DDLogError("Error fetching downloaded unsaved articles: %@", downloadedFetchError);
         }
         if (articleToDelete) {
             NSURL *articleURL = article.URL;
@@ -250,7 +245,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 - (void)fetchArticleURL:(NSURL *)articleURL priority:(float)priority failure:(WMFErrorHandler)failure success:(WMFSuccessHandler)success {
     WMFAssertMainThread(@"must be called on the main thread");
     if (!articleURL.wmf_title) {
-        DDLogError(@"Attempted to save articleURL without title: %@", articleURL);
+        DDLogError("Attempted to save articleURL without title: %@", articleURL);
         failure([WMFFetcher invalidParametersError]);
         return;
     }
@@ -378,7 +373,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
                 return;
             }
             if (info.count == 0) {
-                DDLogVerbose(@"No gallery images to fetch.");
+                DDLogVerbose("No gallery images to fetch.");
                 success();
                 return;
             }
@@ -393,7 +388,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
         [MWKImage mapFilenamesFromImages:[article imagesForGallery]];
 
     if (imageFileTitles.count == 0) {
-        DDLogVerbose(@"No image info to fetch.");
+        DDLogVerbose("No image info to fetch.");
         success(imageFileTitles);
         return;
     }
@@ -451,7 +446,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
 
 - (void)cancelFetchForArticleURL:(NSURL *)URL {
     WMFAssertMainThread(@"must be called on the main thread");
-    DDLogVerbose(@"Canceling saved page download for title: %@", URL);
+    DDLogVerbose("Canceling saved page download for title: %@", URL);
     [self.articleFetcher cancelFetchForArticleURL:URL];
     [self.fetchOperationsByArticleTitle removeObjectForKey:URL];
 }
@@ -467,10 +462,10 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     //Uncomment when dropping iOS 9
     if (error) {
         // store errors for later reporting
-        DDLogError(@"Failed to download saved page %@ due to error: %@", url, error);
+        DDLogError("Failed to download saved page %@ due to error: %@", url, error);
         self.errorsByArticleTitle[url] = error;
     } else {
-        DDLogInfo(@"Downloaded saved page: %@", url);
+        DDLogInfo("Downloaded saved page: %@", url);
     }
 
     // stop tracking operation, effectively advancing the progress
@@ -498,7 +493,7 @@ static SavedArticlesFetcher *_articleFetcher = nil;
     NSError *saveError = nil;
     [self.dataStore save:&saveError];
     if (saveError) {
-        DDLogError(@"Error saving after saved articles fetch: %@", saveError);
+        DDLogError("Error saving after saved articles fetch: %@", saveError);
     }
 }
 

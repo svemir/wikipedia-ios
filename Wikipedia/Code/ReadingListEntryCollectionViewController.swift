@@ -112,7 +112,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
             try dataStore.readingListsController.remove(articles: articles, readingList: readingList)
             UIAccessibility.post(notification: UIAccessibility.Notification.announcement, argument: CommonStrings.articleDeletedNotification(articleCount: articlesCount))
         } catch {
-            DDLogError("Error removing entries from a reading list: \(error)")
+            DDLogError("Error removing entries from a reading list: %@", error.loggingDescription)
         }
         guard let articleURL = url, dataStore.savedPageList.entry(for: articleURL) == nil else {
             return
@@ -144,7 +144,7 @@ class ReadingListEntryCollectionViewController: ColumnarCollectionViewController
                 do {
                     try moc.save()
                 } catch {
-                    DDLogError("Error updating sort order: \(error)")
+                    DDLogError("Error updating sort order: %@", error.loggingDescription)
                 }
             }
         }

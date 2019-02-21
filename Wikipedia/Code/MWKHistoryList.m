@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSError *migrationError = nil;
     if (![self.dataStore save:&migrationError]) {
-        DDLogError(@"Error migrating legacy history list: %@", migrationError);
+        DDLogError("Error migrating legacy history list: %@", migrationError);
         return;
     }
 
@@ -133,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
-        DDLogError(@"Error adding pages to history: %@", error);
+        DDLogError("Error adding pages to history: %@", error);
     }
 }
 
@@ -164,7 +164,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
-        DDLogError(@"Error adding pages to history: %@", error);
+        DDLogError("Error adding pages to history: %@", error);
     }
 }
 
@@ -183,7 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
-        DDLogError(@"Error setting fragment and scroll position: %@", error);
+        DDLogError("Error setting fragment and scroll position: %@", error);
     }
 }
 
@@ -201,7 +201,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
-        DDLogError(@"Error setting significantly viewed: %@", error);
+        DDLogError("Error setting significantly viewed: %@", error);
     }
 }
 
@@ -221,7 +221,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
-        DDLogError(@"Error setting last viewed date: %@", error);
+        DDLogError("Error setting last viewed date: %@", error);
     }
 }
 
@@ -234,7 +234,7 @@ NS_ASSUME_NONNULL_BEGIN
 
     NSError *error = nil;
     if (![self.dataStore save:&error]) {
-        DDLogError(@"Error removing all entries: %@", error);
+        DDLogError("Error removing all entries: %@", error);
     }
 }
 

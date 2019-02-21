@@ -5,6 +5,5 @@
 #import "XCTestCase+MWKFixtures.h"
 #import "WMFHTTPHangingProtocol.h"
 #import <Nocilla/Nocilla.h>
-#import <CocoaLumberjackSwift/CocoaLumberjackSwift.h>
 #import "WebViewController.h"
 #import "UIViewController+WMFStoryboardUtilities.h"

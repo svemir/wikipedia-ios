@@ -124,11 +124,11 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 }
 
 - (void)application:(UIApplication *)application didFailToContinueUserActivityWithType:(NSString *)userActivityType error:(NSError *)error {
-    DDLogDebug(@"didFailToContinueUserActivityWithType: %@ error: %@", userActivityType, error);
+    DDLogDebug("didFailToContinueUserActivityWithType: %@ error: %@", userActivityType, error);
 }
 
 - (void)application:(UIApplication *)application didUpdateUserActivity:(NSUserActivity *)userActivity {
-    DDLogDebug(@"didUpdateUserActivity: %@", userActivity);
+    DDLogDebug("didUpdateUserActivity: %@", userActivity);
 }
 
 #pragma mark - NSURL Handling

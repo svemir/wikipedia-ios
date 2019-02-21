@@ -106,7 +106,7 @@ extension AddArticlesToReadingListViewController: ReadingListsViewControllerDele
             do {
                 try dataStore.readingListsController.remove(articles: articles, readingList: moveFromReadingList)
             } catch let error {
-                DDLogError("Error removing articles after move: \(error)")
+                DDLogError("Error removing articles after move: %@", error.loggingDescription)
             }
         }
         delegate?.addArticlesToReadingList(self, didAddArticles: articles, to: readingList)

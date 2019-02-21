@@ -70,7 +70,7 @@ extension NSManagedObjectContext {
                     let articles = try self.wmf_createOrUpdateArticleSummmaries(withSummaryResponses: summaryResponses)
                     completion(articles)
                 } catch let error {
-                    DDLogError("Error fetching saved articles: \(error.localizedDescription)")
+                    DDLogError("Error fetching saved articles: %@", error.loggingDescription)
                     completion([])
                 }
             }

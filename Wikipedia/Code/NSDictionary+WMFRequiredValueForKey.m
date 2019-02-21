@@ -22,11 +22,11 @@ NSString *const WMFFailingDictionaryUserInfoKey = @"WMFFailingDictionaryUserInfo
     };
     id value = self[key];
     if (!value) {
-        DDLogError(@"Unexpected nil for key %@ in %@.", key, self);
+        DDLogError("Unexpected nil for key %@ in %@.", key, self);
         WMFSafeAssign(outError, errorWithCode(WMFInvalidValueForKeyErrorNoValue));
         return nil;
     } else if (![value isKindOfClass:aClass]) {
-        DDLogError(@"Expected instance of %@, but got %@ for key %@", aClass, [value class], key);
+        DDLogError("Expected instance of %@, but got %@ for key %@", aClass, [value class], key);
         WMFSafeAssign(outError, errorWithCode(WMFInvalidValueForKeyErrorIncorrectType));
         return nil;
     } else {

@@ -550,7 +550,7 @@
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
-        DDLogError(@"Error fetching content groups: %@", fetchError);
+        DDLogError("Error fetching content groups: %@", fetchError);
         return;
     }
     [contentGroups enumerateObjectsUsingBlock:^(WMFContentGroup *_Nonnull section, NSUInteger idx, BOOL *_Nonnull stop) {
@@ -565,7 +565,7 @@
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError || !contentGroups) {
-        DDLogError(@"Error fetching content groups: %@", fetchError);
+        DDLogError("Error fetching content groups: %@", fetchError);
         return @[];
     }
     return contentGroups;
@@ -616,7 +616,7 @@
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
-        DDLogError(@"Error fetching content groups: %@", fetchError);
+        DDLogError("Error fetching content groups: %@", fetchError);
         return nil;
     }
     return [contentGroups firstObject];
@@ -636,7 +636,7 @@
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
-        DDLogError(@"Error fetching content groups: %@", fetchError);
+        DDLogError("Error fetching content groups: %@", fetchError);
         return nil;
     }
     return [contentGroups firstObject];
@@ -657,7 +657,7 @@
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
-        DDLogError(@"Error fetching content groups: %@", fetchError);
+        DDLogError("Error fetching content groups: %@", fetchError);
         return nil;
     }
     return [contentGroups firstObject];
@@ -670,7 +670,7 @@
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
-        DDLogError(@"Error fetching content groups: %@", fetchError);
+        DDLogError("Error fetching content groups: %@", fetchError);
         return nil;
     }
     return [contentGroups firstObject];
@@ -682,7 +682,7 @@
     NSError *fetchError = nil;
     NSArray *contentGroups = [self executeFetchRequest:fetchRequest error:&fetchError];
     if (fetchError) {
-        DDLogError(@"Error fetching content groups: %@", fetchError);
+        DDLogError("Error fetching content groups: %@", fetchError);
         return nil;
     }
     return contentGroups;

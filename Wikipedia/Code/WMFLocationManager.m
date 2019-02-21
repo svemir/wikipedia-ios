@@ -4,12 +4,6 @@
 #import <WMF/CLLocationManager+WMFLocationManagers.h>
 #import <WMF/WMFLogging.h>
 #import <WMF/EXTScope.h>
-
-static DDLogLevel WMFLocationManagerLogLevel = DDLogLevelInfo;
-
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF WMFLocationManagerLogLevel
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WMFLocationManager () <CLLocationManagerDelegate>
@@ -120,15 +114,15 @@ NS_ASSUME_NONNULL_BEGIN
     if (status == kCLAuthorizationStatusNotDetermined) {
         NSParameterAssert([CLLocationManager locationServicesEnabled]);
         if (self.significantLocationUpdatesOnly) {
-            DDLogInfo(@"%@ is requesting authorization to access location always.", self);
+            DDLogInfo("%@ is requesting authorization to access location always.", self);
             [self.locationManager requestAlwaysAuthorization];
         } else {
-            DDLogInfo(@"%@ is requesting authorization to access location when in use.", self);
+            DDLogInfo("%@ is requesting authorization to access location when in use.", self);
             [self.locationManager requestWhenInUseAuthorization];
         }
         return YES;
     }
-    DDLogVerbose(@"%@ is skipping authorization request because status is %d.", self, status);
+    DDLogVerbose("%@ is skipping authorization request because status is %d.", self, status);
     return NO;
 }
 
@@ -149,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSParameterAssert([WMFLocationManager isAuthorized]);
 
     self.updating = YES;
-    DDLogDebug(@"%@ starting monitoring location & heading updates.", self);
+    DDLogDebug("%@ starting monitoring location & heading updates.", self);
     [self startLocationUpdates];
     [self startHeadingUpdates];
 }
@@ -157,7 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopMonitoringLocation {
     if (self.isUpdating) {
         self.updating = NO;
-        DDLogDebug(@"%@ stopping location & heading updates.", self);
+        DDLogDebug("%@ stopping location & heading updates.", self);
         [self stopLocationUpdates];
         [self stopHeadingUpdates];
     }
@@ -242,13 +236,13 @@ NS_ASSUME_NONNULL_BEGIN
     switch (status) {
         case kCLAuthorizationStatusNotDetermined:
         case kCLAuthorizationStatusRestricted: {
-            DDLogVerbose(@"Ignoring not determined status call, should have already requested authorization.");
+            DDLogVerbose("Ignoring not determined status call, should have already requested authorization.");
             break;
         }
 
         case kCLAuthorizationStatusDenied: {
             if ([self.delegate respondsToSelector:@selector(locationManager:didChangeEnabledState:)]) {
-                DDLogInfo(@"Informing delegate about denied access to user's location.");
+                DDLogInfo("Informing delegate about denied access to user's location.");
                 [self.delegate locationManager:self didChangeEnabledState:NO];
             }
             break;
@@ -256,7 +250,7 @@ NS_ASSUME_NONNULL_BEGIN
 
         case kCLAuthorizationStatusAuthorizedWhenInUse:
         case kCLAuthorizationStatusAuthorizedAlways: {
-            DDLogInfo(@"%@ was granted access to location when in use, attempting to monitor location.", self);
+            DDLogInfo("%@ was granted access to location when in use, attempting to monitor location.", self);
             if ([self.delegate respondsToSelector:@selector(locationManager:didChangeEnabledState:)]) {
                 [self.delegate locationManager:self didChangeEnabledState:YES];
             }
@@ -274,7 +268,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     self.lastLocation = manager.location;
-    DDLogVerbose(@"%@ updated location: %@", self, self.lastLocation);
+    DDLogVerbose("%@ updated location: %@", self, self.lastLocation);
     if ([self.delegate respondsToSelector:@selector(locationManager:didUpdateLocation:)]) {
         [self.delegate locationManager:self didUpdateLocation:self.lastLocation];
     }
@@ -286,7 +280,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     self.lastHeading = newHeading;
-    DDLogVerbose(@"%@ updated heading to %@", self, self.lastHeading);
+    DDLogVerbose("%@ updated heading to %@", self, self.lastHeading);
     if ([self.delegate respondsToSelector:@selector(locationManager:didUpdateHeading:)]) {
         [self.delegate locationManager:self didUpdateHeading:self.lastHeading];
     }
@@ -294,16 +288,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     if (!self.isUpdating) {
-        DDLogVerbose(@"Suppressing error received after call to stop monitoring location: %@", error);
+        DDLogVerbose("Suppressing error received after call to stop monitoring location: %@", error);
         return;
     }
 #if TARGET_IPHONE_SIMULATOR
     else if (error.domain == kCLErrorDomain && error.code == kCLErrorLocationUnknown) {
-        DDLogVerbose(@"Suppressing unknown location error.");
+        DDLogVerbose("Suppressing unknown location error.");
         return;
     }
 #endif
-    DDLogError(@"%@ encountered error: %@", self, error);
+    DDLogError("%@ encountered error: %@", self, error);
     if ([self.delegate respondsToSelector:@selector(locationManager:didReceiveError:)]) {
         [self.delegate locationManager:self didReceiveError:error];
     }

@@ -239,7 +239,7 @@ extension WKWebView {
             guard let error = error else {
                 return
             }
-            DDLogError("Error when evaluating javascript on fetch and transform: \(error)")
+            DDLogError("Error when evaluating javascript on fetch and transform: %@", error.loggingDescription)
         }
     }
 }

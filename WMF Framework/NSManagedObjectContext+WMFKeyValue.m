@@ -13,7 +13,7 @@
     NSError *keyValueFetchError = nil;
     NSArray<WMFKeyValue *> *results = [self executeFetchRequest:request error:&keyValueFetchError];
     if (keyValueFetchError) {
-        DDLogError(@"Error fetching key value: %@", keyValueFetchError);
+        DDLogError("Error fetching key value: %@", keyValueFetchError);
     }
     return results;
 }

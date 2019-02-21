@@ -3,7 +3,6 @@
 #import "UIBarButtonItem+WMFButtonConvenience.h"
 #import <WMF/WikipediaAppUtils.h>
 #import "Wikipedia-Swift.h"
-#import "DDLog+WMFLogger.h"
 
 @import MessageUI;
 
@@ -68,10 +67,6 @@ static NSString *const WMFSettingsEmailSubject = @"Bug:";
         [vc setSubject:[WMFSettingsEmailSubject stringByAppendingString:[WikipediaAppUtils versionedUserAgent]]];
         [vc setToRecipients:@[WMFSettingsEmailAddress]];
         [vc setMessageBody:[NSString stringWithFormat:@"\n\n\n\nVersion: %@", [WikipediaAppUtils versionedUserAgent]] isHTML:NO];
-        NSData *data = [[DDLog wmf_currentLogFile] dataUsingEncoding:NSUTF8StringEncoding];
-        if (data) {
-            [vc addAttachmentData:data mimeType:@"text/plain" fileName:@"Log Data.txt"];
-        }
         vc.mailComposeDelegate = self;
         [self presentViewController:vc animated:YES completion:NULL];
     } else {

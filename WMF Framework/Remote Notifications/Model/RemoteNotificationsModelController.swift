@@ -129,7 +129,7 @@ final class RemoteNotificationsModelController: NSObject {
             do {
                 try moc.save()
             } catch let error {
-                DDLogError("Error saving RemoteNotificationsModelController managedObjectContext: \(error)")
+                DDLogError("Error saving RemoteNotificationsModelController managedObjectContext: %@", error.loggingDescription)
             }
         }
     }

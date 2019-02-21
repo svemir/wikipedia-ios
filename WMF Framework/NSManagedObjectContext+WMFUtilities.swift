@@ -22,7 +22,7 @@ public extension NSManagedObjectContext {
         do {
             results = try fetch(fetchRequest)
         } catch let error {
-            DDLogError("Error fetching: \(error)")
+            DDLogError("Error fetching: %@", error.loggingDescription)
         }
         
         return results.first

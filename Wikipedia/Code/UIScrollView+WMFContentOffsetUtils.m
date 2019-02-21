@@ -20,7 +20,7 @@
 #if DEBUG
         // log warning, but still scroll, if we get an out-of-bounds offset
         if (self.contentSize.width < offset.x || self.contentSize.height < offset.y) {
-            DDLogDebug(@"Attempting to scroll to offset %@ which exceeds contentSize scroll view %@",
+            DDLogDebug("Attempting to scroll to offset %@ which exceeds contentSize scroll view %@",
                        NSStringFromCGPoint(offset), self);
         }
 #endif
@@ -34,7 +34,7 @@
                          }
                          completion:completion];
     } else {
-        DDLogError(@"Ignoring invalid offset %@ for scroll view %@", NSStringFromCGPoint(offset), self);
+        DDLogError("Ignoring invalid offset %@ for scroll view %@", NSStringFromCGPoint(offset), self);
         if (completion) {
             completion(NO);
         }

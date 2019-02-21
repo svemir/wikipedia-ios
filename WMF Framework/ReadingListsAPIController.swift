@@ -154,13 +154,13 @@ class ReadingListsAPIController: Fetcher {
                         self.untrack(taskFor: identifier)
                     }
                     if let apiErrorType = result?["title"] as? String, let apiError = APIReadingListError(rawValue: apiErrorType), apiError != .alreadySetUp {
-                        DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(apiError)")
+                        DDLogDebug("RLAPI FAILED: %@ %@ %@", method.stringValue, path, apiError.loggingDescription)
                     } else {
                         #if DEBUG
                         if let error = error {
-                            DDLogDebug("RLAPI FAILED: \(method.stringValue) \(path) \(error)")
+                            DDLogDebug("RLAPI FAILED: %@ %@ %@", method.stringValue, path, error.loggingDescription)
                         } else {
-                            DDLogDebug("RLAPI: \(method.stringValue) \(path)")
+                            DDLogDebug("RLAPI: %@ %@", method.stringValue, path)
                         }
                         #endif
                     }
@@ -368,7 +368,7 @@ class ReadingListsAPIController: Fetcher {
             }
             
             guard let batch = result["batch"] as? [[String: Any]] else {
-                DDLogError("Unexpected result: \(result)")
+                DDLogError("Unexpected result: %@", result)
                 completion(nil, ReadingListError.unableToAddEntry)
                 return
             }

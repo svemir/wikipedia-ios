@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
                                      return [preview.displayTitle isEqualToString:articleURL.wmf_title];
                                  }];
                                  if (!matchingPreview) {
-                                     DDLogWarn(@"Couldn't find requested preview for %@. Returned previews: %@", articleURL, unsortedPreviews);
+                                     DDLogWarn("Couldn't find requested preview for %@. Returned previews: %@", articleURL, unsortedPreviews);
                                  }
                                  return matchingPreview;
                              }];

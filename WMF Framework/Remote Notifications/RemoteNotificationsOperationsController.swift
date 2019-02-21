@@ -18,7 +18,7 @@ class RemoteNotificationsOperationsController: NSObject {
         modelController = RemoteNotificationsModelController(&modelControllerInitializationError)
         deadlineController = RemoteNotificationsOperationsDeadlineController(with: modelController?.managedObjectContext)
         if let modelControllerInitializationError = modelControllerInitializationError {
-            DDLogError("Failed to initialize RemoteNotificationsModelController and RemoteNotificationsOperationsDeadlineController: \(modelControllerInitializationError)")
+            DDLogError("Failed to initialize RemoteNotificationsModelController and RemoteNotificationsOperationsDeadlineController: %@", modelControllerInitializationError.loggingDescription)
             isLocked = true
         }
 
@@ -92,7 +92,7 @@ class RemoteNotificationsOperationsController: NSObject {
 
     @objc private func modelControllerDidLoadPersistentStores(_ note: Notification) {
         if let object = note.object, let error = object as? Error {
-            DDLogDebug("RemoteNotificationsModelController failed to load persistent stores with error \(error); stopping RemoteNotificationsOperationsController")
+            DDLogDebug("RemoteNotificationsModelController failed to load persistent stores with error %@; stopping RemoteNotificationsOperationsController", error.loggingDescription)
             isLocked = true
         } else {
             isLocked = false
@@ -139,7 +139,7 @@ final class RemoteNotificationsOperationsDeadlineController {
         do {
             try remoteNotificationsContext.save()
         } catch let error {
-            DDLogError("Error saving managedObjectContext: \(error)")
+            DDLogError("Error saving managedObjectContext: %@", error.loggingDescription)
         }
     }
 

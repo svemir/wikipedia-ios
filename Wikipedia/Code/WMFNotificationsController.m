@@ -88,14 +88,14 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     UNNotificationAction *readMoreAction = [UNNotificationAction actionWithIdentifier:WMFEditRevertedReadMoreActionIdentifier title:WMFLocalizedStringWithDefaultValue(@"reverted-edit-notification-read-more-action-title", nil, nil, @"Read more", @"Title on the 'Read more' action button") options:UNNotificationActionOptionNone];
 
     if (!readNowAction || !saveForLaterAction || !shareAction || !readMoreAction) {
-        DDLogError(@"Unable to create notification categories");
+        DDLogError("Unable to create notification categories");
         return;
     }
 
     UNNotificationCategory *inTheNewsCategory = [UNNotificationCategory categoryWithIdentifier:WMFInTheNewsNotificationCategoryIdentifier actions:@[readNowAction, saveForLaterAction, shareAction] intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
 
     if (!inTheNewsCategory) {
-        DDLogError(@"Unable to create notification categories");
+        DDLogError("Unable to create notification categories");
         return;
     }
 
@@ -135,7 +135,7 @@ NSString *const WMFNotificationInfoFeedNewsStoryKey = @"feedNewsStory";
     [center addNotificationRequest:request
              withCompletionHandler:^(NSError *_Nullable error) {
                  if (error) {
-                     DDLogError(@"Error adding notification request: %@", error);
+                     DDLogError("Error adding notification request: %@", error);
                  }
              }];
     return identifier;

@@ -16,13 +16,13 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                 do {
                     try self.executeSync(on: moc)
                 } catch let error {
-                    DDLogError("error during sync operation: \(error)")
+                    DDLogError("error during sync operation: %@", error.loggingDescription)
                     do {
                         if moc.hasChanges {
                             try moc.save()
                         }
                     } catch let error {
-                        DDLogError("error during sync save: \(error)")
+                        DDLogError("error during sync save: %@", error.loggingDescription)
                     }
                     if let readingListError = error as? APIReadingListError, readingListError == .notSetup {
                         DispatchQueue.main.async {
@@ -273,7 +273,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             group.enter()
             apiController.getAllEntriesForReadingListWithID(readingListID: remoteReadingList.id, completion: { (entries, error) in
                 if let error = error {
-                    DDLogError("Error fetching entries for reading list with ID \(remoteReadingList.id): \(error)")
+                    DDLogError("Error fetching entries for reading list with ID %@: %@", remoteReadingList.id, error.loggingDescription)
                 } else {
                     remoteEntriesByReadingListID[remoteReadingList.id] = entries
                 }
@@ -415,7 +415,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                     }
                 }
             } catch let error {
-                DDLogError("error populating lists: \(error)")
+                DDLogError("error populating lists: %@", error.loggingDescription)
             }
         }
     }
@@ -509,7 +509,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             taskGroup.leave()
                         }
                         guard deleteError == nil else {
-                            DDLogError("Error deleting reading list: \(String(describing: deleteError))")
+                            DDLogError("Error deleting reading list: %@", deleteError?.loggingDescription ?? "")
                             return
                         }
                         deletedReadingLists[readingListID] = localReadingList
@@ -522,7 +522,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             taskGroup.leave()
                         }
                         guard updateError == nil else {
-                            DDLogError("Error updating reading list: \(String(describing: updateError))")
+                            DDLogError("Error updating reading list: %@", updateError?.loggingDescription ?? "")
                             return
                         }
                         updatedReadingLists[readingListID] = localReadingList
@@ -549,7 +549,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                         taskGroup.leave()
                     }
                     guard let readingListIDs = readingListIDs else {
-                        DDLogError("Error creating reading list: \(String(describing: createError))")
+                        DDLogError("Error creating reading list: %@", createError?.loggingDescription ?? "")
                         if let apiError = createError as? APIReadingListError {
                             for list in listsToCreateSubarray {
                                 failedReadingLists.append((list, apiError))
@@ -631,7 +631,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             taskGroup.leave()
                         }
                         guard deleteError == nil else {
-                            DDLogError("Error deleting reading list entry: \(String(describing: deleteError))")
+                            DDLogError("Error deleting reading list entry: %@", String(describing: deleteError))
                             return
                         }
                         deletedReadingListEntries[readingListEntryID] = localReadingListEntry
@@ -683,7 +683,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             taskGroup.leave()
                         }
                         guard let readingListEntryIDs = readingListEntryIDs else {
-                            DDLogError("Error creating reading list entry: \(String(describing: createError))")
+                            DDLogError("Error creating reading list entry: %@", String(describing: createError))
                             if let apiError = createError as? APIReadingListError {
                                 for entry in entrySubarray {
                                     failedReadingListEntries.append((entry.entry, apiError))
@@ -802,7 +802,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             }
             for readingListEntry in readingListEntries {
                 guard let listId = readingListEntry.listId, let readingList = readingListsByReadingListID[listId] else {
-                    DDLogError("Missing list for reading list entry: \(readingListEntry)")
+                    DDLogError("Missing list for reading list entry: %@ %@", readingListEntry.project, readingListEntry.title)
                     throw APIReadingListError.needsFullSync
                 }
                 finalReadingListsByEntryID[readingListEntry.id] = readingList
@@ -963,7 +963,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         
         for remoteReadingListEntry in remoteReadingListEntries {
             guard let listID = remoteReadingListEntry.listId ?? readingListID, let articleKey = remoteReadingListEntry.articleKey else {
-                DDLogError("missing id or article key for remote entry: \(remoteReadingListEntry)")
+                DDLogError("missing id or article key for remote entry: %@ %@", remoteReadingListEntry.project, remoteReadingListEntry.title)
                 assert(false)
                 continue
             }

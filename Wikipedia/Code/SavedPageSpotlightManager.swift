@@ -1,7 +1,6 @@
 import UIKit
 import MobileCoreServices
 import CoreSpotlight
-import CocoaLumberjackSwift
 
 public extension NSURL {
     @objc func searchableItemAttributes() -> CSSearchableItemAttributeSet? {
@@ -72,7 +71,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
             
             CSSearchableIndex.default().indexSearchableItems([item]) { (error) -> Void in
                 if let error = error {
-                    DDLogError("Indexing error: \(error.localizedDescription)")
+                    DDLogError("Indexing error: %@", error.loggingDescription)
                 }
             }
         }
@@ -86,7 +85,7 @@ public class WMFSavedPageSpotlightManager: NSObject {
         queue.async {
             CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [identifier]) { (error) in
                 if let error = error {
-                    DDLogError("Deindexing error: \(error.localizedDescription)")
+                    DDLogError("Deindexing error: %@", error.loggingDescription)
                 }
             }
         }

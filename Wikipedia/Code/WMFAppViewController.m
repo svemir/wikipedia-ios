@@ -359,7 +359,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 
     NSError *saveError = nil;
     if (![self.dataStore save:&saveError]) {
-        DDLogError(@"Error saving dataStore: %@", saveError);
+        DDLogError("Error saving dataStore: %@", saveError);
     }
 }
 
@@ -748,7 +748,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             NSError *error = nil;
             if (![MWKDataStore migrateToSharedContainer:&error]) {
-                DDLogError(@"Error migrating data store: %@", error);
+                DDLogError("Error migrating data store: %@", error);
             }
             error = nil;
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -768,7 +768,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
         NSError *migrationError = nil;
         [self.dataStore migrateToCoreData:&migrationError];
         if (migrationError) {
-            DDLogError(@"Error migrating: %@", migrationError);
+            DDLogError("Error migrating: %@", migrationError);
         }
         [[NSUserDefaults wmf] wmf_setDidMigrateToNewFeed:YES];
         completion();
@@ -778,7 +778,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
 - (void)migrateToQuadKeyLocationIfNecessaryWithCompletion:(nonnull dispatch_block_t)completion {
     [self.dataStore migrateToQuadKeyLocationIfNecessaryWithCompletion:^(NSError *_Nonnull error) {
         if (error) {
-            DDLogError(@"Error during location migration: %@", error);
+            DDLogError("Error during location migration: %@", error);
         }
         completion();
     }];
@@ -790,7 +790,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     } else {
         [self.dataStore
             removeUnreferencedArticlesFromDiskCacheWithFailure:^(NSError *_Nonnull error) {
-                DDLogError(@"Error during article migration: %@", error);
+                DDLogError("Error during article migration: %@", error);
                 completion();
             }
             success:^{
@@ -974,7 +974,7 @@ static const NSString *kvo_SavedArticlesFetcher_progress = @"kvo_SavedArticlesFe
     NSError *housekeepingError = nil;
     NSArray<NSURL *> *deletedArticleURLs = [self.houseKeeper performHouseKeepingOnManagedObjectContext:self.dataStore.viewContext error:&housekeepingError];
     if (housekeepingError) {
-        DDLogError(@"Error on cleanup: %@", housekeepingError);
+        DDLogError("Error on cleanup: %@", housekeepingError);
     }
 
     if (deletedArticleURLs.count > 0) {
@@ -1721,7 +1721,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSError *JSONError = nil;
     WMFFeedNewsStory *feedNewsStory = [MTLJSONAdapter modelOfClass:[WMFFeedNewsStory class] fromJSONDictionary:JSONDictionary error:&JSONError];
     if (!feedNewsStory || JSONError) {
-        DDLogError(@"Error parsing feed news story: %@", JSONError);
+        DDLogError("Error parsing feed news story: %@", JSONError);
         [self showArticleForURL:articleURL animated:NO];
         return;
     }
@@ -1843,7 +1843,7 @@ static NSString *const WMFDidShowOnboarding = @"DidShowOnboarding5.3";
     NSString *name = [@[NSStringFromClass([workerController class]), identifier] componentsJoinedByString:@"-"];
     UIBackgroundTaskIdentifier backgroundTaskIdentifier = [UIApplication.sharedApplication beginBackgroundTaskWithName:name
                                                                                                      expirationHandler:^{
-                                                                                                         DDLogWarn(@"Ending background task with name: %@", name);
+                                                                                                         DDLogWarn("Ending background task with name: %@", name);
                                                                                                          [workerController cancelWorkWithIdentifier:identifier];
                                                                                                      }];
     [self setBackgroundTaskIdentifier:backgroundTaskIdentifier forKey:identifier];

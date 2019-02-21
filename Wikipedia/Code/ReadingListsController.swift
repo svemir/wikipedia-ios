@@ -235,7 +235,7 @@ public typealias ReadingListsController = WMFReadingListsController
             do {
                 try moc.save()
             } catch let error {
-                DDLogError("Error updating name or description for reading list: \(error)")
+                DDLogError("Error updating name or description for reading list: %@", error.loggingDescription)
             }
         }
         sync()
@@ -337,7 +337,7 @@ public typealias ReadingListsController = WMFReadingListsController
             do {
                 try moc.save()
             } catch let error {
-                DDLogError("Error saving after sync state update: \(error)")
+                DDLogError("Error saving after sync state update: %@", error.loggingDescription)
             }
         }
     }
@@ -399,6 +399,8 @@ public typealias ReadingListsController = WMFReadingListsController
         }
     }
     
+
+    
     // should the default list be shown to the user
     @objc public var isDefaultListEnabled: Bool {
         get {
@@ -413,7 +415,7 @@ public typealias ReadingListsController = WMFReadingListsController
             do {
                 try moc.save()
             } catch let error {
-                DDLogError("Error saving after sync state update: \(error)")
+                DDLogError("Error saving after sync state update: %@", error.loggingDescription)
             }
         }
     }
@@ -608,7 +610,7 @@ public typealias ReadingListsController = WMFReadingListsController
             }
             sync()
         } catch let error {
-            DDLogError("Error adding article to default list: \(error)")
+            DDLogError("Error adding article to default list: %@", error.loggingDescription)
         }
     }
     
@@ -628,7 +630,7 @@ public typealias ReadingListsController = WMFReadingListsController
             let entries = try moc.fetch(entryFetchRequest)
             try markLocalDeletion(for: entries)
         } catch let error {
-            DDLogError("Error removing article from default list: \(error)")
+            DDLogError("Error removing article from default list: %@", error.loggingDescription)
         }
     }
     
@@ -648,7 +650,7 @@ public typealias ReadingListsController = WMFReadingListsController
             }
             sync()
         } catch let error {
-            DDLogError("Error removing all articles from default list: \(error)")
+            DDLogError("Error removing all articles from default list: %@", error.loggingDescription)
         }
     }
 }
@@ -754,7 +756,7 @@ public extension NSManagedObjectContext {
             do {
                 try save()
             } catch let error {
-                DDLogError("Error saving after sync state update: \(error)")
+                DDLogError("Error saving after sync state update: %@", error.loggingDescription)
             }
         }
     }
@@ -770,7 +772,7 @@ public extension NSManagedObjectContext {
             do {
                 try save()
             } catch let error {
-                DDLogError("Error saving new value for WMFReadingListsConfigMaxEntriesPerList: \(error)")
+                DDLogError("Error saving new value for WMFReadingListsConfigMaxEntriesPerList: %@", error.loggingDescription)
             }
         }
     }
@@ -784,7 +786,7 @@ public extension NSManagedObjectContext {
             do {
                 try save()
             } catch let error {
-                DDLogError("Error saving new value for WMFReadingListsConfigMaxListsPerUser: \(error)")
+                DDLogError("Error saving new value for WMFReadingListsConfigMaxListsPerUser: %@", error.loggingDescription)
             }
         }
     }

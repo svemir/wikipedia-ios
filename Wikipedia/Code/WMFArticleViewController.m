@@ -1236,7 +1236,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         @try { // TODO: REMOVE AFTER DROPPING iOS 9
             [self.pullToRefresh endRefreshing];
         } @catch (NSException *exception) {
-            DDLogError(@"Caught exception while ending refreshing: %@", exception);
+            DDLogError("Caught exception while ending refreshing: %@", exception);
         }
     }
 }
@@ -1275,7 +1275,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         priority:NSURLSessionTaskPriorityHigh
         failure:^(NSError *_Nonnull error) {
             @strongify(self);
-            DDLogError(@"Article Fetch Error: %@", [error localizedDescription]);
+            DDLogError("Article Fetch Error: %@", [error localizedDescription]);
             [self endRefreshing];
             [self hideProgressViewAnimated:YES];
             [self.delegate articleControllerDidLoadArticle:self];
@@ -1961,7 +1961,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (nullable UIViewController *)webView:(WKWebView *)webView previewingViewControllerForElement:(WKPreviewElementInfo *)elementInfo defaultActions:(NSArray<id<WKPreviewActionItem>> *)previewActions {
     NSURLComponents *linkURLComponents = [[NSURLComponents alloc] initWithURL:elementInfo.linkURL resolvingAgainstBaseURL:NO];
     NSString *eventLoggingLabel = linkURLComponents.wmf_eventLoggingLabel;
-    DDLogDebug(@"Event logging label is %@", eventLoggingLabel);
+    DDLogDebug("Event logging label is %@", eventLoggingLabel);
     if (eventLoggingLabel) {
         self.eventLoggingLabel = eventLoggingLabel;
     } else {

@@ -68,7 +68,7 @@ NSString *const MWKSavedPageExportedSchemaVersionKey = @"schemaVersion";
 
     NSError *migrationError = nil;
     if (![self.dataStore save:&migrationError]) {
-        DDLogError(@"Error migrating legacy saved pages: %@", migrationError);
+        DDLogError("Error migrating legacy saved pages: %@", migrationError);
         return;
     }
 

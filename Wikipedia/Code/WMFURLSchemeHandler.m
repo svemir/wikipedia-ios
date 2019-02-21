@@ -407,7 +407,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
         NSError *JSONError = nil;
         NSData *JSONData = [NSJSONSerialization dataWithJSONObject:responseJSON options:0 error:&JSONError];
         if (!JSONData) {
-            DDLogError(@"Error serializing mobileview JSON: %@", JSONError);
+            DDLogError("Error serializing mobileview JSON: %@", JSONError);
             notFound();
             return;
         }
@@ -440,7 +440,7 @@ static const NSInteger WMFCachedResponseCountLimit = 6;
 }
 
 - (void)webView:(nonnull WKWebView *)webView stopURLSchemeTask:(nonnull id<WKURLSchemeTask>)urlSchemeTask {
-    DDLogDebug(@"stopURLSchemeTask %@", urlSchemeTask);
+    DDLogDebug("stopURLSchemeTask %@", urlSchemeTask);
     dispatch_barrier_async(self.activeTaskQueue, ^{
         [self.activeTasks removeObject:urlSchemeTask];
     });

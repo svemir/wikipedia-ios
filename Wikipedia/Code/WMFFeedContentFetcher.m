@@ -55,7 +55,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
                                                                       options:NSRegularExpressionCaseInsensitive
                                                                         error:&error];
         if (error) {
-            DDLogError(@"Error creating cache control regex: %@", error);
+            DDLogError("Error creating cache control regex: %@", error);
         }
     });
     return cacheControlRegex;
@@ -90,7 +90,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
                              NSError *mantleError = nil;
                              WMFFeedDayResponse *responseObject = [MTLJSONAdapter modelOfClass:[WMFFeedDayResponse class] fromJSONDictionary:jsonDictionary error:&mantleError];
                              if (mantleError) {
-                                 DDLogError(@"Error parsing feed day response: %@", mantleError);
+                                 DDLogError("Error parsing feed day response: %@", mantleError);
                                  failure(mantleError);
                                  return;
                              }
@@ -138,7 +138,7 @@ static const NSInteger WMFFeedContentFetcherMinimumMaxAge = 18000; // 5 minutes
     NSString *endDateString = [[NSDateFormatter wmf_englishUTCNonDelimitedYearMonthDayFormatter] stringFromDate:endDate];
 
     if (startDateString == nil || endDateString == nil) {
-        DDLogError(@"Failed to format pageviews date URL component for dates: %@ %@", startDate, endDate);
+        DDLogError("Failed to format pageviews date URL component for dates: %@ %@", startDate, endDate);
         NSError *error = [WMFFetcher invalidParametersError];
         failure(error);
         return;

@@ -203,7 +203,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                             if ([moc hasChanges]) {
                                                 [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                                 if (![moc save:&saveError]) {
-                                                    DDLogError(@"Error saving: %@", saveError);
+                                                    DDLogError("Error saving: %@", saveError);
                                                 }
                                             }
                                             dispatch_async(dispatch_get_main_queue(), ^{
@@ -218,7 +218,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 
 #if DEBUG
                                         if ([entered count] > 0) {
-                                            DDLogError(@"Didn't leave: %@", entered);
+                                            DDLogError("Didn't leave: %@", entered);
                                         }
 #endif
                                     }];
@@ -251,7 +251,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                         [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
                                         NSError *saveError = nil;
                                         if ([moc hasChanges] && ![moc save:&saveError]) {
-                                            DDLogError(@"Error saving: %@", saveError);
+                                            DDLogError("Error saving: %@", saveError);
                                         }
                                         dispatch_async(dispatch_get_main_queue(), ^{
                                             if (completion) {
@@ -301,7 +301,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                                             didUpdate = afterCount != beforeCount;
                                             NSError *saveError = nil;
                                             if (![moc save:&saveError]) {
-                                                DDLogError(@"Error saving background source update: %@", saveError);
+                                                DDLogError("Error saving background source update: %@", saveError);
                                             }
                                         }
                                         dispatch_async(dispatch_get_main_queue(), ^{
@@ -603,7 +603,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
                 NSError *error = nil;
                 NSArray<WMFContentGroup *> *contentGroups = [moc executeFetchRequest:fetchRequest error:&error];
                 if (error) {
-                    DDLogError(@"Error fetching WMFContentGroup: %@", error);
+                    DDLogError("Error fetching WMFContentGroup: %@", error);
                 }
                 for (WMFContentGroup *contentGroup in contentGroups) {
                     if (contentGroup.undoType == WMFContentGroupUndoTypeContentGroup) {
@@ -649,7 +649,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     NSError *error = nil;
     NSArray<WMFContentGroup *> *contentGroups = [moc executeFetchRequest:fetchRequest error:&error];
     if (error) {
-        DDLogError(@"Error fetching WMFContentGroup: %@", error);
+        DDLogError("Error fetching WMFContentGroup: %@", error);
     }
     [self applyExploreFeedPreferencesToObjects:contentGroups inManagedObjectContext:moc];
 }
@@ -690,7 +690,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (void)save:(NSManagedObjectContext *)moc {
     NSError *error = nil;
     if (moc.hasChanges && ![moc save:&error]) {
-        DDLogError(@"Error saving WMFExploreFeedContentController managedObjectContext");
+        DDLogError("Error saving WMFExploreFeedContentController managedObjectContext");
     }
 }
 
@@ -774,7 +774,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
             }
             NSError *saveError = nil;
             if ([moc hasChanges] && ![moc save:&saveError]) {
-                DDLogError(@"chaos error: %@", saveError);
+                DDLogError("chaos error: %@", saveError);
             }
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (needsTeardown) {

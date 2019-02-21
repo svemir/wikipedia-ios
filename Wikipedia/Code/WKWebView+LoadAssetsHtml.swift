@@ -31,7 +31,7 @@ extension WKWebView {
 
         let localFilePath = (WikipediaAppUtils.assetsPath() as NSString).appendingPathComponent(fileName)
         guard let fileContents = try? String(contentsOfFile: localFilePath, encoding: String.Encoding.utf8) else {
-            DDLogError("\(localFilePath) contents not found");
+            DDLogError("%@ contents not found", localFilePath);
             return
         }
 

@@ -181,7 +181,7 @@ static MWKArticleSchemaVersion const MWKArticleCurrentSchemaVersion = MWKArticle
         self.protection = [self requiredProtectionStatus:@"protection" dict:dict];
     } @catch (NSException *exception) {
         self.protection = nil;
-        DDLogWarn(@"Protection Status is not a dictionary, setting to nil: %@", [[dict valueForKey:@"protection"] description]);
+        DDLogWarn("Protection Status is not a dictionary, setting to nil: %@", [[dict valueForKey:@"protection"] description]);
     }
 
     self.editable = [[self requiredNumber:@"editable" dict:dict] boolValue];

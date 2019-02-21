@@ -155,7 +155,7 @@ import Foundation
                 request.httpBody = try JSONSerialization.data(withJSONObject: bodyParameters, options: [])
                 request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
             } catch let error {
-                DDLogError("error serializing JSON: \(error)")
+                DDLogError("error serializing JSON: %@", error.loggingDescription)
             }
         case .form:
             guard let bodyParametersDictionary = bodyParameters as? [String: Any] else {
@@ -246,7 +246,7 @@ import Foundation
                 let result: T = try decoder.decode(T.self, from: data)
                 completionHandler(result, nil, response, error)
             } catch let resultParsingError {
-                DDLogError("Error parsing codable response: \(resultParsingError)")
+                DDLogError("Error parsing codable response: %@", resultParsingError.loggingDescription)
                 handleErrorResponse()
             }
         }) else {
@@ -285,7 +285,7 @@ import Foundation
                 let result: T = try decoder.decode(T.self, from: data)
                 completionHandler(result, response, error)
             } catch let resultParsingError {
-                DDLogError("Error parsing codable response: \(resultParsingError)")
+                DDLogError("Error parsing codable response: %@", resultParsingError.loggingDescription)
                 completionHandler(nil, response, resultParsingError)
             }
         }) else {
@@ -309,7 +309,7 @@ import Foundation
                 }
                 completionHandler(responseObject, response as? HTTPURLResponse, nil)
             } catch let error {
-                DDLogError("Error parsing JSON: \(error)")
+                DDLogError("Error parsing JSON: %@", error.loggingDescription)
                 completionHandler(nil, response as? HTTPURLResponse, error)
             }
         })

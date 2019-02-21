@@ -496,7 +496,7 @@ NSInteger const WMFFeedInTheNewsNotificationViewCountDays = 5;
     NSError *JSONError = nil;
     NSMutableDictionary *JSONDictionary = [[MTLJSONAdapter JSONDictionaryFromModel:newsStory error:&JSONError] mutableCopy];
     if (JSONError) {
-        DDLogError(@"Error serializing news story: %@", JSONError);
+        DDLogError("Error serializing news story: %@", JSONError);
     }
 
     NSString *articleURLString = articlePreview.URL.absoluteString;

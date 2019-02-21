@@ -69,7 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSError *fetchError = nil;
         NSArray<WMFContentGroup *> *relatedPagesContentGroups = [moc executeFetchRequest:fetchRequest error:&fetchError];
         if (fetchError) {
-            DDLogError(@"Error fetching content groups: %@", fetchError);
+            DDLogError("Error fetching content groups: %@", fetchError);
         }
 
         NSUInteger relatedPagesExclusionLimit = 1000;
@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSError *referencedArticlesRequestError = nil;
         NSArray *referencedArticles = [moc executeFetchRequest:referencedArticlesRequest error:&referencedArticlesRequestError];
         if (referencedArticlesRequestError) {
-            DDLogError(@"Error fetching related pages referenced articles: %@", referencedArticlesRequestError);
+            DDLogError("Error fetching related pages referenced articles: %@", referencedArticlesRequestError);
         }
 
         NSMutableSet<NSString *> *remainingKeys = [NSMutableSet setWithArray:articleKeys];
@@ -160,7 +160,7 @@ NS_ASSUME_NONNULL_BEGIN
         NSError *relatedSeedFetchError = nil;
         NSArray *relatedSeedResults = [moc executeFetchRequest:relatedSeedRequest error:&relatedSeedFetchError];
         if (relatedSeedFetchError) {
-            DDLogError(@"Error fetching article for related page: %@", relatedSeedFetchError);
+            DDLogError("Error fetching article for related page: %@", relatedSeedFetchError);
         }
 
         WMFArticle *article = relatedSeedResults.firstObject;

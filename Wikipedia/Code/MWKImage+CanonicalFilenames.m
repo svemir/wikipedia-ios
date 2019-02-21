@@ -10,7 +10,7 @@
         if (canonicalFilename.length) {
             return [@"File:" stringByAppendingString:canonicalFilename];
         } else {
-            DDLogWarn(@"Unable to form canonical filename from image: %@", image.sourceURLString);
+            DDLogWarn("Unable to form canonical filename from image: %@", image.sourceURLString);
             return nil;
         }
     }];

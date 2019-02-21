@@ -3,11 +3,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#undef LOG_LEVEL_DEF
-#define LOG_LEVEL_DEF WMFImageInfoControllerLogLevel
-
-static const int LOG_LEVEL_DEF = DDLogLevelDebug;
-
 NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     return [imageInfo wmf_reduce:[NSMutableDictionary dictionaryWithCapacity:imageInfo.count]
                        withBlock:^NSMutableDictionary *(NSMutableDictionary *indexedInfo, MWKImageInfo *info) {
@@ -154,7 +149,7 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     }
     NSParameterAssert(index < self.uniqueArticleImages.count);
     if (index > self.uniqueArticleImages.count) {
-        DDLogWarn(@"Attempted to fetch %lu which is beyond upper bound of %lu",
+        DDLogWarn("Attempted to fetch %lu which is beyond upper bound of %lu",
                   (unsigned long)index, (unsigned long)self.uniqueArticleImages.count);
         return WMFRangeMakeNotFound();
     }
@@ -173,14 +168,14 @@ NSDictionary *WMFIndexImageInfo(NSArray *__nullable imageInfo) {
     }
     NSParameterAssert(!WMFRangeIsNotFoundOrEmpty(batch));
     if (WMFRangeIsNotFoundOrEmpty(batch)) {
-        DDLogWarn(@"Attempted to fetch not found or empty range: %@", NSStringFromRange(batch));
+        DDLogWarn("Attempted to fetch not found or empty range: %@", NSStringFromRange(batch));
         return nil;
     } else if ([self.fetchedIndices containsIndexesInRange:batch]) {
-        DDLogDebug(@"Batch %@ has already been fetched.", NSStringFromRange(batch));
+        DDLogDebug("Batch %@ has already been fetched.", NSStringFromRange(batch));
         return nil;
     }
     NSParameterAssert(batch.length <= self.infoBatchSize);
-    DDLogDebug(@"Fetching batch: %@", NSStringFromRange(batch));
+    DDLogDebug("Fetching batch: %@", NSStringFromRange(batch));
 
     // optimistically add batch to fetched indices, then remove it if the request fails
     [self.fetchedIndices addIndexesInRange:batch];
