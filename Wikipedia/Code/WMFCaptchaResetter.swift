@@ -21,7 +21,7 @@ public struct WMFCaptchaResetterResult {
     }
 }
 
-public class WMFCaptchaResetter: Fetcher {
+public class WMFCaptchaResetter: MediaWikiFetcher {
     public func resetCaptcha(siteURL: URL, success: @escaping WMFCaptchaResetterResultBlock, failure: @escaping WMFErrorHandler){
         let parameters = [
             "action": "fancycaptchareload",

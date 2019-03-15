@@ -2,7 +2,7 @@
 /**
  *  This class provides a simple interface for performing authentication tasks.
  */
-public class WMFAuthenticationManager: Fetcher {
+public class WMFAuthenticationManager: MediaWikiFetcher {
     public enum AuthenticationResult {
         case success(_: WMFAccountLoginResult)
         case alreadyLoggedIn(_: WMFCurrentlyLoggedInUser)

@@ -23,7 +23,7 @@ public struct WMFAuthLoginInfo {
     }
 }
 
-public class WMFAuthLoginInfoFetcher: Fetcher {
+public class WMFAuthLoginInfoFetcher: MediaWikiFetcher {
     public func fetchLoginInfoForSiteURL(_ siteURL: URL, success: @escaping WMFAuthLoginInfoBlock, failure: @escaping WMFErrorHandler){
         let parameters = [
             "action": "query",

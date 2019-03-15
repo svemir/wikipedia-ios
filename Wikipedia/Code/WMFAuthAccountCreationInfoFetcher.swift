@@ -23,7 +23,7 @@ public struct WMFAuthAccountCreationInfo {
     }
 }
 
-public class WMFAuthAccountCreationInfoFetcher: Fetcher {
+public class WMFAuthAccountCreationInfoFetcher: MediaWikiFetcher {
     public func fetchAccountCreationInfoForSiteURL(_ siteURL: URL, success: @escaping WMFAuthAccountCreationInfoBlock, failure: @escaping WMFErrorHandler){
         let parameters = [
             "action": "query",

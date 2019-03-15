@@ -7,7 +7,7 @@ extension NSError {
         if(self.wmf_isNetworkConnectionError()){
             return CommonStrings.noInternetConnection
         }else{
-            return self.localizedDescription
+            return self.localizedDescription.wmf_stringByRemovingHTML()
         }
     }
     

@@ -3,7 +3,7 @@
 
 @interface WMFLegacyFetcher ()
 
-@property (nonatomic, strong, readwrite) WMFFetcher *fetcher;
+@property (nonatomic, strong, readwrite) WMFMediaWikiFetcher *fetcher;
 
 @end
 
@@ -12,7 +12,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.fetcher = [[WMFFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
+        self.fetcher = [[WMFMediaWikiFetcher alloc] initWithSession:[WMFSession shared] configuration:[WMFConfiguration current]];
     }
     return self;
 }

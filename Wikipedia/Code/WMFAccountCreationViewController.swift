@@ -309,7 +309,6 @@ class WMFAccountCreationViewController: WMFScrollViewController, WMFCaptchaViewC
                     default: break
                     }
                 }
-                
                 self.funnel?.logError(error.localizedDescription)
                 self.enableProgressiveButtonIfNecessary()
                 WMFAlertManager.sharedInstance.showErrorAlert(error as NSError, sticky: true, dismissPreviousAlerts: true, tapCallBack: nil)

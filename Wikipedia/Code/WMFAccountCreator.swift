@@ -6,8 +6,6 @@ public enum WMFAccountCreatorError: LocalizedError {
     case usernameUnavailable
     public var errorDescription: String? {
         switch self {
-        case .cannotExtractStatus:
-            return "Could not extract status"
         case .statusNotPass(let message?):
             return message
         case .wrongCaptcha:
@@ -15,7 +13,7 @@ public enum WMFAccountCreatorError: LocalizedError {
         case .usernameUnavailable:
             return WMFLocalizedString("field-alert-username-unavailable", value:"Username not available", comment:"Alert shown if new username is not available")
         default:
-            return "Unable to create account: Reason unknown"
+            return RequestError.unexpectedResponse.localizedDescription
         }
     }
 }
@@ -33,7 +31,7 @@ public struct WMFAccountCreatorResult {
     }
 }
 
-public class WMFAccountCreator: Fetcher {
+public class WMFAccountCreator: MediaWikiFetcher {
     public func createAccount(username: String, password: String, retypePassword: String, email: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountCreatorResultBlock, failure: @escaping WMFErrorHandler){
         var parameters: [String: String] = [
             "action": "createaccount",
@@ -62,7 +60,7 @@ public class WMFAccountCreator: Fetcher {
                 let createaccount = result?["createaccount"] as? [String : AnyObject],
                 let status = createaccount["status"] as? String
                 else {
-                    failure(WMFAccountCreatorError.cannotExtractStatus)
+                    failure(RequestError.unexpectedResponse)
                     return
             }
             let message = createaccount["message"] as? String ?? ""
@@ -78,7 +76,14 @@ public class WMFAccountCreator: Fetcher {
                     default: break
                     }
                 }
-                failure(WMFAccountCreatorError.statusNotPass(message))
+                self.parseMediaWikiError(message, siteURL: siteURL, completion: { (result) in
+                    switch (result) {
+                        case .failure(_):
+                            failure(WMFAccountCreatorError.statusNotPass(message))
+                        case .success(let parsedMessage):
+                            failure(WMFAccountCreatorError.statusNotPass(parsedMessage))
+                    }
+                })
                 return
             }
             let normalizedUsername = createaccount["username"] as? String ?? username

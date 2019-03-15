@@ -397,8 +397,11 @@ public enum RequestError: LocalizedError {
     case invalidParameters
     case unexpectedResponse
     case noNewData
+    case server(String)
     public var errorDescription: String? {
         switch self {
+        case .server(let message):
+            return message
         case .unexpectedResponse:
             return WMFLocalizedString("fetcher-error-unexpected-response", value: "The app received an unexpected response from the server. Please try again later.", comment: "Error shown to the user for unexpected server responses.")
         default:

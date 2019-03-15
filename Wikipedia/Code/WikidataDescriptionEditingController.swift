@@ -29,7 +29,7 @@ enum WikidataPublishingError: LocalizedError {
     case unknown
 }
 
-@objc public final class WikidataDescriptionEditingController: Fetcher {
+@objc public final class WikidataDescriptionEditingController: MediaWikiFetcher {
     static let DidMakeAuthorizedWikidataDescriptionEditNotification = NSNotification.Name(rawValue: "WMFDidMakeAuthorizedWikidataDescriptionEdit")
     /// Publish new wikidata description.
     ///

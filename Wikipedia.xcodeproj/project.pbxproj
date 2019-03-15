@@ -684,6 +684,7 @@
 		83A642792226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */; };
 		83A8E34121A431F100B3FF82 /* WMFLegacySerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A8E34221A431F100B3FF82 /* WMFLegacySerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */; };
+		83A9084A223C1E0900A3B420 /* MediaWikiFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A90849223C1E0900A3B420 /* MediaWikiFetcher.swift */; };
 		83AE1C811F34BB59004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C821F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
 		83AE1C831F34BB5A004B62E0 /* ImageDimmingExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7683C01F30C56300A487AA /* ImageDimmingExampleViewController.swift */; };
@@ -3500,6 +3501,7 @@
 		83A642742226CCF1004A1796 /* SwiftKVOCrashWorkaround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftKVOCrashWorkaround.swift; sourceTree = "<group>"; };
 		83A8E33F21A431F100B3FF82 /* WMFLegacySerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = WMFLegacySerializer.h; path = "WMF Framework/WMFLegacySerializer.h"; sourceTree = SOURCE_ROOT; };
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
+		83A90849223C1E0900A3B420 /* MediaWikiFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaWikiFetcher.swift; sourceTree = "<group>"; };
 		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCollectionViewCell+ListDisplay.swift"; sourceTree = "<group>"; };
 		83BF87CE1FA7463300EAF3DD /* WMFFIFOCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFFIFOCache.h; sourceTree = "<group>"; };
@@ -5531,6 +5533,7 @@
 			isa = PBXGroup;
 			children = (
 				8359BAC621E4C9C1009B5E6C /* Fetcher.swift */,
+				83A90849223C1E0900A3B420 /* MediaWikiFetcher.swift */,
 				8338AF8B21F7B33E000C4055 /* WMFLegacyFetcher.h */,
 				8338AF8C21F7B33E000C4055 /* WMFLegacyFetcher.m */,
 				B0E8067D1C0CE9C70065EBC0 /* WMFNetworkUtilities.h */,
@@ -10808,6 +10811,7 @@
 				D85108AB1D6CC761009C73C4 /* MWLanguageInfo.m in Sources */,
 				0E8768371DDE002C00B8CACD /* WMFAnnouncementsContentSource.m in Sources */,
 				7AE5248D21383D9C00CDC817 /* WikidataDescriptionEditingController.swift in Sources */,
+				83A9084A223C1E0900A3B420 /* MediaWikiFetcher.swift in Sources */,
 				D89D44091D74D4D700F7862E /* NSDictionary+WMFCommonParams.m in Sources */,
 				D85CEFD71DDE2C000084A4E8 /* WMFArticlePreview.m in Sources */,
 				8383446C1F62EBD000BD5A37 /* UIView+Constraints.swift in Sources */,

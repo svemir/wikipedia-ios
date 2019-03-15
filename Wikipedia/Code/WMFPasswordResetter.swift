@@ -21,7 +21,7 @@ public struct WMFPasswordResetterResult {
     }
 }
 
-public class WMFPasswordResetter: Fetcher {
+public class WMFPasswordResetter: MediaWikiFetcher {
     public func resetPassword(siteURL: URL, userName:String?, email:String?, success: @escaping WMFPasswordResetterResultBlock, failure: @escaping WMFErrorHandler){
         var parameters = [
             "action": "resetpassword",

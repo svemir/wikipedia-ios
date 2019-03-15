@@ -1,4 +1,4 @@
-class RemoteNotificationsAPIController: Fetcher {
+class RemoteNotificationsAPIController: MediaWikiFetcher {
     // MARK: NotificationsAPI constants
 
     private struct NotificationsAPI {

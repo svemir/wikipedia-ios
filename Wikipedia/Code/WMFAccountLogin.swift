@@ -42,7 +42,7 @@ public class WMFAccountLoginResult: NSObject {
     }
 }
 
-public class WMFAccountLogin: Fetcher {
+public class WMFAccountLogin: MediaWikiFetcher {
     public func login(username: String, password: String, retypePassword: String?, oathToken: String?, captchaID: String?, captchaWord: String?, siteURL: URL, success: @escaping WMFAccountLoginResultBlock, failure: @escaping WMFErrorHandler){
         
         var parameters = [
