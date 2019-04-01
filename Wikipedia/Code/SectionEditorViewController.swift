@@ -144,12 +144,12 @@ class SectionEditorViewController: UIViewController {
         
         contentController.addUserScript(setupUserScript)
         contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
+
+        contentController.add(WeakScriptMessageDelegate(delegate: messagingController), name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
+        contentController.add(WeakScriptMessageDelegate(delegate: messagingController), name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
         
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
-        
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
-        contentController.add(messagingController, name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage)
+        contentController.add(WeakScriptMessageDelegate(delegate: messagingController), name: SectionEditorWebViewMessagingController.Message.Name.smoothScrollToYOffsetMessage)
+        contentController.add(WeakScriptMessageDelegate(delegate: messagingController), name: SectionEditorWebViewMessagingController.Message.Name.replaceAllCountMessage)
         
         configuration.userContentController = contentController
         webView = SectionEditorWebView(frame: .zero, configuration: configuration)
