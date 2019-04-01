@@ -147,7 +147,7 @@ class SectionEditorViewController: UIViewController {
         }
         
         contentController.addUserScript(setupUserScript)
-        contentController.add(setupUserScript, name: setupUserScript.messageHandlerName)
+        contentController.add(WeakScriptMessageDelegate(delegate: setupUserScript), name: setupUserScript.messageHandlerName)
 
         contentController.add(WeakScriptMessageDelegate(delegate: messagingController), name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorMessage)
         contentController.add(WeakScriptMessageDelegate(delegate: messagingController), name: SectionEditorWebViewMessagingController.Message.Name.codeMirrorSearchMessage)
