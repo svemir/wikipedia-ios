@@ -114,6 +114,10 @@ class SectionEditorViewController: UIViewController {
         focusNavigationView.isHidden = false
         
     }
+
+    deinit {
+        webView.configuration.userContentController.removeAllUserScripts()
+    }
     
     private func hideFocusNavigationView() {
         webViewTopConstraint.constant = 0
