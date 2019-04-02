@@ -127,6 +127,26 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         }
     }
     
+    var adjustContentInsetForKeyboardFrame: Bool = true {
+        didSet {
+            updateScrollViewInsets()
+        }
+    }
+    
+    // WKWebView workaround
+    var subtractSafeAreaInsetsFromScrollIndicatorInsets: Bool = false {
+        didSet {
+            updateScrollViewInsets()
+        }
+    }
+    
+    // Collection views want left and right inset == 0 to put the margin inside the cells, most other views want this to true
+    var adjustLeftAndRightContentInset: Bool = false {
+        didSet {
+            updateScrollViewInsets()
+        }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -240,17 +260,30 @@ class ViewController: PreviewingViewController, Themeable, NavigationBarHiderDel
         let safeInsets = view.safeAreaInsets
         
         var bottom = safeInsets.bottom
-        if let keyboardFrame = keyboardFrame {
+        if adjustContentInsetForKeyboardFrame, let keyboardFrame = keyboardFrame {
             let adjustedKeyboardFrame = view.convert(keyboardFrame, to: scrollView)
             let keyboardIntersection = adjustedKeyboardFrame.intersection(scrollView.bounds)
             bottom = max(bottom, keyboardIntersection.height)
         }
         
-        let scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
+        let scrollIndicatorInsets: UIEdgeInsets
+        if subtractSafeAreaInsetsFromScrollIndicatorInsets {
+           scrollIndicatorInsets = UIEdgeInsets(top: top - safeInsets.top, left: 0, bottom: bottom - safeInsets.bottom, right: 0)
+        } else {
+            scrollIndicatorInsets = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
+        }
+        
         if let rc = scrollView.refreshControl, rc.isRefreshing {
             top += rc.frame.height
         }
-        let contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
+        
+        let contentInset: UIEdgeInsets
+        if adjustLeftAndRightContentInset {
+            contentInset = UIEdgeInsets(top: top, left: safeInsets.left, bottom: bottom, right: safeInsets.right)
+        } else {
+            contentInset = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
+        }
+        
         if scrollView.wmf_setContentInset(contentInset, scrollIndicatorInsets: scrollIndicatorInsets, preserveContentOffset: navigationBar.isAdjustingHidingFromContentInsetChangesEnabled) {
             scrollViewInsetsDidChange()
         }
@@ -364,3 +397,4 @@ extension ViewController: UIScrollViewDelegate {
         navigationBarHider.scrollViewDidScrollToTop(scrollView)
     }
 }
+

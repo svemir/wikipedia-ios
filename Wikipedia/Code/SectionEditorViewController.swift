@@ -4,7 +4,7 @@ protocol SectionEditorViewControllerDelegate: class {
 }
 
 @objc(WMFSectionEditorViewController)
-class SectionEditorViewController: UIViewController {
+class SectionEditorViewController: ViewController {
     @objc weak var delegate: SectionEditorViewControllerDelegate?
     
     @objc var section: MWKSection?
@@ -26,8 +26,6 @@ class SectionEditorViewController: UIViewController {
         return FocusNavigationView.wmf_viewFromClassNib()
     }()
     private var webViewTopConstraint: NSLayoutConstraint!
-    
-    private var theme = Theme.standard
 
     private var didFocusWebViewCompletion: (() -> Void)?
     
@@ -50,36 +48,35 @@ class SectionEditorViewController: UIViewController {
     private let findAndReplaceHeaderTitle = WMFLocalizedString("find-replace-header", value: "Find and replace", comment: "Find and replace header title.")
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        
+        extendedLayoutIncludesOpaqueBars = true
+        edgesForExtendedLayout = .all
         loadWikitext()
         
         navigationItemController = SectionEditorNavigationItemController(navigationItem: navigationItem)
         navigationItemController.delegate = self
         
         configureWebView()
-        apply(theme: theme)
         
         WMFAuthenticationManager.sharedInstance.loginWithSavedCredentials { (_) in }
         
         webView.scrollView.delegate = self
-        
+        adjustContentInsetForKeyboardFrame = false // WKWebView workaround - always adjusts for keyboard
+        subtractSafeAreaInsetsFromScrollIndicatorInsets = true // WKWebView workaround - always adjusts scroll view insets
+        adjustLeftAndRightContentInset = false
+        scrollView = webView.scrollView
         setupFocusNavigationView()
+        super.viewDidLoad()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: UIWindow.keyboardDidHideNotification, object: nil)
         selectLastSelectionIfNeeded()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         UIMenuController.shared.menuItems = menuItemsController.originalMenuItems
-        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardDidHideNotification, object: nil)
         super.viewWillDisappear(animated)
-    }
-    
-    @objc func keyboardDidHide() {
-        inputViewsController.resetFormattingAndStyleSubmenus()
     }
     
     private func setupFocusNavigationView() {
@@ -159,9 +156,9 @@ class SectionEditorViewController: UIViewController {
         webView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(webView)
         
-        let leadingConstraint = view.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
-        let trailingConstraint = view.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
-        webViewTopConstraint = view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: webView.topAnchor)
+        let leadingConstraint = view.safeAreaLayoutGuide.leadingAnchor.constraint(equalTo: webView.leadingAnchor)
+        let trailingConstraint = view.safeAreaLayoutGuide.trailingAnchor.constraint(equalTo: webView.trailingAnchor)
+        webViewTopConstraint = view.topAnchor.constraint(equalTo: webView.topAnchor)
         let bottomConstraint = view.bottomAnchor.constraint(equalTo: webView.bottomAnchor)
         
         NSLayoutConstraint.activate([leadingConstraint, trailingConstraint, webViewTopConstraint, bottomConstraint])
@@ -224,18 +221,19 @@ class SectionEditorViewController: UIViewController {
             return
         }
         setWikitextToWebView(wikitext) { [weak self] (error) in
+            assert(Thread.isMainThread)
             if let error = error {
                 assertionFailure(error.localizedDescription)
             } else {
-                DispatchQueue.main.async {
-                    self?.didSetWikitextToWebView = true
-                    if let selectedTextEditInfo = self?.selectedTextEditInfo {
-                        self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo){ [weak self] (error) in
-                            if let _ = error {
-                                self?.showCouldNotFindSelectionInWikitextAlert()
-                            }
+                self?.didSetWikitextToWebView = true
+                if let selectedTextEditInfo = self?.selectedTextEditInfo {
+                    self?.messagingController.highlightAndScrollToText(for: selectedTextEditInfo){ [weak self] (error) in
+                        if let _ = error {
+                            self?.showCouldNotFindSelectionInWikitextAlert()
                         }
                     }
+                } else {
+                    self?.scrollToTop()
                 }
             }
         }
@@ -325,17 +323,40 @@ class SectionEditorViewController: UIViewController {
             self.focusNavigationView.updateLayout(for: newCollection)
         }
     }
-}
-
-private var previousAdjustedContentInset = UIEdgeInsets.zero
-extension SectionEditorViewController: UIScrollViewDelegate {
-    public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        let newAdjustedContentInset = scrollView.adjustedContentInset
-        guard newAdjustedContentInset != previousAdjustedContentInset else {
+    
+    // MARK: - Layout
+    
+    func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        messagingController.setAdjustedContentInset(newInset: scrollView.adjustedContentInset)
+    }
+    
+    // MARK: - Responder chain
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func becomeFirstResponder() -> Bool {
+        super.becomeFirstResponder()
+        inputViewsController.resetFormattingAndStyleSubmenus()
+        return true
+    }
+    
+    // MARK: - Theme
+    
+    override func apply(theme: Theme) {
+        super.apply(theme: theme)
+        guard viewIfLoaded != nil else {
             return
         }
-        previousAdjustedContentInset = newAdjustedContentInset
-        messagingController.setAdjustedContentInset(newInset: newAdjustedContentInset)
+        view.backgroundColor = theme.colors.paperBackground
+        webView.scrollView.backgroundColor = theme.colors.paperBackground
+        webView.backgroundColor = theme.colors.paperBackground
+        messagingController.applyTheme(theme: theme)
+        inputViewsController.apply(theme: theme)
+        navigationItemController.apply(theme: theme)
+        apply(presentationTheme: theme)
+        focusNavigationView.apply(theme: theme)
     }
 }
 
@@ -475,23 +496,6 @@ extension SectionEditorViewController: EditPreviewViewControllerDelegate {
         vc.theme = self.theme
         vc.funnel = self.editFunnel
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-extension SectionEditorViewController: Themeable {
-    func apply(theme: Theme) {
-        self.theme = theme
-        guard viewIfLoaded != nil else {
-            return
-        }
-        view.backgroundColor = theme.colors.paperBackground
-        webView.scrollView.backgroundColor = theme.colors.paperBackground
-        webView.backgroundColor = theme.colors.paperBackground
-        messagingController.applyTheme(theme: theme)
-        inputViewsController.apply(theme: theme)
-        navigationItemController.apply(theme: theme)
-        apply(presentationTheme: theme)
-        focusNavigationView.apply(theme: theme)
     }
 }
 
