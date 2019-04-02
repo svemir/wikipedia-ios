@@ -43,16 +43,16 @@ open class Fetcher: NSObject {
             guard
                 let query = result?["query"] as? [String: Any],
                 let tokens = query["tokens"] as? [String: Any],
-                let token = tokens[type.stringValue + "token"] as? String
+                let tokenValue = tokens[type.stringValue + "token"] as? String
                 else {
                     completionHandler(FetcherResult.failure(RequestError.unexpectedResponse))
                     return
             }
-            guard token.count > 0 else {
+            guard !tokenValue.isEmpty else {
                 completionHandler(FetcherResult.failure(RequestError.unexpectedResponse))
                 return
             }
-            completionHandler(FetcherResult.success(Token(token: token, type: type)))
+            completionHandler(FetcherResult.success(Token(value: tokenValue, type: type)))
         }
     }
     
@@ -79,18 +79,12 @@ open class Fetcher: NSObject {
                 self.untrack(taskFor: key)
             case .success(let token):
                 var mutableBodyParameters = bodyParameters ?? [:]
-                mutableBodyParameters[tokenType.parameterName] = token.token
+                mutableBodyParameters[tokenType.parameterName] = token.value
                 self.performMediaWikiAPIPOST(for: URL, with: mutableBodyParameters, cancellationKey: key, completionHandler: completionHandler)
             }
         }
         track(task: task, for: key)
         return key
-    }
-    
-    @discardableResult public func requestWithCSRF<R, O: CSRFTokenOperation<R>>(type operationType: O.Type, components: URLComponents, method: Session.Request.Method, bodyParameters: [String: Any]? = [:], bodyEncoding: Session.Request.Encoding = .json, tokenContext: CSRFTokenOperation<R>.TokenContext, completion: @escaping (R?, URLResponse?, Error?) -> Void) -> Operation {
-        let op = operationType.init(session: session, fetcher: self, components: components, method: method, bodyParameters: bodyParameters, bodyEncoding: bodyEncoding, tokenContext: tokenContext, completion: completion)
-        session.queue.addOperation(op)
-        return op
     }
     
     @objc(performMediaWikiAPIPOSTForURL:withBodyParameters:cancellationKey:completionHandler:)
@@ -196,13 +190,13 @@ public enum TokenType: Int {
 
 @objc(WMFToken)
 public class Token: NSObject {
-    @objc public var token: String
+    @objc public var value: String
     @objc public var type: TokenType
     public var isAuthorized: Bool
-    @objc init(token: String, type: TokenType) {
-        self.token = token
+    @objc init(value: String, type: TokenType) {
+        self.value = value
         self.type = type
-        self.isAuthorized = token != "+\\"
+        self.isAuthorized = value != "+\\"
     }
 }
 

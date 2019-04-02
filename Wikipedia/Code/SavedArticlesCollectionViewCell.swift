@@ -321,7 +321,7 @@ class SavedArticlesCollectionViewCell: ArticleCollectionViewCell {
         
         isStatusViewHidden = article.isDownloaded
         
-        isTagsViewHidden = tags.readingLists.count == 0 || !isAlertLabelHidden
+        isTagsViewHidden = tags.readingLists.isEmpty || !isAlertLabelHidden
         
         if shouldShowSeparators {
             topSeparator.isHidden = index != 0

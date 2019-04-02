@@ -32,6 +32,7 @@ let WMFDidShowSyncEnabledPanel = "WMFDidShowSyncEnabledPanel"
 let WMFDidSplitExistingReadingLists = "WMFDidSplitExistingReadingLists"
 let WMFDidShowTitleDescriptionEditingIntro = "WMFDidShowTitleDescriptionEditingIntro"
 let WMFDidShowFirstEditPublishedPanelKey = "WMFDidShowFirstEditPublishedPanelKey"
+let WMFIsSyntaxHighlightingEnabled = "WMFIsSyntaxHighlightingEnabled"
 
 //Legacy Keys
 let WMFOpenArticleTitleKey = "WMFOpenArticleTitleKey"
@@ -45,7 +46,9 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
 @objc public extension UserDefaults {
     @objc(WMFUserDefaultsKey) public class Key: NSObject {
         @objc static let defaultTabType = "WMFDefaultTabTypeKey"
-        @objc static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
+        static let isUserUnawareOfLogout = "WMFIsUserUnawareOfLogout"
+        static let didShowDescriptionPublishedPanel = "WMFDidShowDescriptionPublishedPanel"
+        static let didShowEditingOnboarding = "WMFDidShowEditingOnboarding"
     }
 
     @objc public static let wmf: UserDefaults = {
@@ -140,6 +143,19 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: WMFIsImageDimmingEnabled)
+        }
+    }
+    
+    @objc public var wmf_IsSyntaxHighlightingEnabled: Bool {
+        get {
+            if object(forKey: WMFIsSyntaxHighlightingEnabled) == nil {
+                return true //default to highlighting enabled
+            }
+            
+            return bool(forKey: WMFIsSyntaxHighlightingEnabled)
+        }
+        set {
+            set(newValue, forKey: WMFIsSyntaxHighlightingEnabled)
         }
     }
     
@@ -483,6 +499,24 @@ let WMFSearchLanguageKey = "WMFSearchLanguageKey"
         }
         set {
             set(newValue, forKey: UserDefaults.Key.isUserUnawareOfLogout)
+        }
+    }
+
+    public var didShowDescriptionPublishedPanel: Bool {
+        get {
+            return bool(forKey: UserDefaults.Key.didShowDescriptionPublishedPanel)
+        }
+        set {
+            set(newValue, forKey: UserDefaults.Key.didShowDescriptionPublishedPanel)
+        }
+    }
+
+    @objc public var didShowEditingOnboarding: Bool {
+        get {
+            return bool(forKey: UserDefaults.Key.didShowEditingOnboarding)
+        }
+        set {
+            set(newValue, forKey: UserDefaults.Key.didShowEditingOnboarding)
         }
     }
 }

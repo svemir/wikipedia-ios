@@ -167,7 +167,7 @@ extension UIViewController {
         guard let fetchedObjects = fetchedResultsController.fetchedObjects else {
             return false
         }
-        return fetchedObjects.count > 0
+        return !fetchedObjects.isEmpty
     }
         
     @objc func wmf_showEnableReadingListSyncPanel(theme: Theme, oncePerLogin: Bool = false, didNotPresentPanelCompletion: (() -> Void)? = nil, dismissHandler: ScrollableEducationPanelDismissHandler? = nil) {
@@ -371,11 +371,16 @@ extension UIViewController {
     }
 
     @objc func wmf_showDescriptionPublishedPanelViewController(theme: Theme) {
+        guard !UserDefaults.wmf.didShowDescriptionPublishedPanel else {
+            return
+        }
         let doneTapHandler: ScrollableEducationPanelButtonTapHandler = { sender in
             self.dismiss(animated: true, completion: nil)
         }
         let panelVC = DescriptionPublishedPanelViewController(showCloseButton: true, primaryButtonTapHandler: doneTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
-        present(panelVC, animated: true, completion: nil)
+        present(panelVC, animated: true) {
+            UserDefaults.wmf.didShowDescriptionPublishedPanel = true
+        }
     }
 
     @objc func wmf_showEditPublishedPanelViewController(theme: Theme) {
@@ -393,7 +398,7 @@ extension UIViewController {
     }
 
     @objc func wmf_showNoInternetConnectionPanelViewController(theme: Theme, primaryButtonTapHandler: @escaping ScrollableEducationPanelButtonTapHandler, completion: @escaping () -> Void) {
-        let panelVC = NoInternetConnectionPanelViewController(showCloseButton: true, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
+        let panelVC = NoInternetConnectionPanelViewController(showCloseButton: false, primaryButtonTapHandler: primaryButtonTapHandler, secondaryButtonTapHandler: nil, dismissHandler: nil, theme: theme)
         present(panelVC, animated: true, completion: completion)
     }
 }

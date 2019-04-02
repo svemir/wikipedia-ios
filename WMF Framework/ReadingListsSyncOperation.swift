@@ -46,7 +46,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             }
                         }
                     }  else if let readingListError = error as? ReadingListsOperationError, readingListError == .cancelled {
-                        self.apiController.cancelPendingTasks()
+                        self.apiController.cancelAllTasks()
                         self.finish()
                     } else {
                         self.finish(with: error)
@@ -372,35 +372,23 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
         }
         let countOfEntriesToCreate = moc.wmf_numberValue(forKey: "WMFCountOfEntriesToCreate")?.int64Value ?? 10
         
-        let randomArticleFetcher = WMFRandomArticleFetcher()
+        let randomArticleFetcher = RandomArticleFetcher()
         let taskGroup = WMFTaskGroup()
         try moc.wmf_batchProcessObjects { (list: ReadingList) in
             guard !list.isDefault else {
                 return
             }
             do {
-                var results: [MWKSearchResult] = []
+                var summaryResponses: [String: [String: Any]] = [:]
                 for i in 1...countOfEntriesToCreate {
                     taskGroup.enter()
-                    randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result) in
-                        if let result = result {
-                            results.append(result)
+                    randomArticleFetcher.fetchRandomArticle(withSiteURL: siteURL, completion: { (error, result, summary) in
+                        if let key = result?.wmf_articleDatabaseKey, let summary = summary {
+                           summaryResponses[key] = summary
                         }
                         taskGroup.leave()
                     })
                     if i % 16 == 0 || i == countOfEntriesToCreate {
-                        taskGroup.wait()
-                        guard !isCancelled  else {
-                            throw ReadingListsOperationError.cancelled
-                        }
-                        let articleURLs = results.compactMap { $0.articleURL(forSiteURL: siteURL) }
-                        taskGroup.enter()
-                        var summaryResponses: [String: [String: Any]] = [:]
-                        apiController.session.fetchArticleSummaryResponsesForArticles(withURLs: articleURLs, completion: { (actualSummaryResponses) in
-                            // workaround this method not being async
-                            summaryResponses = actualSummaryResponses
-                            taskGroup.leave()
-                        })
                         taskGroup.wait()
                         guard !isCancelled  else {
                             throw ReadingListsOperationError.cancelled
@@ -411,7 +399,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
                             try readingListsController.add(articles: articles, to: defaultReadingList, in: moc)
                         }
                         try moc.save()
-                        results.removeAll(keepingCapacity: true)
+                        summaryResponses.removeAll(keepingCapacity: true)
                     }
                 }
             } catch let error {
@@ -458,7 +446,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
             newReadingLists.append(newReadingList)
         }
         newReadingLists.append(readingList)
-        if newReadingLists.count > 0 {
+        if !newReadingLists.isEmpty {
             let userInfo = [ReadingListsController.readingListsWereSplitNotificationEntryLimitKey: size]
             NotificationCenter.default.post(name: ReadingListsController.readingListsWereSplitNotification, object: nil, userInfo: userInfo)
             UserDefaults.wmf.wmf_setDidSplitExistingReadingLists(true)
@@ -729,7 +717,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
     
     internal func locallyCreate(_ readingListEntries: [APIReadingListEntry], with readingListsByEntryID: [Int64: ReadingList]? = nil, in moc: NSManagedObjectContext) throws {
-        guard readingListEntries.count > 0 else {
+        guard !readingListEntries.isEmpty else {
             return
         }
         let group = WMFTaskGroup()
@@ -857,7 +845,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
     
     internal func createOrUpdate(remoteReadingLists: [APIReadingList], deleteMissingLocalLists: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws -> Int {
-        guard remoteReadingLists.count > 0 || deleteMissingLocalLists else {
+        guard !remoteReadingLists.isEmpty || deleteMissingLocalLists else {
             return 0
         }
         var createdOrUpdatedReadingListsCount = 0
@@ -950,7 +938,7 @@ internal class ReadingListsSyncOperation: ReadingListsOperation {
     }
     
     internal func createOrUpdate(remoteReadingListEntries: [APIReadingListEntry], for readingListID: Int64? = nil, deleteMissingLocalEntries: Bool = false, inManagedObjectContext moc: NSManagedObjectContext) throws -> Int {
-        guard remoteReadingListEntries.count > 0 || deleteMissingLocalEntries else {
+        guard !remoteReadingListEntries.isEmpty || deleteMissingLocalEntries else {
             return 0
         }
         var createdOrUpdatedReadingListEntriesCount = 0

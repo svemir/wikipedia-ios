@@ -53,6 +53,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
         super.viewWillTransition(to: size, with: coordinator)
         coordinator.animate(alongsideTransition: { (context) in
             self.view.setNeedsLayout()
+            self.resultsViewController.view.setNeedsLayout()
             self.view.layoutIfNeeded()
         })
     }
@@ -390,6 +391,7 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
             searchBar.endEditing(true)
             didCancelSearch()
         }
+        deselectAll(animated: true)
     }
     
     @objc func makeSearchBarBecomeFirstResponder() {
@@ -508,7 +510,6 @@ class SearchViewController: ArticleCollectionViewController, UISearchBarDelegate
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
         guard let recentSearch = recentSearches?.entry(at: UInt(indexPath.item)) else {
             return
         }
@@ -556,7 +557,7 @@ extension SearchViewController: SearchLanguagesBarViewControllerDelegate {
 // MARK: - Event logging
 extension SearchViewController {
     private var source: String {
-        guard let navigationController = navigationController, navigationController.viewControllers.count > 0 else {
+        guard let navigationController = navigationController, !navigationController.viewControllers.isEmpty else {
             return "unknown"
         }
         let viewControllers = navigationController.viewControllers

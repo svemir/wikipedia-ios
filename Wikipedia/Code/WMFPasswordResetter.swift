@@ -2,12 +2,16 @@
 public enum WMFPasswordResetterError: LocalizedError {
     case cannotExtractResetStatus
     case resetStatusNotSuccess
+    case accountError(String)
+
     public var errorDescription: String? {
         switch self {
         case .cannotExtractResetStatus:
             return "Could not extract status"
         case .resetStatusNotSuccess:
             return "Password reset did not succeed"
+        case .accountError(let message):
+            return message
         }
     }
 }
@@ -28,16 +32,20 @@ public class WMFPasswordResetter: Fetcher {
             "format": "json"
         ];
         
-        if let userName = userName, userName.count > 0 {
+        if let userName = userName, !userName.isEmpty {
             parameters["user"] = userName
         }else {
-            if let email = email, email.count > 0 {
+            if let email = email, !email.isEmpty {
                 parameters["email"] = email
             }
         }
         performTokenizedMediaWikiAPIPOST(to: siteURL, with: parameters) { (result, response, error) in
             if let error = error {
                 failure(error)
+                return
+            }
+            if let error = result?["error"] as? [String: Any], let info = error["info"] as? String {
+                failure(WMFPasswordResetterError.accountError(info))
                 return
             }
             guard

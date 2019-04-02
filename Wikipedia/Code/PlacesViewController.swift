@@ -65,7 +65,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         get {
             switch (self.currentSearchFilter) {
             case .top:
-                return articleFetchedResultsController.fetchedObjects?.count ?? 0
+                return articleFetchedResultsController?.fetchedObjects?.count ?? 0
             case .saved:
                 return _displayCountForTopPlaces ?? 0
             }
@@ -301,12 +301,12 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
 
     fileprivate func article(at indexPath: IndexPath) -> WMFArticle? {
-        guard let sections = articleFetchedResultsController.sections,
+        guard let sections = articleFetchedResultsController?.sections,
             indexPath.section < sections.count,
             indexPath.item < sections[indexPath.section].numberOfObjects else {
                 return nil
         }
-        return articleFetchedResultsController.object(at: indexPath)
+        return articleFetchedResultsController?.object(at: indexPath)
     }
 
     public func logListViewImpression(forIndexPath indexPath: IndexPath) {
@@ -491,20 +491,20 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         currentSearch = PlaceSearch(filter: currentSearchFilter, type: .location, origin: .system, sortStyle: .links, string: nil, region: region, localizedDescription: WMFLocalizedString("places-search-top-articles", value:"All top articles", comment:"A search suggestion for top articles"), searchResult: nil)
     }
     
-    var articleFetchedResultsController = NSFetchedResultsController<WMFArticle>() {
+    var articleFetchedResultsController: NSFetchedResultsController<WMFArticle>? {
         didSet {
-            oldValue.delegate = nil
-            for article in oldValue.fetchedObjects ?? [] {
+            oldValue?.delegate = nil
+            for article in oldValue?.fetchedObjects ?? [] {
                 article.placesSortOrder = NSNumber(integerLiteral: 0)
             }
             do {
                 try dataStore.viewContext.save()
-                try articleFetchedResultsController.performFetch()
+                try articleFetchedResultsController?.performFetch()
             } catch let fetchError {
                 DDLogError("Error fetching articles for places: \(fetchError)")
             }
             updatePlaces()
-            articleFetchedResultsController.delegate = self
+            articleFetchedResultsController?.delegate = self
         }
     }
     
@@ -624,13 +624,13 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                 do {
                     let articlesToShow = try moc.fetch(request)
                     self.articleKeyToSelect = articlesToShow.first?.key
-                    if articlesToShow.count > 0 {
+                    if !articlesToShow.isEmpty {
                         if (self.currentSearch?.region == nil) {
                             self.currentSearchRegion = self.region(thatFits: articlesToShow)
                             self.mapRegion = self.currentSearchRegion
                         }
                     }
-                    if articlesToShow.count == 0 {
+                    if articlesToShow.isEmpty {
                         self.wmf_showAlertWithMessage(WMFLocalizedString("places-no-saved-articles-have-location", value:"None of your saved articles have location information", comment:"Indicates to the user that none of their saved articles have location information"))
                     }
                 } catch let error {
@@ -649,7 +649,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
                         let nserror = error as NSError
                         if (nserror.code == Int(WMFLocationSearchErrorCode.noResults.rawValue)) {
                             let completions = self.searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection]
-                            if (completions.count > 0) {
+                            if !completions.isEmpty {
                                 self.showDidYouMeanButton(search: completions[0])
                             }
                         }
@@ -780,7 +780,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     func updatePlaces() {
-        let articleURLs = articleFetchedResultsController.fetchedObjects?.compactMap({ (article) -> URL? in
+        let articleURLs = articleFetchedResultsController?.fetchedObjects?.compactMap({ (article) -> URL? in
             return article.url
         })
         listViewController.articleURLs = articleURLs ?? []
@@ -1386,7 +1386,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         
         var groups: [String: ArticleGroup] = [:]
         var splittableGroups: [String: ArticleGroup] = [:]
-        for article in articleFetchedResultsController.fetchedObjects ?? [] {
+        for article in articleFetchedResultsController?.fetchedObjects ?? [] {
             guard let quadKey = article.quadKey else {
                 continue
             }
@@ -1575,7 +1575,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             return
         }
 
-        if isViewModeOverlay, let indexPath = articleFetchedResultsController.indexPath(forObject: article) {
+        if isViewModeOverlay, let indexPath = articleFetchedResultsController?.indexPath(forObject: article) {
             listViewController.collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         }
         
@@ -1850,7 +1850,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
     }
     
     func updateSearchSuggestions(withCompletions completions: [PlaceSearch], isSearchDone: Bool) {
-        guard currentSearchString != "" || completions.count > 0 else {
+        guard currentSearchString != "" || !completions.isEmpty else {
             
             // Search is empty, run a default search
             
@@ -1893,7 +1893,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             searchSuggestionController.searches = [defaultSuggestions, recentSearches, [], []]
             
             let searchText = searchBar.text ?? ""
-            if !searchText.wmf_hasNonWhitespaceText && recentSearches.count == 0 {
+            if !searchText.wmf_hasNonWhitespaceText && recentSearches.isEmpty {
                 setupEmptySearchOverlayView()
                 emptySearchOverlayView.frame = searchSuggestionView.frame.inset(by: searchSuggestionView.contentInset)
                 searchSuggestionView.superview?.addSubview(emptySearchOverlayView)
@@ -1967,14 +1967,14 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
         let region = self.region(thatFits: [article])
         let displayTitleHTML = article.displayTitleHTML
         let displayTitle = article.displayTitle ?? title
-        let searchResult = MWKSearchResult(articleID: 0, revID: 0, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, isDisambiguation: false, isList: false, titleNamespace: nil)
+        let searchResult = MWKSearchResult(articleID: 0, revID: 0, title: title, displayTitle: displayTitle, displayTitleHTML: displayTitleHTML, wikidataDescription: article.wikidataDescription, extract: article.snippet, thumbnailURL: article.thumbnailURL, index: nil, titleNamespace: nil, location: article.location)
         currentSearch = PlaceSearch(filter: .top, type: .location, origin: .user, sortStyle: .links, string: nil, region: region, localizedDescription: title, searchResult: searchResult, siteURL: articleURL.wmf_site)
     }
     
     fileprivate func searchForFirstSearchSuggestion() {
-        if searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].count > 0 {
+        if !searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection].isEmpty {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.completionSection][0]
-        } else if searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].count > 0 {
+        } else if !searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection].isEmpty {
             currentSearch = searchSuggestionController.searches[PlaceSearchSuggestionController.currentStringSection][0]
         }
     }
@@ -2087,7 +2087,7 @@ class PlacesViewController: ViewController, UISearchBarDelegate, ArticlePopoverV
             return
         }
         
-        guard searchText.trimmingCharacters(in: .whitespaces).count > 0 else {
+        guard !searchText.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
         }
         

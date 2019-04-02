@@ -17,14 +17,14 @@ public class WMFAuthenticationManager: Fetcher {
         public var errorDescription: String? {
             switch self {
             default:
-                return CommonStrings.genericErrorDescription
+                return WMFLocalizedString("error-generic-description", value: "An unexpected error occurred", comment: "Generic error message for when the error isn't recoverable by the user.")
             }
         }
         
         public var recoverySuggestion: String? {
             switch self {
             default:
-                 return CommonStrings.genericErrorRecoverySuggestion
+                 return WMFLocalizedString("error-generic-recovery-suggestion", value: "Please try again later", comment: "Generic recovery suggestion for when the error isn't recoverable by the user.")
             }
         }
     }
@@ -44,9 +44,9 @@ public class WMFAuthenticationManager: Fetcher {
     @objc public var hasKeychainCredentials: Bool {
         guard
             let userName = KeychainCredentialsManager.shared.username,
-            userName.count > 0,
+            !userName.isEmpty,
             let password = KeychainCredentialsManager.shared.password,
-            password.count > 0
+            !password.isEmpty
             else {
                 return false
         }
