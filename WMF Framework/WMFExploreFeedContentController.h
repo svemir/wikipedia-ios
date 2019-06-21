@@ -99,7 +99,7 @@ extern const NSInteger WMFExploreFeedMaximumNumberOfDays;
 
 - (BOOL)isGlobalContentGroupKindInFeed:(WMFContentGroupKind)contentGroupKind;
 
-- (void)saveNewExploreFeedPreferences:(nonnull NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed;
+- (void)saveNewExploreFeedPreferences:(nonnull NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(nullable dispatch_block_t)completion;
 - (void)rejectNewExploreFeedPreferences;
 
 - (void)dismissCollapsedContentGroups;

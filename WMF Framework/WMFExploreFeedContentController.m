@@ -72,7 +72,7 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 - (void)setDataStore:(MWKDataStore *)dataStore {
     _dataStore = dataStore;
     self.exploreFeedPreferencesUpdateCoordinator = [[ExploreFeedPreferencesUpdateCoordinator alloc] initWithFeedContentController:self];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateExploreFeedPreferencesFromDidSaveNotification:) name:WMFViewContextDidSave object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateExploreFeedPreferencesFromDidSaveNotification:) name:WMFFeedImportContextDidSave object:nil];
 }
 
 - (NSDictionary *)exploreFeedPreferences {
@@ -537,16 +537,25 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
     } willTurnOnContentGroupOrLanguage:on waitForCallbackFromCoordinator:YES apply:YES updateFeed:updateFeed completion:nil];
 }
 
-- (void)saveNewExploreFeedPreferences:(NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed {
+- (void)saveNewExploreFeedPreferences:(NSDictionary *)newExploreFeedPreferences apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(dispatch_block_t)completion {
     WMFAssertMainThread(@"Saving explore feed preferences should be performed on the main thread");
-    [self.dataStore.viewContext wmf_setValue:newExploreFeedPreferences forKey:WMFExploreFeedPreferencesKey];
-    if (apply) {
-        [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:self.dataStore.viewContext];
-    }
-    [self save:self.dataStore.viewContext];
-    if (updateFeed) {
-        [self updateFeedSourcesUserInitiated:NO completion:nil];
-    }
+    NSManagedObjectContext *moc = self.dataStore.feedImportContext;
+    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
+        [moc wmf_setValue:newExploreFeedPreferences forKey:WMFExploreFeedPreferencesKey];
+        if (apply) {
+            [self applyExploreFeedPreferencesToAllObjectsInManagedObjectContext:moc];
+        }
+        [self save:moc];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (updateFeed) {
+                [self updateFeedSourcesUserInitiated:NO completion:completion];
+            } else if (completion) {
+                completion();
+            }
+            [op finish];
+        });
+    }];
+    [self.operationQueue addOperation:op];
 }
 
 - (void)rejectNewExploreFeedPreferences {
@@ -556,21 +565,28 @@ NSString *const WMFNewExploreFeedPreferencesWereRejectedNotification = @"WMFNewE
 }
 
 - (void)updateExploreFeedPreferences:(NSDictionary *(^)(NSDictionary *newPreferences))update willTurnOnContentGroupOrLanguage:(BOOL)willTurnOnContentGroupOrLanguage waitForCallbackFromCoordinator:(BOOL)waitForCallbackFromCoordinator apply:(BOOL)apply updateFeed:(BOOL)updateFeed completion:(dispatch_block_t)completion {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSManagedObjectContext *moc = self.dataStore.viewContext;
-        NSDictionary *oldPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
-        assert(oldPreferences);
-        NSDictionary *newPreferences = update(oldPreferences);
-        if (waitForCallbackFromCoordinator) {
-            [self.exploreFeedPreferencesUpdateCoordinator configureWithOldExploreFeedPreferences:oldPreferences newExploreFeedPreferences:newPreferences willTurnOnContentGroupOrLanguage:willTurnOnContentGroupOrLanguage updateFeed:updateFeed];
-            [[NSNotificationCenter defaultCenter] postNotificationName:WMFExploreFeedPreferencesDidChangeNotification object:self.exploreFeedPreferencesUpdateCoordinator];
-        } else {
-            [self saveNewExploreFeedPreferences:newPreferences apply:apply updateFeed:updateFeed];
-        }
-        if (completion) {
-            completion();
-        }
-    });
+    WMFAssertMainThread(@"updateExploreFeedPreferences: must be called on the main thread");
+    NSManagedObjectContext *moc = self.dataStore.feedImportContext;
+    WMFAsyncBlockOperation *op = [[WMFAsyncBlockOperation alloc] initWithAsyncBlock:^(WMFAsyncBlockOperation *_Nonnull op) {
+        [moc performBlock:^{
+            NSDictionary *oldPreferences = [self exploreFeedPreferencesInManagedObjectContext:moc];
+            assert(oldPreferences);
+            NSDictionary *newPreferences = update(oldPreferences);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (waitForCallbackFromCoordinator) {
+                    [self.exploreFeedPreferencesUpdateCoordinator configureWithOldExploreFeedPreferences:oldPreferences newExploreFeedPreferences:newPreferences willTurnOnContentGroupOrLanguage:willTurnOnContentGroupOrLanguage updateFeed:updateFeed];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:WMFExploreFeedPreferencesDidChangeNotification object:self.exploreFeedPreferencesUpdateCoordinator];
+                    if (completion) {
+                        completion();
+                    }
+                } else {
+                    [self saveNewExploreFeedPreferences:newPreferences apply:apply updateFeed:updateFeed completion:completion];
+                }
+                [op finish];
+            });
+        }];
+    }];
+    [self.operationQueue addOperation:op];
 }
 
 - (void)dismissCollapsedContentGroups {
