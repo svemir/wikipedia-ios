@@ -1818,7 +1818,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     WMFThemeableNavigationController *navigationController = [[WMFThemeableNavigationController alloc] initWithRootViewController:sectionEditVC theme:self.theme];
     navigationController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
 
-    BOOL needsIntro = !NSUserDefaults.standardUserDefaults.didShowEditingOnboarding;
+    BOOL needsIntro = YES;
     if (needsIntro) {
         navigationController.view.alpha = 0;
     }
@@ -1832,6 +1832,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                                                                                                     completion:^{
                                                                                                                         sectionEditVC.shouldFocusWebView = YES;
                                                                                                                     }];
+        editingWelcomeViewController.modalPresentationStyle = UIModalPresentationFullScreen;
         [editingWelcomeViewController applyTheme:self.theme];
         [navigationController presentViewController:editingWelcomeViewController
                                            animated:YES

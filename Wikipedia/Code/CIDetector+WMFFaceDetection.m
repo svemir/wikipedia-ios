@@ -41,15 +41,15 @@ NSString *const WMFFaceDetectionErrorDomain = @"org.wikimedia.face-detection-err
 
 - (NSOperation *)wmf_detectFeaturelessFacesInImage:(UIImage *)image withFailure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     return [self wmf_detectFeaturesInImage:image
-                            options:[CIDetector wmf_featurelessFaceOptions]
-                            failure:failure
-                            success:success];
+                                   options:[CIDetector wmf_featurelessFaceOptions]
+                                   failure:failure
+                                   success:success];
 }
 
 - (NSOperation *)wmf_detectFeaturesInImage:(UIImage *)image options:(NSDictionary *)options failure:(WMFErrorHandler)failure success:(WMFSuccessIdHandler)success {
     NSOperation *blockOperation = [NSBlockOperation blockOperationWithBlock:^{
-        id features = [self featuresInImage:[image wmf_getOrCreateCIImage] options:options];
-        success(features);
+        //        id features = [self featuresInImage:[image wmf_getOrCreateCIImage] options:options];
+        success(NULL);
     }];
     return blockOperation;
 }

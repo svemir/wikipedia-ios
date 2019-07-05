@@ -14,7 +14,7 @@ class WMFWelcomeInitialViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        modalPresentationStyle = .fullScreen
         // Master background color for all Welcome screens.
         view.backgroundColor = UIColor(0xffffff)
     }
