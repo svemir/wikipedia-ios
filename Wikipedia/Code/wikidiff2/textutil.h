@@ -148,7 +148,8 @@ namespace TextUtil
 
 		// Add a fake end-of-string character and have a break on it, so that the
 		// last word gets added without special handling
-		breaks.push_back(charSizes.size());
+        int size = charSizes.size() & INT_MAX;
+		breaks.push_back(size);
 		charSizes += (char)0;
 
 		// Now make the word array by traversing the breaks vector

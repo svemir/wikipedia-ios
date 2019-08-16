@@ -106,7 +106,7 @@ class Diff
 		virtual void add_edit(const DiffOp<T> & edit) {
 			edits.push_back(edit);
 		}
-		unsigned size() { return edits.size(); }
+		unsigned long size() { return edits.size(); }
 		DiffOp<T> & operator[](int i) {return edits[i];}
 
 		DiffOpVector edits;
@@ -343,7 +343,9 @@ void DiffEngine<T>::diff (const ValueVector & from_lines,
 	}
 
 	// Find the LCS.
-	compareseq(0, xv.size(), 0, yv.size());
+    int size1 = xv.size() & INT_MAX;
+    int size2 = yv.size() & INT_MAX;
+	compareseq(0, size1, 0, size2);
 
 	// Merge edits when possible
 	shift_boundaries(from_lines, xchanged, ychanged);

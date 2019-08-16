@@ -25,7 +25,8 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
 	bool showLineNumber = true;
 
 	for (int i = 0; i < linediff.size(); ++i) {
-		int n, j, n1, n2;
+        unsigned long n, n1, n2;
+        int j;
 		// Line 1 changed, show heading with no leading context
 		if (linediff[i].op != DiffOp<String>::copy && i == 0) {
 			printBlockHeader(1, 1);
@@ -249,7 +250,7 @@ bool Wikidiff2::printMovedLineDiff(StringDiff & linediff, int opIndex, int opLin
 					tmp = std::make_shared<DiffMapEntry>(words1, words2, opIndex, opLine, i, k);
 					potentialMatch = cmpDiffMapEntries(tmp->opIndexTo, tmp->opLineTo);
 				}
-				if (!found || (tmp->ds.charSimilarity > found->ds.charSimilarity) && potentialMatch) {
+                if (!found || ((tmp->ds.charSimilarity > found->ds.charSimilarity) && potentialMatch)) {
 					found= tmp;
 				}
 			}
