@@ -28,6 +28,8 @@
 #import "WikiTextSectionUploader.h"
 #import "WMFArticleJSONCompilationHelper.h"
 
+#import "WMFDiffBridge.h"
+
 // Model
 #import "MWKLicense.h"
 #import "MWKImageInfoFetcher.h"
