@@ -13,7 +13,7 @@
 
 
 void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & lines2,
-		int numContextLines, int maxMovedLines)
+		int numContextLines, int maxMovedLines, bool needsJSONFormat)
 {
 	// first do line-level diff
 	StringDiff linediff(lines1, lines2);
@@ -24,12 +24,16 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
 	// Set to true initially so we get a line number on line 1
 	bool showLineNumber = true;
 
+    if (needsJSONFormat) {
+        result += "{\"diffs\": [";
+    }
 	for (int i = 0; i < linediff.size(); ++i) {
         unsigned long n, n1, n2;
         int j;
 		// Line 1 changed, show heading with no leading context
 		if (linediff[i].op != DiffOp<String>::copy && i == 0) {
-			printBlockHeader(1, 1);
+            if (!needsJSONFormat)
+                printBlockHeader(1, 1);
 		}
 
 		switch (linediff[i].op) {
@@ -57,16 +61,22 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
 				// copy/context
 				n = linediff[i].from.size();
 				for (j=0; j<n; j++) {
-					if ((i != 0 && j < numContextLines) /*trailing*/
-							|| (i != linediff.size() - 1 && j >= n - numContextLines)) /*leading*/ {
-						if (showLineNumber) {
-							printBlockHeader(from_index, to_index);
-							showLineNumber = false;
-						}
-						printContext(*linediff[i].from[j]);
-					} else {
-						showLineNumber = true;
-					}
+                    if (numContextLines == -1) { //show all
+                        if (!needsJSONFormat)
+                            printBlockHeader(from_index, to_index);
+                        printContext(*linediff[i].from[j]);
+                    } else {
+                        if ((i != 0 && j < numContextLines) /*trailing*/
+                            || (i != linediff.size() - 1 && j >= n - numContextLines)) /*leading*/ {
+                            if (showLineNumber && !needsJSONFormat) {
+                                printBlockHeader(from_index, to_index);
+                                showLineNumber = false;
+                            }
+                            printContext(*linediff[i].from[j]);
+                        } else {
+                            showLineNumber = true;
+                        }
+                    }
 					from_index++;
 					to_index++;
 				}
@@ -86,6 +96,10 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
 		// Not first line anymore, don't show line number by default
 		showLineNumber = false;
 	}
+    
+    if (needsJSONFormat) {
+        result += "]}";
+    }
 }
 
 bool Wikidiff2::printMovedLineDiff(StringDiff & linediff, int opIndex, int opLine, int maxMovedLines)
@@ -394,7 +408,7 @@ void Wikidiff2::explodeLines(const String & text, StringVector &lines)
 	}
 }
 
-const Wikidiff2::String & Wikidiff2::execute(const String & text1, const String & text2, int numContextLines, int maxMovedLines)
+const Wikidiff2::String & Wikidiff2::execute(const String & text1, const String & text2, int numContextLines, int maxMovedLines, bool needsJSONFormat)
 {
 	// Allocate some result space to avoid excessive copying
 	result.clear();
@@ -407,7 +421,7 @@ const Wikidiff2::String & Wikidiff2::execute(const String & text1, const String 
 	explodeLines(text2, lines2);
 
 	// Do the diff
-	diffLines(lines1, lines2, numContextLines, maxMovedLines);
+	diffLines(lines1, lines2, numContextLines, maxMovedLines, needsJSONFormat);
 
 	// Return a reference to the result buffer
 	return result;

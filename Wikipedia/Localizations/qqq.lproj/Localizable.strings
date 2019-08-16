@@ -152,6 +152,7 @@
 "description-welcome-descriptions-title" = "Title text explaining title descriptions";
 "description-welcome-promise-title" = "Title text asking user to edit descriptions responsibly";
 "description-welcome-start-editing-button" = "Text for button for dismissing description editing welcome screens";
+"diff-section-header-line-number" = "Text that displays as  Parameters:\n* $1 - article title the current search result redirected from";
 "dim-images" = "Label for image dimming setting";
 "edit-bold-accessibility-label" = "Accessibility label for the button that adds bold formatting to the current selection";
 "edit-bold-remove-accessibility-label" = "Accessibility label for the button that removes bold formatting to the current selection";

@@ -30,7 +30,7 @@ class Wikidiff2 {
 		typedef Diff<String> StringDiff;
 		typedef Diff<Word> WordDiff;
 
-		const String & execute(const String & text1, const String & text2, int numContextLines, int maxMovedLines);
+		const String & execute(const String & text1, const String & text2, int numContextLines, int maxMovedLines, bool needsJSONFormat);
 
 		inline const String & getResult() const;
 
@@ -58,7 +58,7 @@ class Wikidiff2 {
 		} allowPrintMovedLineDiff;
 
 		virtual void diffLines(const StringVector & lines1, const StringVector & lines2,
-				int numContextLines, int maxMovedLines);
+				int numContextLines, int maxMovedLines, bool needsJSONFormat);
 		virtual void printAdd(const String & line) = 0;
 		virtual void printDelete(const String & line) = 0;
 		virtual void printWordDiff(const String & text1, const String & text2, bool printLeft = true, bool printRight = true, const String & srcAnchor = "", const String & dstAnchor = "", bool moveDirectionDownwards = false) = 0;

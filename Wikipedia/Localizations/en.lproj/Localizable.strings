@@ -152,6 +152,7 @@
 "description-welcome-descriptions-title" = "Title descriptions";
 "description-welcome-promise-title" = "By starting, I promise not to misuse this feature";
 "description-welcome-start-editing-button" = "Start editing";
+"diff-section-header-line-number" = "Line: $1";
 "dim-images" = "Dim images";
 "edit-bold-accessibility-label" = "Add bold formatting";
 "edit-bold-remove-accessibility-label" = "Remove bold formatting";

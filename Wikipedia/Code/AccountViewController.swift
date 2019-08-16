@@ -102,6 +102,14 @@ class AccountViewController: SubSettingsViewController {
     }
     
     @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(name: "DiffPrototype", bundle: nil)
+        if let vc = storyboard.instantiateInitialViewController() {
+            present(vc, animated: true, completion: nil)
+        }
+        
+        return
+        
         defer {
             tableView.deselectRow(at: indexPath, animated: true)
         }

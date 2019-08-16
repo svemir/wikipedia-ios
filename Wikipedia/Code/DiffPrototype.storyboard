@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9rW-sn-UYg">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Diff Prototype View Controller-->
+        <scene sceneID="6qK-er-XjP">
+            <objects>
+                <viewController storyboardIdentifier="DiffPrototypeViewController" id="9rW-sn-UYg" customClass="DiffPrototypeViewController" customModule="Wikipedia" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ux0-pD-Pet">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PJK-eZ-RcY">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="Ojf-dH-5Hz">
+                                    <size key="itemSize" width="414" height="50"/>
+                                    <size key="headerReferenceSize" width="414" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="itemCell" id="rA5-AZ-4yn" customClass="DiffPrototypeCell" customModule="Wikipedia" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="414" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Oq-Qf-prW">
+                                                    <rect key="frame" x="5" y="5" width="404" height="40"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="2Oq-Qf-prW" secondAttribute="trailing" constant="5" id="Iel-nb-6d6"/>
+                                            <constraint firstItem="2Oq-Qf-prW" firstAttribute="top" secondItem="rA5-AZ-4yn" secondAttribute="top" constant="5" id="dRN-pa-KN5"/>
+                                            <constraint firstItem="2Oq-Qf-prW" firstAttribute="leading" secondItem="rA5-AZ-4yn" secondAttribute="leading" constant="5" id="vJk-UL-UTg"/>
+                                            <constraint firstAttribute="bottom" secondItem="2Oq-Qf-prW" secondAttribute="bottom" constant="5" id="zsv-Cn-0sI"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="textLabel" destination="2Oq-Qf-prW" id="Fc2-5P-5GW"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="sectionHeaderView" id="bFe-Mg-NEq" customClass="DiffPrototypeSectionHeader" customModule="Wikipedia" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="INw-ry-h08">
+                                            <rect key="frame" x="5" y="5" width="404" height="40"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="INw-ry-h08" firstAttribute="top" secondItem="bFe-Mg-NEq" secondAttribute="top" constant="5" id="0hf-Qq-4TT"/>
+                                        <constraint firstItem="INw-ry-h08" firstAttribute="leading" secondItem="bFe-Mg-NEq" secondAttribute="leading" constant="5" id="Jj9-c3-Agh"/>
+                                        <constraint firstAttribute="trailing" secondItem="INw-ry-h08" secondAttribute="trailing" constant="5" id="Koi-lF-Yeb"/>
+                                        <constraint firstAttribute="bottom" secondItem="INw-ry-h08" secondAttribute="bottom" constant="5" id="nPd-we-hEv"/>
+                                    </constraints>
+                                    <connections>
+                                        <outlet property="textLabel" destination="INw-ry-h08" id="Lu2-qL-TK6"/>
+                                    </connections>
+                                </collectionReusableView>
+                                <connections>
+                                    <outlet property="dataSource" destination="9rW-sn-UYg" id="ss5-0d-OyY"/>
+                                    <outlet property="delegate" destination="9rW-sn-UYg" id="tD5-qe-M36"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="nXb-th-O3a" firstAttribute="bottom" secondItem="PJK-eZ-RcY" secondAttribute="bottom" id="I8L-fi-vOd"/>
+                            <constraint firstItem="PJK-eZ-RcY" firstAttribute="top" secondItem="nXb-th-O3a" secondAttribute="top" id="b3w-By-spD"/>
+                            <constraint firstItem="PJK-eZ-RcY" firstAttribute="leading" secondItem="nXb-th-O3a" secondAttribute="leading" id="rSF-fW-POK"/>
+                            <constraint firstItem="nXb-th-O3a" firstAttribute="trailing" secondItem="PJK-eZ-RcY" secondAttribute="trailing" id="wFJ-UL-ded"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nXb-th-O3a"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="PJK-eZ-RcY" id="syl-e4-nFr"/>
+                        <outlet property="flowLayout" destination="Ojf-dH-5Hz" id="oLh-kQ-Jz4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SDf-hW-tZR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-8" y="-22"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,8 +1,7 @@
 
 #include "DiffHandler.hpp"
 #include "Wikidiff2.h"
-#include "TableDiff.h"
-#include "InlineDiff.h"
+#include "InlineDiffJSON.hpp"
 
 DiffHandler::DiffHandler() {
 }
@@ -10,9 +9,9 @@ DiffHandler::DiffHandler() {
 std::string DiffHandler::diff(const std::string & text1, const std::string & text2) {
     try {
         
-        InlineDiff wikidiff2;
+        InlineDiffJSON wikidiff2;
         
-        return wikidiff2.execute(text1, text2, 2, movedParagraphDetectionCutoff());
+        return wikidiff2.execute(text1, text2, -1, movedParagraphDetectionCutoff(), true);
         
         //return wikidiff2.execute("'''อเล็กซานเดอร์ บอริส เดอ เฟ็ฟเฟิล จอห์นสัน''' ({{lang-en|Alexander Boris de Pfeffel Johnson}}) หรือนิยมเรียก '''บอริส จอห์นสัน''' เป็นนักการเมืองชาวบริติช ว่าที่[[นายกรัฐมนตรีสหราชอาณาจักร]] เคยดำรงตำแหน่งนายกเทศมนตรีกรุงลอนดอนระหว่าง ค.ศ. 2008–2016 และดำรงตำแหน่งรัฐมนตรีว่าการต่างประเทศและเครือจักรภพระหว่าง ค.ศ. 2016–2018 เขามีส่วนในการกำหนดนโยบายเสรีภาพทางสังคมและเศรษฐกิจต่าง ๆ เขาระบุว่าตนเองเป็นพวกชาติอนุรักษนิยม และเป็นหนึ่งในผู้สนับสนุน[[เบร็กซิต]]คนสำคัญ<ref>{{cite news |url= https://www.bbc.co.uk/news/uk-politics-eu-referendum-35626621 |title=Boris Johnson says UK is better off outside the EU |date=21 February 2016 |accessdate=21 February 2016 |work=BBC News}}</ref>", "'''อเล็กซานเดอร์ บอริส เดอ เฟ็ฟเฟิล จอห์นสัน''' ({{lang-en|Alexander Boris de Pfeffel Johnson}}) หรือนิยมเรียก '''บอริส จอห์นสัน''' เป็นนักการเมืองชาวบริติช ปัจจุบันดำรงตำแหน่ง[[นายกรัฐมนตรีสหราชอาณาจักร]] เคยดำรงตำแหน่งนายกเทศมนตรีกรุงลอนดอนระหว่าง ค.ศ. 2008–2016 และดำรงตำแหน่งรัฐมนตรีว่าการต่างประเทศและเครือจักรภพระหว่าง ค.ศ. 2016–2018 เขามีส่วนในการกำหนดนโยบายเสรีภาพทางสังคมและเศรษฐกิจต่าง ๆ เขาระบุว่าตนเองเป็นพวกชาติอนุรักษนิยม และเป็นหนึ่งในผู้สนับสนุน[[เบร็กซิต]]คนสำคัญ<ref>{{cite news |url= https://www.bbc.co.uk/news/uk-politics-eu-referendum-35626621 |title=Boris Johnson says UK is better off outside the EU |date=21 February 2016 |accessdate=21 February 2016 |work=BBC News}}</ref>", 2, movedParagraphDetectionCutoff());
         
