@@ -84,12 +84,12 @@ void TableDiff::printWordDiffSide(WordDiff &worddiff, bool added)
 			if (added) {
 				for (j=0; j<n; j++) {
 					op.to[j]->get_whole(word);
-					printText(word);
+					printText(word, false);
 				}
 			} else {
 				for (j=0; j<n; j++) {
 					op.from[j]->get_whole(word);
-					printText(word);
+					printText(word, false);
 				}
 			}
 		} else if (!added && (op.op == DiffOp<Word>::del || op.op == DiffOp<Word>::change)) {
@@ -97,7 +97,7 @@ void TableDiff::printWordDiffSide(WordDiff &worddiff, bool added)
 			result += "<del class=\"diffchange diffchange-inline\">";
 			for (j=0; j<n; j++) {
 				op.from[j]->get_whole(word);
-				printText(word);
+				printText(word, false);
 			}
 			result += "</del>";
 		} else if (added && (op.op == DiffOp<Word>::add || op.op == DiffOp<Word>::change)) {
@@ -105,7 +105,7 @@ void TableDiff::printWordDiffSide(WordDiff &worddiff, bool added)
 			result += "<ins class=\"diffchange diffchange-inline\">";
 			for (j=0; j<n; j++) {
 				op.to[j]->get_whole(word);
-				printText(word);
+				printText(word, false);
 			}
 			result += "</ins>";
 		}
@@ -117,7 +117,7 @@ void TableDiff::printTextWithDiv(const String & input)
 	// Wrap string in a <div> if it's not empty
 	if (input.size() > 0) {
 		result.append("<div>");
-		printText(input);
+		printText(input, false);
 		result.append("</div>");
 	}
 }

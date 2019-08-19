@@ -367,8 +367,14 @@ void Wikidiff2::debugPrintWordDiff(WordDiff & worddiff)
 	}
 }
 
-void Wikidiff2::printText(const String & input)
+void Wikidiff2::printText(const String & input, bool needsJSONFormat)
 {
+    
+    if (needsJSONFormat) {
+        result.append(input);
+        return;
+    }
+    
 	size_t start = 0;
 	size_t end = input.find_first_of("<>&");
 	while (end != String::npos) {

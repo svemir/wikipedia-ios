@@ -65,7 +65,7 @@ class Wikidiff2 {
 		virtual void printBlockHeader(int leftLine, int rightLine) = 0;
 		virtual void printContext(const String & input) = 0;
 
-		void printText(const String & input);
+		void printText(const String & input, bool needsJSONFormat);
 		void debugPrintWordDiff(WordDiff & worddiff);
 
 		void explodeLines(const String & text, StringVector &lines);

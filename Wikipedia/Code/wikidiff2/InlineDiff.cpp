@@ -52,7 +52,7 @@ void InlineDiff::printWordDiff(const String& text1, const String& text2, bool pr
 			n = op.from.size();
 			for (j=0; j<n; j++) {
 				op.from[j]->get_whole(word);
-				printText(word);
+				printText(word, false);
 			}
 		} else if (op.op == DiffOp<Word>::del) {
 			n = op.from.size();
@@ -60,7 +60,7 @@ void InlineDiff::printWordDiff(const String& text1, const String& text2, bool pr
 				result += "<del>";
 			for (j=0; j<n; j++) {
 				op.from[j]->get_whole(word);
-				printText(word);
+				printText(word, false);
 			}
 			if (!isMoveSrc)
 				result += "</del>";
@@ -71,7 +71,7 @@ void InlineDiff::printWordDiff(const String& text1, const String& text2, bool pr
 			result += "<ins>";
 			for (j=0; j<n; j++) {
 				op.to[j]->get_whole(word);
-				printText(word);
+				printText(word, false);
 			}
 			result += "</ins>";
 		} else if (op.op == DiffOp<Word>::change) {
@@ -80,7 +80,7 @@ void InlineDiff::printWordDiff(const String& text1, const String& text2, bool pr
 				result += "<del>";
 			for (j=0; j<n; j++) {
 				op.from[j]->get_whole(word);
-				printText(word);
+				printText(word, false);
 			}
 			if (isMoveSrc)
 				continue;
@@ -89,7 +89,7 @@ void InlineDiff::printWordDiff(const String& text1, const String& text2, bool pr
 			result += "<ins>";
 			for (j=0; j<n; j++) {
 				op.to[j]->get_whole(word);
-				printText(word);
+				printText(word, false);
 			}
 			result += "</ins>";
 		}
@@ -122,7 +122,7 @@ void InlineDiff::printWrappedLine(const char* pre, const String& line, const cha
 	if (line.empty()) {
 		result += "&#160;";
 	} else {
-		printText(line);
+		printText(line, false);
 	}
 	result += post;
 }

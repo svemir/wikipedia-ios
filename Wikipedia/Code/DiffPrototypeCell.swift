@@ -24,20 +24,38 @@ class DiffPrototypeCell: UICollectionViewCell {
         widthConstraint.constant = width
         widthConstraint.isActive = true
         
-        let insertedRanges = item.highlightRanges.filter { $0.type == .add }.map { NSRange(location: $0.start, length: $0.length) }
-        let deletedRanges = item.highlightRanges.filter { $0.type == .delete }.map { NSRange(location: $0.start, length: $0.length) }
+        //todo: pass in single closure to both
+        let insertedRanges: [NSRange] = item.highlightRanges.filter { $0.type == .add }.map {
+            
+            // Compute String.UnicodeScalarView indices for first and last position:
+            let fromIdx = item.text.utf8.index(item.text.utf8.startIndex, offsetBy: $0.start)
+            let toIdx = item.text.utf8.index(fromIdx, offsetBy: $0.length)
+            
+            // Compute corresponding NSRange:
+            let nsRange = NSRange(fromIdx..<toIdx, in: item.text)
+            
+            return nsRange
+        }
+        let deletedRanges: [NSRange] = item.highlightRanges.filter { $0.type == .delete }.map {
+            
+            // Compute String.UnicodeScalarView indices for first and last position:
+            let fromIdx = item.text.utf8.index(item.text.utf8.startIndex, offsetBy: $0.start)
+            let toIdx = item.text.utf8.index(fromIdx, offsetBy: $0.length)
+            
+            // Compute corresponding NSRange:
+            let nsRange = NSRange(fromIdx..<toIdx, in: item.text)
+            
+            return nsRange
+        }
         
-        var text: String;
-        if item.text == "" && (item.highlightRanges.count == 1 && item.highlightRanges[0].start == 0 && item.highlightRanges[0].length == 1) {
-            //annoying workaround for collapsing nonbreaking space from C++
-            text = " "
-        } else {
-            text = item.text
-            }
-        setAttributedString(text: text, insertedRanges: insertedRanges, deletedRanges: deletedRanges)
+        setAttributedString(text: item.text, insertedRanges: insertedRanges, deletedRanges: deletedRanges)
     }
     
     private func setAttributedString(text: String, insertedRanges: [NSRange], deletedRanges: [NSRange]) {
+        
+        //let one = "\""
+        //let two = "\\\""
+        //let whytheHellNot = text.replacingOccurrences(of: one, with: two)
         let attributedString = NSMutableAttributedString(string: text)
         
         for insertedRange in insertedRanges {
