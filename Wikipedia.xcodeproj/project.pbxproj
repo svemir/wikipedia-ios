@@ -194,6 +194,16 @@
 		6789B1D223074E64000CEB65 /* DiffFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789B1CF23074E63000CEB65 /* DiffFetcher.swift */; };
 		6789B1D323074E64000CEB65 /* DiffFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789B1CF23074E63000CEB65 /* DiffFetcher.swift */; };
 		6789B1D423074E64000CEB65 /* DiffFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789B1CF23074E63000CEB65 /* DiffFetcher.swift */; };
+		6789B1D6230AF34B000CEB65 /* libdatrie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789B1D5230AF34A000CEB65 /* libdatrie.a */; };
+		6789B1D8230AF353000CEB65 /* libthai.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789B1D7230AF353000CEB65 /* libthai.a */; };
+		6789B1D9230AF365000CEB65 /* libdatrie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789B1D5230AF34A000CEB65 /* libdatrie.a */; };
+		6789B1DA230AF36A000CEB65 /* libthai.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789B1D7230AF353000CEB65 /* libthai.a */; };
+		6789B1DB230AF377000CEB65 /* libdatrie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789B1D5230AF34A000CEB65 /* libdatrie.a */; };
+		6789B1DC230AF37D000CEB65 /* libthai.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789B1D7230AF353000CEB65 /* libthai.a */; };
+		6789B1DD230AF38A000CEB65 /* libdatrie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789B1D5230AF34A000CEB65 /* libdatrie.a */; };
+		6789B1DE230AF391000CEB65 /* libthai.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789B1D7230AF353000CEB65 /* libthai.a */; };
+		6789B1DF230AF39B000CEB65 /* libdatrie.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789B1D5230AF34A000CEB65 /* libdatrie.a */; };
+		6789B1E0230AF3A1000CEB65 /* libthai.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6789B1D7230AF353000CEB65 /* libthai.a */; };
 		6789FA2E22E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
 		6789FA2F22E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
 		6789FA3022E7790900E43842 /* TalkPage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */; };
@@ -3828,6 +3838,8 @@
 		6789B1C823071CCA000CEB65 /* InlineDiffJSON.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = InlineDiffJSON.cpp; sourceTree = "<group>"; };
 		6789B1C923071CCA000CEB65 /* InlineDiffJSON.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InlineDiffJSON.hpp; sourceTree = "<group>"; };
 		6789B1CF23074E63000CEB65 /* DiffFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiffFetcher.swift; sourceTree = "<group>"; };
+		6789B1D5230AF34A000CEB65 /* libdatrie.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libdatrie.a; sourceTree = "<group>"; };
+		6789B1D7230AF353000CEB65 /* libthai.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libthai.a; sourceTree = "<group>"; };
 		6789FA2D22E7790900E43842 /* TalkPage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TalkPage+Extensions.swift"; sourceTree = "<group>"; };
 		6798331922C174ED0073CE6F /* LinkOnlyTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOnlyTextView.swift; sourceTree = "<group>"; };
 		6798332822C3F28A0073CE6F /* UITextView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
@@ -5340,6 +5352,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6789B1D8230AF353000CEB65 /* libthai.a in Frameworks */,
+				6789B1D6230AF34B000CEB65 /* libdatrie.a in Frameworks */,
 				D8CD97601E83F68400ECCA9D /* SafariServices.framework in Frameworks */,
 				D8D906941DF58D1900853BFD /* libsqlite3.tbd in Frameworks */,
 				D8D553621DF1B63200B90177 /* QuartzCore.framework in Frameworks */,
@@ -5363,6 +5377,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6789B1E0230AF3A1000CEB65 /* libthai.a in Frameworks */,
+				6789B1DF230AF39B000CEB65 /* libdatrie.a in Frameworks */,
 				D80ED3B41EE57F4800CE8C50 /* SafariServices.framework in Frameworks */,
 				D80ED3B51EE57F4800CE8C50 /* libsqlite3.tbd in Frameworks */,
 				D80ED3B61EE57F4800CE8C50 /* QuartzCore.framework in Frameworks */,
@@ -5458,6 +5474,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6789B1DE230AF391000CEB65 /* libthai.a in Frameworks */,
+				6789B1DD230AF38A000CEB65 /* libdatrie.a in Frameworks */,
 				D8CD97621E83F68E00ECCA9D /* SafariServices.framework in Frameworks */,
 				D8A42B9C1E815A9C00D8E281 /* libsqlite3.tbd in Frameworks */,
 				D8A42B9D1E815A9C00D8E281 /* QuartzCore.framework in Frameworks */,
@@ -5488,6 +5506,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6789B1DA230AF36A000CEB65 /* libthai.a in Frameworks */,
+				6789B1D9230AF365000CEB65 /* libdatrie.a in Frameworks */,
 				D8CD97611E83F68900ECCA9D /* SafariServices.framework in Frameworks */,
 				D8CE261F1E698E2400DAE2E0 /* libsqlite3.tbd in Frameworks */,
 				D8CE26201E698E2400DAE2E0 /* QuartzCore.framework in Frameworks */,
@@ -5512,6 +5532,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6789B1DC230AF37D000CEB65 /* libthai.a in Frameworks */,
+				6789B1DB230AF377000CEB65 /* libdatrie.a in Frameworks */,
 				D8EC3F1E1E9BDA35006712EB /* SafariServices.framework in Frameworks */,
 				D8EC3F231E9BDA35006712EB /* libsqlite3.tbd in Frameworks */,
 				D8EC3F241E9BDA35006712EB /* QuartzCore.framework in Frameworks */,
@@ -8199,6 +8221,8 @@
 		D4991437181D51DE00E6073C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6789B1D7230AF353000CEB65 /* libthai.a */,
+				6789B1D5230AF34A000CEB65 /* libdatrie.a */,
 				B09BE6A01FB3DA45007F52E3 /* WebKit.framework */,
 				D8CD975F1E83F68400ECCA9D /* SafariServices.framework */,
 				D8D906931DF58D1800853BFD /* libsqlite3.tbd */,
@@ -13978,6 +14002,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -13989,10 +14014,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -14133,6 +14163,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14142,10 +14173,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -14168,6 +14204,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14178,10 +14215,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -14204,6 +14246,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14214,10 +14257,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -14239,6 +14287,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14249,10 +14298,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
@@ -14275,6 +14329,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -14285,10 +14340,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -15075,6 +15135,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15084,10 +15145,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -15110,6 +15176,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15120,10 +15187,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -15146,6 +15218,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15156,10 +15229,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -15181,6 +15259,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15191,10 +15270,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
@@ -15217,6 +15301,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -15227,10 +15312,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -16323,6 +16413,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16332,10 +16423,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -16358,6 +16454,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16369,10 +16466,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -16393,6 +16495,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16403,10 +16506,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -16429,6 +16537,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16439,10 +16548,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -16465,6 +16579,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16475,10 +16590,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
@@ -16501,6 +16621,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16511,10 +16632,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
@@ -16537,6 +16663,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16549,10 +16676,15 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -16581,6 +16713,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16593,10 +16726,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -16617,6 +16755,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16629,10 +16768,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -16653,6 +16797,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16665,10 +16810,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -16689,6 +16839,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16701,10 +16852,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -16725,6 +16881,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16737,10 +16894,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -16761,6 +16923,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16775,10 +16938,15 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -16879,6 +17047,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16888,10 +17057,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -16914,6 +17088,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16924,10 +17099,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -16950,6 +17130,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16960,10 +17141,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -16985,6 +17171,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -16995,10 +17182,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
@@ -17021,6 +17213,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -17031,10 +17224,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -17329,6 +17527,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -17340,10 +17539,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -17364,6 +17568,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -17376,10 +17581,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -17400,6 +17610,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -17412,10 +17623,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -17435,6 +17651,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -17447,10 +17664,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -17471,6 +17693,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -17483,10 +17706,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -17767,6 +17995,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -17776,10 +18005,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
@@ -18847,6 +19081,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18856,10 +19091,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Local-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -18882,6 +19122,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18892,10 +19133,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -18918,6 +19164,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18928,10 +19175,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -18953,6 +19205,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18963,10 +19216,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
@@ -18989,6 +19247,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -18999,10 +19258,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -19425,6 +19689,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -19438,10 +19703,15 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -19676,6 +19946,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -19687,10 +19958,15 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -20727,6 +21003,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -20736,10 +21013,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -20762,6 +21044,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -20772,10 +21055,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -20798,6 +21086,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -20808,10 +21097,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -20833,6 +21127,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -20843,10 +21138,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
@@ -20869,6 +21169,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -20879,10 +21180,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "$(SRCROOT)/Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -21265,6 +21571,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -21276,10 +21583,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -21300,6 +21612,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -21312,10 +21625,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -21578,6 +21896,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -21587,10 +21906,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
@@ -21613,6 +21937,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -21623,10 +21948,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
@@ -21830,6 +22160,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -21840,10 +22171,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
@@ -21865,6 +22201,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -21875,10 +22212,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
@@ -21900,6 +22242,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -21910,10 +22253,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
@@ -21935,6 +22283,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -21947,10 +22296,15 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -21978,6 +22332,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -21990,10 +22345,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -22013,6 +22373,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -22025,10 +22386,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -22048,6 +22414,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -22060,10 +22427,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -22083,6 +22455,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -22095,10 +22468,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -22118,6 +22496,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -22132,10 +22511,15 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -22231,6 +22615,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -22242,10 +22627,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -22266,6 +22656,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -22278,10 +22669,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -22301,6 +22697,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -22313,10 +22710,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -22578,6 +22980,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -22587,10 +22990,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -22613,6 +23021,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -22623,10 +23032,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -22648,6 +23062,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -22658,10 +23073,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia User Testing-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.usertesting;
@@ -23279,6 +23699,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23289,10 +23710,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -23315,6 +23741,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23325,10 +23752,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
@@ -23351,6 +23783,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23363,10 +23796,15 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -23395,6 +23833,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23407,10 +23846,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -23431,6 +23875,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23443,10 +23888,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -23467,6 +23917,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23481,10 +23932,15 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Alpha-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -23580,6 +24036,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23591,10 +24048,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -23615,6 +24077,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23627,10 +24090,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -23820,6 +24288,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23830,10 +24299,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -23856,6 +24330,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23866,10 +24341,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
@@ -23892,6 +24372,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23902,10 +24383,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
@@ -23928,6 +24414,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23938,10 +24425,15 @@
 					"$(inherited)",
 					"WMF_APP_EXTENSION=0",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
@@ -23964,6 +24456,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -23976,10 +24469,15 @@
 					"WMF_APP_SEE_API_KEY=$(WMF_APP_SEE_API_KEY)",
 					"WMF_UX_STUDY_ENABLED=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -24008,6 +24506,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -24020,10 +24519,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -24044,6 +24548,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -24056,10 +24561,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -24080,6 +24590,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -24092,10 +24603,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -24116,6 +24632,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -24128,10 +24645,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia.tfbeta;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -24152,6 +24674,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -24164,10 +24687,15 @@
 					"WMF_APP_EXTENSION=0",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.wikimedia.wikipedia;
 				PRODUCT_MODULE_NAME = Wikipedia;
@@ -24188,6 +24716,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = AKK7J2GV64;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -24202,10 +24731,15 @@
 					"WMF_UX_STUDY_ENABLED=1",
 					"NS_BLOCK_ASSERTIONS=1",
 				);
+				HEADER_SEARCH_PATHS = "${SRCROOT}/staticLibHeaders";
 				INFOPLIST_FILE = "Wikipedia/Wikipedia Beta-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

@@ -1,9 +1,9 @@
 #ifndef TEXTUTIL_H
 #define TEXTUTIL_H
 
-//#include <thai/thailib.h>
-//#include <thai/thwchar.h>
-//#include <thai/thbrk.h>
+#include "thailib.h"
+#include "thwchar.h"
+#include "thbrk.h"
 
 #include <algorithm>
 
@@ -104,7 +104,7 @@ namespace TextUtil
 		tisText.reserve(text.size());
 		charSizes.reserve(text.size());
 		wchar_t ch, lastChar;
-		//thchar_t thaiChar;
+		thchar_t thaiChar;
 		bool hasThaiChars = false;
 
 		p = text.begin();
@@ -112,11 +112,11 @@ namespace TextUtil
 		lastChar = 0;
 		int charIndex = 0;
 		while (ch) {
-			//thaiChar = th_uni2tis(ch);
-			//if (thaiChar >= 0x80 && thaiChar != THCHAR_ERR) {
-				//hasThaiChars = true;
-			//}
-			//tisText += (char)thaiChar;
+            thaiChar = th_uni2tis(ch);
+            if (thaiChar >= 0x80 && thaiChar != THCHAR_ERR) {
+                hasThaiChars = true;
+            }
+            tisText += (char)thaiChar;
 			charSizes += (char)(p - charStart);
 
 			if (isLetter(ch)) {
@@ -134,16 +134,16 @@ namespace TextUtil
 		// If there were any Thai characters in the string, run th_brk on it and add
 		// the resulting break positions
 		if (hasThaiChars) {
-//            tisText += '\0';
-//            int numBreaks = breaks.size();
-//            breaks.resize(numBreaks + tisText.size());
-//            IntVector::iterator thaiBreaksBegin = breaks.begin() + numBreaks;
-//            numBreaks += th_brk((const thchar_t*)(tisText.data()),
-//                    &*thaiBreaksBegin, tisText.size());
-//            breaks.resize(numBreaks);
-//            // Merge break positions and de-dupe.
-//            std::inplace_merge(breaks.begin(), thaiBreaksBegin, breaks.end());
-//            breaks.erase(std::unique(breaks.begin(), breaks.end()), breaks.end());
+            tisText += '\0';
+            int numBreaks = breaks.size() & INT_MAX;
+            breaks.resize(numBreaks + tisText.size());
+            IntVector::iterator thaiBreaksBegin = breaks.begin() + numBreaks;
+            numBreaks += th_brk((const thchar_t*)(tisText.data()),
+                    &*thaiBreaksBegin, tisText.size());
+            breaks.resize(numBreaks);
+            // Merge break positions and de-dupe.
+            std::inplace_merge(breaks.begin(), thaiBreaksBegin, breaks.end());
+            breaks.erase(std::unique(breaks.begin(), breaks.end()), breaks.end());
 		}
 
 		// Add a fake end-of-string character and have a break on it, so that the
