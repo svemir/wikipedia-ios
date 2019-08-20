@@ -46,17 +46,24 @@ class DiffFetcher: Fetcher {
                     continue
                 }
                 
-                if let revisionsArray = valueDict["revisions"] as? [[String: AnyObject]] {
+                if let revisionsArray = valueDict["revisions"] as? [[String: AnyObject]],
+                    revisionsArray.count > 0 {
                     
-                    guard revisionsArray.count == 2 else {
-                        continue
+                    for revision in revisionsArray {
+                        
+                        if from == nil {
+                            from = revision["*"] as? String
+                        } else if to == nil {
+                            to = revision["*"] as? String
+                        }
+                        
+                        if from != nil && to != nil {
+                            break
+                        }
                     }
-                    
-                    let fromDict = revisionsArray[0]
-                    let toDict = revisionsArray[1]
-                    
-                    from = fromDict["*"] as? String
-                    to = toDict["*"] as? String
+                }
+                
+                if from != nil && to != nil {
                     break
                 }
             }
