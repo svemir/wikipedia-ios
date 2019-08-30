@@ -1582,6 +1582,10 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
                                             animated:NO
                                           completion:^{
                                               [self showWebView];
+                                              if (self.restoreScrollPosition && self.tableOfContentsViewController.viewIfLoaded != nil) {
+                                                  [self updateTableOfContentsHighlightWithScrollView:self.webViewController.webView.scrollView];
+                                                  self.restoreScrollPosition = NO;
+                                              }
                                           }];
             self.initialFragment = nil;
         } else {
@@ -1661,9 +1665,8 @@ static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollD
 
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
 
-    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating || (self.restoreScrollPosition && self.tableOfContentsViewController.viewIfLoaded != nil)) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
+    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
         [self updateTableOfContentsHighlightWithScrollView:scrollView];
-        self.restoreScrollPosition = NO;
     }
 
     [self.navigationBarHider scrollViewDidScroll:scrollView];
