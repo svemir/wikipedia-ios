@@ -3995,6 +3995,9 @@
 		83A8E34021A431F100B3FF82 /* WMFLegacySerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = WMFLegacySerializer.m; path = "WMF Framework/WMFLegacySerializer.m"; sourceTree = SOURCE_ROOT; };
 		83B4CDBE20E3DCD6007D5A6E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		83B87EC61F713BC200F342F1 /* ArticleCollectionViewCell+ListDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArticleCollectionViewCell+ListDisplay.swift"; sourceTree = "<group>"; };
+		83BD051A2320030E0059A5E9 /* Wikipedia 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Wikipedia 3.xcdatamodel"; sourceTree = "<group>"; };
+		83BD051B2320037D0059A5E9 /* EventLogging 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "EventLogging 2.xcdatamodel"; sourceTree = "<group>"; };
+		83BD051C232004B60059A5E9 /* RemoteNotifications 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "RemoteNotifications 2.xcdatamodel"; sourceTree = "<group>"; };
 		83BF87CE1FA7463300EAF3DD /* WMFFIFOCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFFIFOCache.h; sourceTree = "<group>"; };
 		83BF87CF1FA7463300EAF3DD /* WMFFIFOCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WMFFIFOCache.m; sourceTree = "<group>"; };
 		83C6435222394F0300FC16BF /* RandomArticleFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomArticleFetcher.swift; sourceTree = "<group>"; };
@@ -24522,9 +24525,10 @@
 		7A9133A822B162E7002AEBCF /* RemoteNotifications.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				83BD051C232004B60059A5E9 /* RemoteNotifications 2.xcdatamodel */,
 				7A9133A922B162E8002AEBCF /* RemoteNotifications.xcdatamodel */,
 			);
-			currentVersion = 7A9133A922B162E8002AEBCF /* RemoteNotifications.xcdatamodel */;
+			currentVersion = 83BD051C232004B60059A5E9 /* RemoteNotifications 2.xcdatamodel */;
 			path = RemoteNotifications.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
@@ -24532,9 +24536,10 @@
 		B32535EF1EE856FF00372E93 /* EventLogging.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				83BD051B2320037D0059A5E9 /* EventLogging 2.xcdatamodel */,
 				B32535F01EE856FF00372E93 /* EventLogging.xcdatamodel */,
 			);
-			currentVersion = B32535F01EE856FF00372E93 /* EventLogging.xcdatamodel */;
+			currentVersion = 83BD051B2320037D0059A5E9 /* EventLogging 2.xcdatamodel */;
 			path = EventLogging.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
@@ -24542,10 +24547,11 @@
 		D844480D1DDA33D900425630 /* Wikipedia.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				83BD051A2320030E0059A5E9 /* Wikipedia 3.xcdatamodel */,
 				67E8B0B6226F5E3800537BC9 /* Wikipedia 2.xcdatamodel */,
 				D844480E1DDA33D900425630 /* Wikipedia.xcdatamodel */,
 			);
-			currentVersion = 67E8B0B6226F5E3800537BC9 /* Wikipedia 2.xcdatamodel */;
+			currentVersion = 83BD051A2320030E0059A5E9 /* Wikipedia 3.xcdatamodel */;
 			path = Wikipedia.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
