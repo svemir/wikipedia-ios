@@ -88,7 +88,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         }
         apply(theme: theme)
     }
-    
+
     private var cachedTitleViewItem: UIBarButtonItem?
     private var titleView: UIView?
     
@@ -281,12 +281,17 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
         
         updateTitleBarConstraints()
         updateShadowConstraints()
-
+        updateShadowHeightConstraintConstant()
+        
         setNavigationBarPercentHidden(0, underBarViewPercentHidden: 0, extendedViewPercentHidden: 0, topSpacingPercentHidden: 0, animated: false)
     }
     
     public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        updateShadowHeightConstraintConstant()
+    }
+
+    private func updateShadowHeightConstraintConstant() {
         guard traitCollection.displayScale > 0 else {
             return
         }
@@ -541,7 +546,7 @@ public class NavigationBar: SetupView, FakeProgressReceiving, FakeProgressDelega
             return progressView.progress
         }
         set {
-            progressView.progress = progress
+            progressView.progress = newValue
         }
     }
     

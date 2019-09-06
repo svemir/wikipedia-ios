@@ -142,6 +142,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 @property (nonatomic, strong) UISwipeGestureRecognizer *tableOfContentsCloseGestureRecognizer;
 @property (nonatomic, strong) UIView *tableOfContentsSeparatorView;
 @property (nonatomic) CGFloat previousContentOffsetYForTOCUpdate;
+@property (nonatomic, assign) BOOL restoreScrollPosition;
 
 // Previewing
 @property (nonatomic, weak) id<UIViewControllerPreviewing> leadImagePreviewingContext;
@@ -193,6 +194,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         if (![[fragment stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
             self.initialFragment = fragment;
         }
+        self.restoreScrollPosition = fragment != nil;
         self.theme = theme;
         self.addingArticleToHistoryListEnabled = YES;
         self.savingOpenArticleTitleEnabled = YES;
@@ -555,7 +557,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 - (IconBarButtonItem *)showTableOfContentsToolbarItem {
     if (!_showTableOfContentsToolbarItem) {
         _showTableOfContentsToolbarItem = [[IconBarButtonItem alloc] initWithIconName: @"toc" target: self action:@selector(showTableOfContents:) for: UIControlEventTouchUpInside];
-        _showTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
+        _showTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button {{Identical|Table of contents}}");
         [_showTableOfContentsToolbarItem applyTheme:self.theme];
         return _showTableOfContentsToolbarItem;
     }
@@ -572,7 +574,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
             button.layer.masksToBounds = YES;
         }
 
-        _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button\n{{Identical|Table of contents}}");
+        _hideTableOfContentsToolbarItem.accessibilityLabel = WMFLocalizedStringWithDefaultValue(@"table-of-contents-button-label", nil, nil, @"Table of contents", @"Accessibility label for the Table of Contents button {{Identical|Table of contents}}");
 
         [_hideTableOfContentsToolbarItem applyTheme:self.theme];
     }
@@ -845,10 +847,6 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)traitCollectionDidChange:(nullable UITraitCollection *)previousTraitCollection {
     [super traitCollectionDidChange:previousTraitCollection];
-    //TODO: Is this needed? iBooks doesn't dismiss the popover on rotation.
-    //    if ([self.presentedViewController isKindOfClass:[WMFReadingThemesControlsViewController class]]) {
-    //        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
-    //    }
     [self registerForPreviewingIfAvailable];
     NSNumber *multiplier = [[NSUserDefaults wmf] wmf_articleFontSizeMultiplier];
     [self.webViewController setFontSizeMultiplier:multiplier];
@@ -1024,6 +1022,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+
     [self updateTableOfContentsDisplayModeWithTraitCollection:newCollection];
     [self setupTableOfContentsViewController];
 }
@@ -1112,7 +1111,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
         case WMFTableOfContentsDisplayModeModal:
         default:
             self.tableOfContentsDisplayState = WMFTableOfContentsDisplayStateModalVisible;
-            [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
+            if (!self.presentedViewController) {
+                [self presentViewController:self.tableOfContentsViewController animated:YES completion:NULL];
+            }
     }
     [self updateToolbar];
 }
@@ -1562,6 +1563,9 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     if (self.tableOfContentsDisplayMode != WMFTableOfContentsDisplayModeModal) {
         [self setupTableOfContentsViewController];
         [self layoutForSize:self.view.bounds.size];
+        if (!self.restoreScrollPosition) {
+            [self.tableOfContentsViewController selectAndScrollToItemAtIndex:0 animated:NO];
+        }
     }
 }
 
@@ -1652,7 +1656,15 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     }
 }
 
+static const CGFloat WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance = 15;
+
 - (void)webViewController:(WebViewController *)controller scrollViewDidScroll:(UIScrollView *)scrollView {
+
+    if (self.isUpdateTableOfContentsSectionOnScrollEnabled && (scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating || (self.restoreScrollPosition && self.tableOfContentsViewController.viewIfLoaded != nil)) && ABS(self.previousContentOffsetYForTOCUpdate - scrollView.contentOffset.y) > WMFArticleViewControllerTableOfContentsSectionUpdateScrollDistance) {
+        [self updateTableOfContentsHighlightWithScrollView:scrollView];
+        self.restoreScrollPosition = NO;
+    }
+
     [self.navigationBarHider scrollViewDidScroll:scrollView];
 }
 
@@ -2170,7 +2182,7 @@ NSString *const WMFEditPublishedNotification = @"WMFEditPublishedNotification";
     };
 
     UIPreviewAction *shareAction =
-        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share\n{{Identical|Share}}")
+        [UIPreviewAction actionWithTitle:WMFLocalizedStringWithDefaultValue(@"share-custom-menu-item", nil, nil, @"Share...", @"Button label for text selection Share {{Identical|Share}}")
                                    style:UIPreviewActionStyleDefault
                                  handler:^(UIPreviewAction *_Nonnull action,
                                            UIViewController *_Nonnull previewViewController) {
