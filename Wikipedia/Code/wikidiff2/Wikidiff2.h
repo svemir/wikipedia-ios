@@ -59,18 +59,18 @@ class Wikidiff2 {
 
 		virtual void diffLines(const StringVector & lines1, const StringVector & lines2,
 				int numContextLines, int maxMovedLines, bool needsJSONFormat);
-		virtual void printAdd(const String & line) = 0;
-		virtual void printDelete(const String & line) = 0;
-		virtual void printWordDiff(const String & text1, const String & text2, bool printLeft = true, bool printRight = true, const String & srcAnchor = "", const String & dstAnchor = "", bool moveDirectionDownwards = false) = 0;
+		virtual void printAdd(const String & line, const String & sectionTitle) = 0;
+		virtual void printDelete(const String & line, const String& sectionTitle) = 0;
+		virtual void printWordDiff(const String & text1, const String & text2, const String& sectionTitle, bool printLeft = true, bool printRight = true, const String & srcAnchor = "", const String & dstAnchor = "", bool moveDirectionDownwards = false) = 0;
 		virtual void printBlockHeader(int leftLine, int rightLine) = 0;
-		virtual void printContext(const String & input) = 0;
+		virtual void printContext(const String & input, const String& sectionTitle) = 0;
 
 		void printText(const String & input, bool needsJSONFormat);
 		void debugPrintWordDiff(WordDiff & worddiff);
 
 		void explodeLines(const String & text, StringVector &lines);
 
-		bool printMovedLineDiff(StringDiff & linediff, int opIndex, int opLine, int maxMovedLines);
+		bool printMovedLineDiff(StringDiff & linediff, int opIndex, int opLine, int maxMovedLines, String & sectionTitle);
 };
 
 inline const Wikidiff2::String & Wikidiff2::getResult() const

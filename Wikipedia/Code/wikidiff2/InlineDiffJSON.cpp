@@ -4,17 +4,17 @@
 #include <sstream>
 #include <iomanip>
 
-void InlineDiffJSON::printAdd(const String& line)
+void InlineDiffJSON::printAdd(const String& line, const String& sectionTitle)
 {
-    printAddDelete(line, HighlightType::Add);
+    printAddDelete(line, HighlightType::Add, sectionTitle);
 }
 
-void InlineDiffJSON::printDelete(const String& line)
+void InlineDiffJSON::printDelete(const String& line, const String& sectionTitle)
 {
-    printAddDelete(line, HighlightType::Delete);
+    printAddDelete(line, HighlightType::Delete, sectionTitle);
 }
 
-void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightType) {
+void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightType, const String& sectionTitle) {
     if (hasResults)
         result += ",";
     
@@ -22,7 +22,7 @@ void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightT
     String escapedLine;
     int diffType = DiffType::Change;
     
-    std::string preString = "{\"type\": " + std::to_string(diffType) + ", \"text\": ";
+    std::string preString = "{\"type\": " + std::to_string(diffType) + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": ";
     pre = preString.c_str();
     
     if(line.empty()) {
@@ -39,7 +39,7 @@ void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightT
     hasResults = true;
 }
 
-void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, bool printLeft, bool printRight, const String & srcAnchor, const String & dstAnchor, bool moveDirectionDownwards)
+void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, const String& sectionTitle, bool printLeft, bool printRight, const String & srcAnchor, const String & dstAnchor, bool moveDirectionDownwards)
 {
     WordVector words1, words2;
     
@@ -56,12 +56,12 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, boo
         result += ",";
     if (moved) {
         if (isMoveSrc) {
-            result += "{\"type\": " + diffType + ", \"moveID\": \"" + srcAnchor + "\", \"movedToID\": \"" + dstAnchor + "\", \"text\": \"";
+            result += "{\"type\": " + diffType + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"moveID\": \"" + srcAnchor + "\", \"movedToID\": \"" + dstAnchor + "\", \"text\": \"";
         } else {
-            result += "{\"type\": " + diffType + ", \"moveID\": \"" + dstAnchor + "\", \"movedFromID\": \"" + srcAnchor + "\", \"text\": \"";
+            result += "{\"type\": " + diffType + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"moveID\": \"" + dstAnchor + "\", \"movedFromID\": \"" + srcAnchor + "\", \"text\": \"";
         }
     } else {
-        result += "{\"type\": " + diffType + ", \"text\": \"";
+        result += "{\"type\": " + diffType + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
     }
     hasResults = true;
     
@@ -160,13 +160,13 @@ void InlineDiffJSON::printBlockHeader(int leftLine, int rightLine)
     //inline diff json not setup to print this
 }
 
-void InlineDiffJSON::printContext(const String & input)
+void InlineDiffJSON::printContext(const String & input, const String& sectionTitle)
 {
     if (hasResults)
         result += ",";
     
     const char* pre;
-    std::string preString = "{\"type\": " + std::to_string(DiffType::Context) + ", \"text\": ";
+    std::string preString = "{\"type\": " + std::to_string(DiffType::Context) + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": ";
     pre = preString.c_str();
     
     printWrappedLine(pre, "\"" + escape_json(input) + "\"", ", \"highlightRanges\": []}");
@@ -205,4 +205,13 @@ std::string InlineDiffJSON::escape_json(const std::string &s) {
         }
     }
     return o.str();
+}
+
+
+std::string InlineDiffJSON::nullifySectionTitle(const std::string &sectionTitle) {
+    if (sectionTitle.length() == 0) {
+        return "null";
+    } else {
+        return "\"" + sectionTitle + "\"";
+    }
 }
