@@ -77,8 +77,7 @@ void TableDiff::printWordDiffSide(WordDiff &worddiff, bool added)
 	String word;
 	for (unsigned i = 0; i < worddiff.size(); ++i) {
 		DiffOp<Word> & op = worddiff[i];
-        unsigned long n;
-        int j;
+        int n, j;
 		if (op.op == DiffOp<Word>::copy) {
 			n = op.from.size();
 			if (added) {

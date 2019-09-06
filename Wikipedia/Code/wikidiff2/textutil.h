@@ -135,7 +135,7 @@ namespace TextUtil
 		// the resulting break positions
 		if (hasThaiChars) {
             tisText += '\0';
-            int numBreaks = breaks.size() & INT_MAX;
+            int numBreaks = breaks.size();
             breaks.resize(numBreaks + tisText.size());
             IntVector::iterator thaiBreaksBegin = breaks.begin() + numBreaks;
             numBreaks += th_brk((const thchar_t*)(tisText.data()),
@@ -148,8 +148,7 @@ namespace TextUtil
 
 		// Add a fake end-of-string character and have a break on it, so that the
 		// last word gets added without special handling
-        int size = charSizes.size() & INT_MAX;
-		breaks.push_back(size);
+		breaks.push_back(charSizes.size());
 		charSizes += (char)0;
 
 		// Now make the word array by traversing the breaks vector

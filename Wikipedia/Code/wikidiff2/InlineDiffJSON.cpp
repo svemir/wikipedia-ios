@@ -6,7 +6,7 @@
 
 void InlineDiffJSON::printAdd(const String& line)
 {
-    if (!noResults)
+    if (hasResults)
         result += ",";
     if(line.empty()) {
         printWrappedLine("{\"type\": \"add\", \"text\": ", "\" \"", ", \"highlight-ranges\": [{\"start\": 0, \"length\": 1, \"type\": \"add\"}]}");
@@ -15,12 +15,12 @@ void InlineDiffJSON::printAdd(const String& line)
         highlightRanges << ", \"highlight-ranges\": [{\"start\": 0, \"length\": " << line.length() << ", \"type\": \"add\"}]}";
         printWrappedLine("{\"type\": \"add\", \"text\": ", "\"" + escape_json(line) + "\"", highlightRanges.str().c_str());
     }
-    noResults = false;
+    hasResults = true;
 }
 
 void InlineDiffJSON::printDelete(const String& line)
 {
-    if (!noResults)
+    if (hasResults)
         result += ",";
     if(line.empty()) {
         printWrappedLine("{\"type\": \"delete\", \"text\": ", "\" \"", ", \"highlight-ranges\": [{\"start\": 0, \"length\": 1, \"type\": \"delete\"}]}");
@@ -29,7 +29,7 @@ void InlineDiffJSON::printDelete(const String& line)
         highlightRanges << ", \"highlight-ranges\": [{\"start\": 0, \"length\": " << line.length() << ", \"type\": \"delete\"}]}";
         printWrappedLine("{\"type\": \"delete\", \"text\": ", "\"" + escape_json(line) + "\"", highlightRanges.str().c_str());;
     }
-    noResults = false;
+    hasResults = true;
 }
 
 void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, bool printLeft, bool printRight, const String & srcAnchor, const String & dstAnchor, bool moveDirectionDownwards)
@@ -44,7 +44,7 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, boo
     bool moved = printLeft != printRight,
     isMoveSrc = moved && printLeft;
     
-    if (!noResults)
+    if (hasResults)
         result += ",";
     if (moved) {
         if (isMoveSrc) {
@@ -55,7 +55,7 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, boo
     } else {
         result += "{\"type\": \"change\", \"text\": \"";
     }
-    noResults = false;
+    hasResults = true;
     
     String rangeCalcResult;
     String ranges = "[";
@@ -154,10 +154,10 @@ void InlineDiffJSON::printBlockHeader(int leftLine, int rightLine)
 
 void InlineDiffJSON::printContext(const String & input)
 {
-    if (!noResults)
+    if (hasResults)
         result += ",";
     printWrappedLine("{\"type\": \"context\", \"text\": ", "\"" + escape_json(input) + "\"", ", \"highlight-ranges\": []}");
-    noResults = false;
+    hasResults = true;
 }
 
 void InlineDiffJSON::printWrappedLine(const char* pre, const String& line, const char* post)

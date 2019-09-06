@@ -28,7 +28,8 @@ void InlineDiff::printWordDiff(const String& text1, const String& text2, bool pr
 	String word;
 
 	bool moved = printLeft != printRight,
-    isMoveSrc = moved && printLeft;
+    isMoveSrc = moved && printLeft,
+    isMoveDest = moved && printRight;
 
 	if (moved) {
 		result += String("<div class=\"mw-diff-inline-moved mw-diff-inline-moved-") +
@@ -46,8 +47,7 @@ void InlineDiff::printWordDiff(const String& text1, const String& text2, bool pr
 
 	for (unsigned i = 0; i < worddiff.size(); ++i) {
 		DiffOp<Word> & op = worddiff[i];
-        unsigned long n;
-        int j;
+        int n, j;
 		if (op.op == DiffOp<Word>::copy) {
 			n = op.from.size();
 			for (j=0; j<n; j++) {

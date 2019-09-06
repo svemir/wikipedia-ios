@@ -28,12 +28,10 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
         result += "{\"diffs\": [";
     }
 	for (int i = 0; i < linediff.size(); ++i) {
-        unsigned long n, n1, n2;
-        int j;
+        int n, j, n1, n2;
 		// Line 1 changed, show heading with no leading context
 		if (linediff[i].op != DiffOp<String>::copy && i == 0) {
-            if (!needsJSONFormat)
-                printBlockHeader(1, 1);
+            printBlockHeader(1, 1);
 		}
 
 		switch (linediff[i].op) {
@@ -61,21 +59,15 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
 				// copy/context
 				n = linediff[i].from.size();
 				for (j=0; j<n; j++) {
-                    if (numContextLines == -1) { //show all
-                        if (!needsJSONFormat)
+                    if ((i != 0 && j < numContextLines) /*trailing*/
+                        || (i != linediff.size() - 1 && j >= n - numContextLines)) /*leading*/ {
+                        if (showLineNumber) {
                             printBlockHeader(from_index, to_index);
+                            showLineNumber = false;
+                        }
                         printContext(*linediff[i].from[j]);
                     } else {
-                        if ((i != 0 && j < numContextLines) /*trailing*/
-                            || (i != linediff.size() - 1 && j >= n - numContextLines)) /*leading*/ {
-                            if (showLineNumber && !needsJSONFormat) {
-                                printBlockHeader(from_index, to_index);
-                                showLineNumber = false;
-                            }
-                            printContext(*linediff[i].from[j]);
-                        } else {
-                            showLineNumber = true;
-                        }
+                        showLineNumber = true;
                     }
 					from_index++;
 					to_index++;
@@ -264,7 +256,7 @@ bool Wikidiff2::printMovedLineDiff(StringDiff & linediff, int opIndex, int opLin
 					tmp = std::make_shared<DiffMapEntry>(words1, words2, opIndex, opLine, i, k);
 					potentialMatch = cmpDiffMapEntries(tmp->opIndexTo, tmp->opLineTo);
 				}
-                if (!found || ((tmp->ds.charSimilarity > found->ds.charSimilarity) && potentialMatch)) {
+                if (!found || (tmp->ds.charSimilarity > found->ds.charSimilarity) && potentialMatch) {
 					found= tmp;
 				}
 			}

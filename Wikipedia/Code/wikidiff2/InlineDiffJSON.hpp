@@ -10,7 +10,7 @@
 
 class InlineDiffJSON: public Wikidiff2 {
 public:
-    bool noResults = true;
+    bool hasResults = false;
 protected:
     void printAdd(const String& line);
     void printDelete(const String& line);
