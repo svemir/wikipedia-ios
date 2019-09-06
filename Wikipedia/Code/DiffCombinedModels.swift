@@ -19,6 +19,7 @@ struct DiffHighlightRange: Codable {
 }
 
 struct DiffItem: Codable {
+    let lineNumber: Int?
     let type: DiffItemType
     let text: String
     let highlightRanges: [DiffHighlightRange]
