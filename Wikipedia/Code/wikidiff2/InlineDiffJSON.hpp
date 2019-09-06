@@ -8,8 +8,9 @@
 #include <string>
 #include <sstream>
 
-enum DiffType {Context, Change};
+enum DiffType {Context, Change, MoveSource, MoveDestination};
 enum HighlightType {Add, Delete};
+enum LinkDirection {Down, Up};
 
 class InlineDiffJSON: public Wikidiff2 {
 public:

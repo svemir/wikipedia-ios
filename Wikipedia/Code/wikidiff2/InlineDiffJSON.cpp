@@ -47,7 +47,6 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, con
     TextUtil::explodeWords(text2, words2);
     WordDiff worddiff(words1, words2, MAX_WORD_LEVEL_DIFF_COMPLEXITY);
     String word;
-    std::string diffType = std::to_string(DiffType::Change);
     
     bool moved = printLeft != printRight,
     isMoveSrc = moved && printLeft;
@@ -55,13 +54,18 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, con
     if (hasResults)
         result += ",";
     if (moved) {
+        String moveObject;
         if (isMoveSrc) {
-            result += "{\"type\": " + diffType + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"moveID\": \"" + srcAnchor + "\", \"movedToID\": \"" + dstAnchor + "\", \"text\": \"";
+            LinkDirection direction = moveDirectionDownwards ? LinkDirection::Down : LinkDirection::Up;
+            moveObject = "{\"id\": \"" + srcAnchor + "\", \"linkId\": \"" + dstAnchor + "\", \"linkDirection\": " + std::to_string(direction) + "}";
+            result += "{\"type\": " + std::to_string(DiffType::MoveSource) + ", \"moveInfo\": " + moveObject + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
         } else {
-            result += "{\"type\": " + diffType + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"moveID\": \"" + dstAnchor + "\", \"movedFromID\": \"" + srcAnchor + "\", \"text\": \"";
+            LinkDirection direction = moveDirectionDownwards ? LinkDirection::Down : LinkDirection::Up;
+            moveObject = "{\"id\": \"" + srcAnchor + "\", \"linkId\": \"" + dstAnchor + "\", \"linkDirection\": " + std::to_string(direction) + "}";
+            result += "{\"type\": " + std::to_string(DiffType::MoveDestination) + ", \"moveInfo\": " + moveObject + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
         }
     } else {
-        result += "{\"type\": " + diffType + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
+        result += "{\"type\": " + std::to_string(DiffType::Change) + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
     }
     hasResults = true;
     
@@ -98,7 +102,6 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, con
             if (isMoveSrc)
                 continue;
             n = op.to.size();
-            //result += "<ins>";
             for (j=0; j<n; j++) {
                 op.to[j]->get_whole(word);
                 
@@ -113,7 +116,6 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, con
                 
                 printText(escape_json(word), true);
             }
-            //result += "</ins>";
         } else if (op.op == DiffOp<Word>::change) {
             n = op.from.size();
             for (j=0; j<n; j++) {
@@ -147,9 +149,6 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, con
                 
                 printText(escape_json(word), true);
             }
-            
-            //remove trailing comma in ranges
-            
         }
     }
     result += "\", \"highlightRanges\": " + ranges + "]}";
