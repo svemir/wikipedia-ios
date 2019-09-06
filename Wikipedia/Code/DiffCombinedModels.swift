@@ -2,16 +2,14 @@ struct DiffResponse: Codable {
     let diffs: [DiffItem]
 }
 
-enum DiffItemType: String, Codable {
+enum DiffItemType: Int, Codable {
     case context
     case change
-    case delete
-    case add
 }
 
-enum DiffHighlightRangeType: String, Codable {
-    case delete
+enum DiffHighlightRangeType: Int, Codable {
     case add
+    case delete
 }
 
 struct DiffHighlightRange: Codable {
@@ -24,12 +22,6 @@ struct DiffItem: Codable {
     let type: DiffItemType
     let text: String
     let highlightRanges: [DiffHighlightRange]
-    
-    enum CodingKeys: String, CodingKey {
-        case type
-        case text
-        case highlightRanges = "highlight-ranges"
-    }
 }
 //
 //class DiffItemViewModel {
