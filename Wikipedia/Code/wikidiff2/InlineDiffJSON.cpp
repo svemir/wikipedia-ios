@@ -4,17 +4,17 @@
 #include <sstream>
 #include <iomanip>
 
-void InlineDiffJSON::printAdd(const String& line, const String& sectionTitle)
+void InlineDiffJSON::printAdd(const String& line, const String& sectionTitle, int leftLine, int rightLine)
 {
-    printAddDelete(line, HighlightType::Add, sectionTitle);
+    printAddDelete(line, HighlightType::Add, sectionTitle, rightLine);
 }
 
-void InlineDiffJSON::printDelete(const String& line, const String& sectionTitle)
+void InlineDiffJSON::printDelete(const String& line, const String& sectionTitle, int leftLine, int rightLine)
 {
-    printAddDelete(line, HighlightType::Delete, sectionTitle);
+    printAddDelete(line, HighlightType::Delete, sectionTitle, rightLine);
 }
 
-void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightType, const String& sectionTitle) {
+void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightType, const String& sectionTitle, int lineNumber) {
     if (hasResults)
         result += ",";
     
@@ -22,7 +22,7 @@ void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightT
     String escapedLine;
     int diffType = DiffType::Change;
     
-    std::string preString = "{\"type\": " + std::to_string(diffType) + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": ";
+    std::string preString = "{\"type\": " + std::to_string(diffType) + ", \"lineNumber\": " + std::to_string(lineNumber) + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": ";
     pre = preString.c_str();
     
     if(line.empty()) {
@@ -39,7 +39,7 @@ void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightT
     hasResults = true;
 }
 
-void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, const String& sectionTitle, bool printLeft, bool printRight, const String & srcAnchor, const String & dstAnchor, bool moveDirectionDownwards)
+void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, const String& sectionTitle, int leftLine, int rightLine, bool printLeft, bool printRight, const String & srcAnchor, const String & dstAnchor, bool moveDirectionDownwards)
 {
     WordVector words1, words2;
     
@@ -58,14 +58,14 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, con
         if (isMoveSrc) {
             LinkDirection direction = moveDirectionDownwards ? LinkDirection::Down : LinkDirection::Up;
             moveObject = "{\"id\": \"" + srcAnchor + "\", \"linkId\": \"" + dstAnchor + "\", \"linkDirection\": " + std::to_string(direction) + "}";
-            result += "{\"type\": " + std::to_string(DiffType::MoveSource) + ", \"moveInfo\": " + moveObject + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
+            result += "{\"type\": " + std::to_string(DiffType::MoveSource) + ", \"lineNumber\": " + std::to_string(rightLine) + ", \"moveInfo\": " + moveObject + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
         } else {
             LinkDirection direction = moveDirectionDownwards ? LinkDirection::Down : LinkDirection::Up;
             moveObject = "{\"id\": \"" + srcAnchor + "\", \"linkId\": \"" + dstAnchor + "\", \"linkDirection\": " + std::to_string(direction) + "}";
-            result += "{\"type\": " + std::to_string(DiffType::MoveDestination) + ", \"moveInfo\": " + moveObject + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
+            result += "{\"type\": " + std::to_string(DiffType::MoveDestination) + ", \"lineNumber\": " + std::to_string(rightLine) + ", \"moveInfo\": " + moveObject + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
         }
     } else {
-        result += "{\"type\": " + std::to_string(DiffType::Change) + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
+        result += "{\"type\": " + std::to_string(DiffType::Change) + ", \"lineNumber\": " + std::to_string(rightLine) + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
     }
     hasResults = true;
     

@@ -1,6 +1,6 @@
 #include "InlineDiff.h"
 
-void InlineDiff::printAdd(const String &line, const String &sectionTitle) {
+void InlineDiff::printAdd(const String &line, const String &sectionTitle, int leftLine, int rightLine) {
     if (line.empty()) {
         printWrappedLine("<div class=\"mw-diff-inline-added mw-diff-empty-line\"><ins>", line, "</ins></div>\n");
     } else {
@@ -8,7 +8,7 @@ void InlineDiff::printAdd(const String &line, const String &sectionTitle) {
     }
 }
 
-void InlineDiff::printDelete(const String &line, const String &sectionTitle) {
+void InlineDiff::printDelete(const String &line, const String &sectionTitle, int leftLine, int rightLine) {
     if (line.empty()) {
         printWrappedLine("<div class=\"mw-diff-inline-deleted mw-diff-empty-line\"><del>", line, "</del></div>\n");
     } else {
@@ -16,7 +16,7 @@ void InlineDiff::printDelete(const String &line, const String &sectionTitle) {
     }
 }
 
-void InlineDiff::printWordDiff(const String &text1, const String &text2, const String &sectionTitle, bool printLeft, bool printRight, const String &srcAnchor, const String &dstAnchor, bool moveDirectionDownwards) {
+void InlineDiff::printWordDiff(const String &text1, const String &text2, const String &sectionTitle, int leftLine, int rightLine, bool printLeft, bool printRight, const String &srcAnchor, const String &dstAnchor, bool moveDirectionDownwards) {
     WordVector words1, words2;
 
     TextUtil::explodeWords(text1, words1);
@@ -107,7 +107,7 @@ void InlineDiff::printBlockHeader(int leftLine, int rightLine) {
     result += buf;
 }
 
-void InlineDiff::printContext(const String &input, const String &sectionTitle) {
+void InlineDiff::printContext(const String &input, const String &sectionTitle, int leftLine, int rightLine) {
     printWrappedLine("<div class=\"mw-diff-inline-context\">", input, "</div>\n");
 }
 

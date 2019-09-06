@@ -48,8 +48,8 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
                     if (isSectionTitle)
                         sectionTitle = *linediff[i].to[j];
                     
-                    if (!printMovedLineDiff(linediff, i, j, maxMovedLines, sectionTitle)) {
-                        printAdd(*linediff[i].to[j], sectionTitle);
+                    if (!printMovedLineDiff(linediff, i, j, maxMovedLines, sectionTitle, from_index, to_index)) {
+                        printAdd(*linediff[i].to[j], sectionTitle, from_index, to_index);
                     }
 				}
 				to_index += n;
@@ -62,8 +62,8 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
                     bool wasSectionTitle = regex_match(*linediff[i].from[j], sectionTitleRegex);
                     String sectionTitleToInsert = wasSectionTitle ? *linediff[i].from[j] : sectionTitle;
                     
-					if (!printMovedLineDiff(linediff, i, j, maxMovedLines, sectionTitleToInsert)) {
-						printDelete(*linediff[i].from[j], sectionTitleToInsert);
+					if (!printMovedLineDiff(linediff, i, j, maxMovedLines, sectionTitleToInsert, from_index, to_index)) {
+						printDelete(*linediff[i].from[j], sectionTitleToInsert, from_index, to_index);
 					}
 				}
 				from_index += n;
@@ -101,7 +101,7 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
                     bool isSectionTitle = regex_match(*linediff[i].to[j], sectionTitleRegex);
                     String sectionTitleToInsert = isSectionTitle ? *linediff[i].to[j] : sectionTitle;
                     
-					printWordDiff(*linediff[i].from[j], *linediff[i].to[j], sectionTitleToInsert);
+					printWordDiff(*linediff[i].from[j], *linediff[i].to[j], sectionTitleToInsert, from_index, to_index);
 				}
 				from_index += n;
 				to_index += n;
@@ -116,7 +116,7 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
     }
 }
 
-bool Wikidiff2::printMovedLineDiff(StringDiff & linediff, int opIndex, int opLine, int maxMovedLines, String & sectionTitle)
+bool Wikidiff2::printMovedLineDiff(StringDiff & linediff, int opIndex, int opLine, int maxMovedLines, String & sectionTitle, int leftLine, int rightLine)
 {
 	// helper fn creates 64-bit lookup key from opIndex and opLine
 	auto makeKey = [](int index, int line) {
@@ -227,7 +227,7 @@ bool Wikidiff2::printMovedLineDiff(StringDiff & linediff, int opIndex, int opLin
 			return true;
 		} else {
 			// XXXX todo: we already have the diff, don't have to do it again, just have to print it
-			printWordDiff(*linediff[best->opIndexFrom].from[best->opLineFrom], *linediff[best->opIndexTo].to[best->opLineTo], sectionTitle,
+			printWordDiff(*linediff[best->opIndexFrom].from[best->opLineFrom], *linediff[best->opIndexTo].to[best->opLineTo], sectionTitle, leftLine, rightLine,
 				printLeft, printRight, makeAnchorName(opIndex, opLine, printLeft), makeAnchorName(otherIndex, otherLine, !printLeft), movedir(opIndex,opLine, otherIndex,otherLine));
 		}
 
@@ -315,13 +315,13 @@ bool Wikidiff2::printMovedLineDiff(StringDiff & linediff, int opIndex, int opLin
 
 		if(isNext(opIndex, opLine, otherIndex, otherLine)) {
 			debugPrintf("This one immediately follows, displaying as change...");
-			printWordDiff(*linediff[found->opIndexFrom].from[found->opLineFrom], *linediff[found->opIndexTo].to[found->opLineTo], sectionTitle);
+			printWordDiff(*linediff[found->opIndexFrom].from[found->opLineFrom], *linediff[found->opIndexTo].to[found->opLineTo], sectionTitle, leftLine, rightLine);
 			found->lhsDisplayed = true;
 			found->rhsDisplayed = true;
 		}
 		else {
 			// XXXX todo: we already have the diff, don't have to do it again, just have to print it
-			printWordDiff(*linediff[found->opIndexFrom].from[found->opLineFrom], *linediff[found->opIndexTo].to[found->opLineTo], sectionTitle,
+			printWordDiff(*linediff[found->opIndexFrom].from[found->opLineFrom], *linediff[found->opIndexTo].to[found->opLineTo], sectionTitle, leftLine, rightLine,
 				printLeft, printRight, makeAnchorName(opIndex, opLine, printLeft), makeAnchorName(otherIndex, otherLine, !printLeft), movedir(opIndex,opLine, otherIndex,otherLine));
 		}
 
