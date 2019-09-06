@@ -63,7 +63,7 @@ class Wikidiff2 {
 		virtual void printDelete(const String & line) = 0;
 		virtual void printWordDiff(const String & text1, const String & text2, bool printLeft = true, bool printRight = true, const String & srcAnchor = "", const String & dstAnchor = "", bool moveDirectionDownwards = false) = 0;
 		virtual void printBlockHeader(int leftLine, int rightLine) = 0;
-		virtual void printContext(const String & input) = 0;
+		virtual void printContext(const String & input, int leftLine, int rightLine) = 0;
 
 		void printText(const String & input, bool needsJSONFormat);
 		void debugPrintWordDiff(WordDiff & worddiff);

@@ -160,15 +160,14 @@ void InlineDiffJSON::printBlockHeader(int leftLine, int rightLine)
     //inline diff json not setup to print this
 }
 
-void InlineDiffJSON::printContext(const String & input)
-{
+void InlineDiffJSON::printContext(const String &input, int leftLine, int rightLine) {
     if (hasResults)
         result += ",";
-    
-    const char* pre;
-    std::string preString = "{\"type\": " + std::to_string(DiffType::Context) + ", \"text\": ";
+
+    const char *pre;
+    std::string preString = "{\"type\": " + std::to_string(DiffType::Context) + ", \"lineNumber\": " + std::to_string(rightLine) + ", \"text\": ";
     pre = preString.c_str();
-    
+
     printWrappedLine(pre, "\"" + escape_json(input) + "\"", ", \"highlightRanges\": []}");
     hasResults = true;
 }

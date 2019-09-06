@@ -65,7 +65,7 @@ void Wikidiff2::diffLines(const StringVector & lines1, const StringVector & line
                             printBlockHeader(from_index, to_index);
                             showLineNumber = false;
                         }
-                        printContext(*linediff[i].from[j]);
+                        printContext(*linediff[i].from[j], from_index, to_index);
                     } else {
                         showLineNumber = true;
                     }

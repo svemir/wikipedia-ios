@@ -20,7 +20,7 @@ protected:
     void printAddDelete(const String& line, HighlightType highlightType);
     void printWordDiff(const String& text1, const String& text2, bool printLeft = true, bool printRight = true, const String & srcAnchor = "", const String & dstAnchor = "", bool moveDirectionDownwards = false);
     void printBlockHeader(int leftLine, int rightLine);
-    void printContext(const String& input);
+    void printContext(const String& input, int leftLine, int rightLine);
     std::string escape_json(const std::string &s);
     
     void printWrappedLine(const char* pre, const String& line, const char* post);
