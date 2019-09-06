@@ -4,17 +4,17 @@
 #include <sstream>
 #include <iomanip>
 
-void InlineDiffJSON::printAdd(const String& line)
+void InlineDiffJSON::printAdd(const String& line, const String& sectionTitle)
 {
-    printAddDelete(line, HighlightType::Add);
+    printAddDelete(line, HighlightType::Add, sectionTitle);
 }
 
-void InlineDiffJSON::printDelete(const String& line)
+void InlineDiffJSON::printDelete(const String& line, const String& sectionTitle)
 {
-    printAddDelete(line, HighlightType::Delete);
+    printAddDelete(line, HighlightType::Delete, sectionTitle);
 }
 
-void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightType) {
+void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightType, const String& sectionTitle) {
     if (hasResults)
         result += ",";
     
@@ -22,7 +22,7 @@ void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightT
     String escapedLine;
     int diffType = DiffType::Change;
     
-    std::string preString = "{\"type\": " + std::to_string(diffType) + ", \"text\": ";
+    std::string preString = "{\"type\": " + std::to_string(diffType) + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": ";
     pre = preString.c_str();
     
     if(line.empty()) {
@@ -39,7 +39,7 @@ void InlineDiffJSON::printAddDelete(const String& line, HighlightType highlightT
     hasResults = true;
 }
 
-void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, bool printLeft, bool printRight, const String & srcAnchor, const String & dstAnchor, bool moveDirectionDownwards)
+void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, const String& sectionTitle, bool printLeft, bool printRight, const String & srcAnchor, const String & dstAnchor, bool moveDirectionDownwards)
 {
     WordVector words1, words2;
     
@@ -47,7 +47,6 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, boo
     TextUtil::explodeWords(text2, words2);
     WordDiff worddiff(words1, words2, MAX_WORD_LEVEL_DIFF_COMPLEXITY);
     String word;
-    std::string diffType = std::to_string(DiffType::Change);
     
     bool moved = printLeft != printRight,
     isMoveSrc = moved && printLeft;
@@ -55,13 +54,18 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, boo
     if (hasResults)
         result += ",";
     if (moved) {
+        String moveObject;
         if (isMoveSrc) {
-            result += "{\"type\": " + diffType + ", \"moveID\": \"" + srcAnchor + "\", \"movedToID\": \"" + dstAnchor + "\", \"text\": \"";
+            LinkDirection direction = moveDirectionDownwards ? LinkDirection::Down : LinkDirection::Up;
+            moveObject = "{\"id\": \"" + srcAnchor + "\", \"linkId\": \"" + dstAnchor + "\", \"linkDirection\": " + std::to_string(direction) + "}";
+            result += "{\"type\": " + std::to_string(DiffType::MoveSource) + ", \"moveInfo\": " + moveObject + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
         } else {
-            result += "{\"type\": " + diffType + ", \"moveID\": \"" + dstAnchor + "\", \"movedFromID\": \"" + srcAnchor + "\", \"text\": \"";
+            LinkDirection direction = moveDirectionDownwards ? LinkDirection::Down : LinkDirection::Up;
+            moveObject = "{\"id\": \"" + srcAnchor + "\", \"linkId\": \"" + dstAnchor + "\", \"linkDirection\": " + std::to_string(direction) + "}";
+            result += "{\"type\": " + std::to_string(DiffType::MoveDestination) + ", \"moveInfo\": " + moveObject + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
         }
     } else {
-        result += "{\"type\": " + diffType + ", \"text\": \"";
+        result += "{\"type\": " + std::to_string(DiffType::Change) + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": \"";
     }
     hasResults = true;
     
@@ -98,7 +102,6 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, boo
             if (isMoveSrc)
                 continue;
             n = op.to.size();
-            //result += "<ins>";
             for (j=0; j<n; j++) {
                 op.to[j]->get_whole(word);
                 
@@ -113,7 +116,6 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, boo
                 
                 printText(escape_json(word), true);
             }
-            //result += "</ins>";
         } else if (op.op == DiffOp<Word>::change) {
             n = op.from.size();
             for (j=0; j<n; j++) {
@@ -147,9 +149,6 @@ void InlineDiffJSON::printWordDiff(const String& text1, const String& text2, boo
                 
                 printText(escape_json(word), true);
             }
-            
-            //remove trailing comma in ranges
-            
         }
     }
     result += "\", \"highlightRanges\": " + ranges + "]}";
@@ -160,12 +159,13 @@ void InlineDiffJSON::printBlockHeader(int leftLine, int rightLine)
     //inline diff json not setup to print this
 }
 
-void InlineDiffJSON::printContext(const String &input, int leftLine, int rightLine) {
+void InlineDiffJSON::printContext(const String & input, const String& sectionTitle, int leftLine, int rightLine)
+{
     if (hasResults)
         result += ",";
-
-    const char *pre;
-    std::string preString = "{\"type\": " + std::to_string(DiffType::Context) + ", \"lineNumber\": " + std::to_string(rightLine) + ", \"text\": ";
+    
+    const char* pre;
+    std::string preString = "{\"type\": " + std::to_string(DiffType::Context) + ", \"lineNumber\": " + std::to_string(rightLine) + ", \"sectionTitle\": " + nullifySectionTitle(sectionTitle) + ", \"text\": ";
     pre = preString.c_str();
 
     printWrappedLine(pre, "\"" + escape_json(input) + "\"", ", \"highlightRanges\": []}");
@@ -204,4 +204,13 @@ std::string InlineDiffJSON::escape_json(const std::string &s) {
         }
     }
     return o.str();
+}
+
+
+std::string InlineDiffJSON::nullifySectionTitle(const std::string &sectionTitle) {
+    if (sectionTitle.length() == 0) {
+        return "null";
+    } else {
+        return "\"" + sectionTitle + "\"";
+    }
 }
